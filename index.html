@@ -1,0 +1,1549 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f9fc">
+<title>내 방을 완성하라! | 6모둠 실시간 경제 경매</title>
+<style>
+:root{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',system-ui,sans-serif;color:#eaf3ff;background:#0b1427;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 88% -12%,#244667 0,transparent 36%),radial-gradient(circle at -10% 38%,#142a3d 0,transparent 38%),#0b1427;line-height:1.5}
+button,input,select,textarea{font:inherit}button{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer;background:#42d4bf;color:#05242c;transition:background .15s,transform .15s}button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #a5eced;outline-offset:2px}button:disabled{opacity:.38;cursor:not-allowed}button.secondary{color:#e7f3ff;background:#263a58}button.warn{background:#ffc56f;color:#47300a}button.danger{background:#fe8091;color:#3b0c18}button.large{padding:15px 22px;font-size:16px}
+input,select,textarea{width:100%;min-height:45px;border:1px solid #385371;background:#101e35;color:#f1f7ff;border-radius:11px;padding:10px 12px}select{appearance:auto}textarea{resize:vertical;min-height:112px}.shell{max-width:1460px;margin:0 auto;padding:22px 24px 46px}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:22px;flex-wrap:wrap}.kicker{color:#57dfd1;font-size:12px;font-weight:900;letter-spacing:2px}.sub{color:#aabed5}.top h1{font-size:clamp(27px,3vw,39px);letter-spacing:-1.5px;margin:4px 0 4px}.card{border:1px solid #304862;background:#14243d;border-radius:20px;padding:21px;box-shadow:0 14px 30px #00000016}.card h2{font-size:19px;margin:0 0 12px}.card h3{font-size:15px;margin:0 0 6px}.stack{display:flex;flex-direction:column;gap:13px}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.between{justify-content:space-between}.grid{display:grid;gap:16px}.cols{grid-template-columns:minmax(0,1.35fr) minmax(330px,1fr)}.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.teams{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.hidden{display:none!important}.muted,.hint{color:#a8bed4}.hint{font-size:12px}.tiny{font-size:12px}.pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;background:#263d57;color:#a6e5e8;font-size:12px;font-weight:800}.badge{display:inline-block;background:#213c50;color:#8fe9da;border-radius:8px;padding:5px 8px;font-size:11px;font-weight:700}.metric{font-size:30px;font-weight:900;letter-spacing:-.5px;margin:4px 0}.metric small{font-size:13px;color:#a9bfd7}.alert{background:#203551;border-radius:13px;padding:12px 14px;font-size:13px;line-height:1.7}.accent{color:#4de3cf}.gold{color:#ffda90}.bad{color:#ff9baa}.good{color:#65e7c3}.line{height:1px;background:#2e435f;margin:4px 0}.welcome{max-width:1000px;margin:45px auto}.welcome-head{text-align:center;margin-bottom:25px}.welcome-head h2{font-size:clamp(28px,3vw,36px);margin:4px 0}.role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.role-card{padding:25px;display:flex;flex-direction:column;gap:13px;min-height:275px}.role-emoji{font-size:48px;line-height:1.2}.role-card p{color:#b3c6dc;line-height:1.75;margin:0;flex:1}.setting{max-width:720px;margin:12px auto}.setting h2{margin-bottom:4px}.setting label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.lot{background:linear-gradient(120deg,#255269,#182742);border:1px solid #356681;border-radius:18px;padding:18px;display:flex;align-items:center;gap:18px}.lot-icon{font-size:64px}.lot h3{font-size:28px;margin:3px 0}.dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.dot{width:15px;height:15px;border-radius:50%;background:#3a516b}.dot.done{background:#38c5a6}.dot.now{background:#ffc779}.teamcard{background:#192d48;border:1px solid #39506d;border-radius:15px;padding:15px}.teamcard .em{font-size:24px}.balance{height:8px;background:#2b445e;border-radius:99px;overflow:hidden;margin-top:9px}.balance i{display:block;background:linear-gradient(90deg,#49aaf1,#3cddb0);height:100%;border-radius:99px}.bigroom{background:linear-gradient(145deg,#385874,#20334b);border:3px solid #5c7e9d;border-radius:20px;min-height:280px;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.room-cell{background:#c3e7ff11;border:1px dashed #a7c5dd74;border-radius:13px;min-height:102px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:7px}.room-cell .itemicon{font-size:37px}.room-cell small{font-size:12px}.room-cell.empty{opacity:.33}.priority{border-left:3px solid #4ee0c9;padding:12px;background:#1b304d;border-radius:10px;font-size:14px}.priority b{color:#77f1de}.timing{font-size:13px;line-height:2;color:#d6e5fa}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{white-space:nowrap;text-align:left;padding:10px;border-bottom:1px solid #2c4561}th{color:#aac3df}td strong{color:#fff}.scroll{overflow-x:auto}.history-row{border:1px solid #364e6b;border-radius:13px;padding:12px;background:#192d47}.resultblock{border-left:3px solid #45dcc2;padding:13px;border-radius:10px;background:#1a314d;min-height:90px;white-space:pre-wrap}.footer{margin-top:25px;color:#829ab5;font-size:12px}.center{text-align:center}.smallw{max-width:500px;margin:0 auto}details summary{cursor:pointer;font-weight:800;color:#b9e9ea}details pre{color:#c9dfef;background:#071328;max-height:280px;white-space:pre;overflow:auto;padding:13px;border-radius:9px;font-size:11px}.rolepath{background:#273b58;color:#c6e4f3}.phasebadge{background:#233f5d;color:#a8f7e2}.teacher-controls{display:flex;gap:8px;flex-wrap:wrap}.notice{background:#443929;color:#ffe0b6;padding:10px 13px;border-radius:10px;font-size:12px}.field-caption{font-weight:700;font-size:13px;margin-bottom:5px;display:block}.pending{color:#ffc37b}.drop{font-size:12px;color:#a8bdd2}#toast{position:fixed;right:18px;bottom:18px;background:#2c516b;border:1px solid #3f7692;border-radius:13px;box-shadow:0 10px 25px #0007;padding:12px 16px;z-index:100;max-width:min(430px,90vw);display:none}.section-title{margin:0 0 12px}.plainlink{color:#92dfed;text-decoration:none}.plainlink:hover{text-decoration:underline}
+@media(max-width:930px){.cols,.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.cols>:first-child{grid-column:1/-1}.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:630px){.shell{padding:15px 12px 32px}.role-grid,.cols,.metrics,.teams,.two,.formgrid{grid-template-columns:1fr}.cols>:first-child{grid-column:auto}.card{padding:15px}.lot-icon{font-size:47px}.lot h3{font-size:23px}.welcome{margin:12px auto}.role-card{min-height:220px}.top h1{font-size:27px}.bigroom{grid-template-columns:repeat(2,1fr)}}
+
+/* 2026 WHITE SHOWROOM — 단일 파일, 외부 이미지/폰트 불필요 */
+:root{color-scheme:light;color:#202b37;background:#f7f9fc;--ink:#183246;--muted:#617383;--teal:#087e84;--line:#dae4ed;--paper:#fff;--accent:#ec6945}
+body{background:linear-gradient(160deg,#f5fafb 0%,#f9f7f2 56%,#f7f9fc 100%);color:var(--ink)}
+button{background:#087e84;color:white;border-radius:11px;box-shadow:0 3px 0 #00646a10}
+button:hover:not(:disabled){filter:brightness(.96)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:#17aabb}
+button.secondary{background:#eef5f7;color:#17616a;border:1px solid #d4e5e8}
+button.warn{background:#f07846;color:#fff}button.danger{background:#fff0ed;color:#c84637;border:1px solid #f4c2b8}
+button:disabled{opacity:.43}input,select,textarea{background:#fff;color:#203043;border:1px solid #c8d6df}
+.shell{max-width:1460px}.top{border-bottom:1px solid #dae3eb;padding-bottom:20px}.top h1{color:#193246}.kicker{color:#168e93}.sub,.hint,.muted{color:#637482}
+.card{background:#fff;border:1px solid #e1e9ef;box-shadow:0 12px 36px #24485c0b;border-radius:22px}
+.card h2{color:#21364c}.pill{background:#ebf5f4;color:#20777e}.badge{background:#e7f4f6;color:#28727d}
+.metric{color:#20384b}.metric small{color:#768b9a}.alert{background:#edf7f8;color:#31576a}.notice{background:#fff4de;color:#78582c}
+.accent,.good{color:#0f8d7d}.gold{color:#ab7325}.bad{color:#d9534c}.pending{color:#bd7522}
+.line{background:#dce7ee}.welcome-head h2{color:#21364c}.role-card p{color:#697e8d}
+.role-card{position:relative;overflow:hidden}.role-card:before{content:'';position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#14b8ad,#92d8c9)}
+.lot{background:linear-gradient(135deg,#f3fafa,#edf5f7);border:1px solid #d3e5eb;color:#223b4a}.lot h3{color:#19374b}.lot-icon{font-size:56px}
+.dot{background:#d4e3ea}.dot.done{background:#36b6a3}.dot.now{background:#ef9a59}
+.teamcard{background:#f9fbfc;border:1px solid #dde7ef}.balance{background:#e2ebf0}.balance i{background:linear-gradient(90deg,#45bdb2,#187d91)}
+.priority{background:#eff9f9;border-color:#25abb0}.priority b{color:#177b85}.timing{color:#55697a}
+th,td{border-bottom:1px solid #e4ecf1}th{color:#61798d;background:#f8fafb}td strong{color:#204055}
+.history-row{background:#f8fbfc;border-color:#d9e5eb}.resultblock{background:#f3f9fa;border-color:#39b3af}
+.footer{color:#8492a0}.rolepath,.phasebadge{background:#e6f4f3;color:#167880}
+#toast{background:#244255;border-color:#406476;color:white;box-shadow:0 12px 32px #1a34404a}
+.plainlink{color:#087e84}details summary{color:#237680}details pre{color:#e2edf8;background:#203241}
+.showroom{background:#f8f9f7;border:1px solid #dde7e6;border-radius:18px;overflow:hidden}
+.showroom svg{display:block;width:100%;height:auto}.room-inventory{display:flex;flex-wrap:wrap;gap:7px;padding:9px 12px;border-top:1px solid #e5ebec;background:#fff}.room-inventory span{background:#f2f7f6;color:#456570;border:1px solid #dfebea;border-radius:8px;padding:5px 9px;font-size:12px;font-weight:700}
+.region-story{border-left:4px solid #26a6a7;background:#f2faf9;border-radius:12px;padding:13px 16px;line-height:1.8;color:#425c69}
+.productstage{background:radial-gradient(ellipse at 50% 80%,#e5edec 0,transparent 64%),linear-gradient(165deg,#fff,#f2f7f6);border:1px solid #dce9ea;border-radius:19px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:185px}.productstage svg{max-height:188px;width:100%;max-width:300px}
+.auction-hero{display:grid;grid-template-columns:minmax(145px,.82fr) minmax(190px,1.18fr);gap:14px;align-items:center}
+.auction-hero h3{font-size:clamp(23px,2vw,32px);margin:6px 0}.auction-head{color:#526877;font-size:13px}
+.bid-panel{background:linear-gradient(135deg,#f8fcfc,#eff8f8);border:1px solid #d4e6e9;border-radius:18px;padding:17px}
+.price-box{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.price-label{font-weight:800;color:#59727e;font-size:13px}.live-price{font-size:clamp(30px,3.2vw,48px);font-weight:950;line-height:1.18;letter-spacing:-1px;color:#e05d39}.live-price small{font-size:15px;color:#6a8191}.live-leader{font-size:13px;color:#657985;font-weight:750}
+.clock-surface{background:#f1f7f8;border:1px solid #dce8e9;border-radius:15px;padding:11px 15px}.clock-value{font-variant-numeric:tabular-nums;font-weight:950;font-size:35px;line-height:1;color:#236b7b}.clock-value.hurry{color:#d94339;animation:heartbeat .75s ease-in-out infinite alternate}.timebar{height:9px;background:#dce9e9;border-radius:999px;overflow:hidden;margin-top:9px}.timebar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#17b5a2,#5baebb);transition:width .18s linear}.timebar i.hurry{background:#ec6c53}
+.bid-quick{display:flex;flex-wrap:wrap;gap:8px}.bid-quick button{padding:11px 14px}.bid-input-row{display:flex;gap:9px}.bid-input-row input{min-width:0;font-weight:900;font-size:20px}.bid-input-row button{white-space:nowrap}.auction-feed{display:flex;flex-direction:column;gap:7px;max-height:200px;overflow:auto;padding:3px}.feed-entry{border-radius:10px;border:1px solid #e2eaf0;background:#fff;padding:8px 11px;color:#4b6273;font-size:13px}.feed-entry:first-child{border-color:#a9d7d3;background:#f1fbf8;font-weight:750}.feed-time{float:right;font-size:11px;color:#879ba6}
+.flash-bid{animation:bidflash .6s ease-out}.leader-self{background:#ecfaf3;border:1px solid #b6e0ca;color:#087f60;border-radius:11px;padding:10px 12px;font-weight:800;font-size:13px}.leader-other{background:#fff4ed;border:1px solid #f5d6c5;color:#a65b31;border-radius:11px;padding:10px 12px;font-size:13px}
+.round-strip{display:flex;gap:6px;align-items:center}.auction-live-tag{background:#ffede8;color:#b55237;border-radius:20px;font-size:12px;font-weight:850;padding:4px 9px}.live-bulb{display:inline-block;width:8px;height:8px;background:#e45f45;border-radius:50%;box-shadow:0 0 0 4px #fbe1da;animation:heartbeat .9s infinite alternate}
+.teacher-clock{max-width:430px}.timer-select{width:auto;min-width:130px}.teacher-price-display{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.teacher-price-display .mini-metric{background:#f7fafb;border:1px solid #e1e9ec;border-radius:14px;padding:12px}
+.teacher-price-display strong{font-size:25px;color:#d85b3c}
+.instructions-muted{color:#657987;font-size:12px}
+@keyframes bidflash{0%{box-shadow:0 0 0 10px #26c2a255}100%{box-shadow:0 0 0 0 #26c2a200}}
+@keyframes heartbeat{from{transform:scale(1)}to{transform:scale(1.04)}}
+@media(max-width:700px){.auction-hero{grid-template-columns:1fr}.productstage{min-height:145px}.productstage svg{max-height:150px}.teacher-price-display{grid-template-columns:1fr}.bid-input-row{flex-wrap:wrap}.bid-input-row button{flex:1}.showroom svg{min-height:200px}}
+
+@media(min-width:931px){.compact-teams{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.compact-teams .teamcard{padding:11px}.compact-teams .teamcard strong{font-size:13px}.compact-teams .teamcard .row{gap:5px}.compact-teams .pill{padding:3px 8px}.compact-teams .balance{margin-top:6px}.compact-teams .tiny{font-size:11px}.teacher-details{padding:15px 20px}.teacher-details[open] summary{margin-bottom:8px}}
+@media(max-width:930px){.compact-teams{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.compact-teams{grid-template-columns:1fr}}
+
+/* 지도 + 사전 경매 물품 도록 + 개별 피드백 */
+.maplayout{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(240px,.8fr);gap:16px;align-items:stretch}
+.mapgraphic{border:1px solid #d7e3dc;border-radius:19px;background:linear-gradient(180deg,#eff8f5,#e9f4eb);overflow:hidden;box-shadow:inset 0 0 0 7px #fff8}
+.mapgraphic svg{width:100%;height:auto;display:block}
+.mapshape{cursor:pointer;outline:none}.mapshape path.terrain{stroke:#fff;stroke-width:5;transition:filter .15s,fill .15s}
+.mapshape:hover path.terrain,.mapshape:focus-visible path.terrain{filter:brightness(1.08)}
+.mapshape.selected path.terrain{stroke:#f37c4f;stroke-width:7}.mapshape.taken:not(.owned){opacity:.62;cursor:not-allowed}
+.mapshape .map-title{font-weight:900;font-size:17px;fill:#234854;paint-order:stroke;stroke:#ffffffa8;stroke-width:3px}
+.mapshape .map-subtitle{font-weight:750;font-size:11px;fill:#3d6974}
+.mapshape .map-emoji{font-size:29px}.mapinfo{border-radius:18px;background:#f5faf9;border:1px solid #dcebe6;padding:18px;display:flex;flex-direction:column;gap:12px;justify-content:center;min-height:230px}
+.mapinfo h3{font-size:20px;margin:0}.mapinfo p{margin:0;line-height:1.75;color:#506b74}.mapinfo .info-note{font-size:12px;color:#75868e}
+.productcatalog{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.catalogitem{background:linear-gradient(150deg,#fff,#f6faf8);border:1px solid #dce9e9;border-radius:15px;padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.catalogart{border-radius:12px;background:#edf4f2;height:122px;display:grid;place-items:center;overflow:hidden}.catalogart svg{height:112px;width:100%;max-width:150px}
+.catalogitem h3{margin:0;font-size:16px}.catalogitem p{font-size:12px;color:#677f8b;margin:0;line-height:1.5;min-height:38px}
+.catalogprice{font-weight:900;color:#ac552f;font-size:17px}.catalogitem button{margin-top:auto;padding:9px 10px}
+.catalogitem.in-plan{border-color:#11aaa2;box-shadow:0 0 0 2px #14ab9a29}
+.planbox{background:#f4faf8;border:1px solid #d6ebe8;border-radius:17px;padding:16px;display:grid;gap:11px}
+.planchips{display:flex;gap:8px;flex-wrap:wrap}.planchip{padding:7px 12px;background:#e1f4ef;color:#17776c;border-radius:99px;font-weight:800;font-size:13px}
+.plangrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.planfield{background:#fff;border:1px solid #e2edec;border-radius:12px;padding:10px}.planfield label{font-size:12px;font-weight:800;color:#56757a}.planfield input{margin-top:6px}
+.planbox textarea{min-height:72px}
+.reviewgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.reviewcard{background:#f8fbfa;border:1px solid #dfeae8;padding:13px;border-radius:14px;min-height:112px}
+.reviewcard .reviewtitle{font-weight:850;margin-bottom:4px}.reviewcard .reviewnote{font-size:12px;line-height:1.65;color:#5c7079}
+.reviewstatus{display:inline-block;padding:3px 8px;border-radius:8px;background:#eff1f3;color:#516575;font-size:11px;font-weight:800}
+.reviewstatus.strong{background:#dbf4eb;color:#13745e}.reviewstatus.partial{background:#fff1d8;color:#a36b1e}
+.reviewstatus.missing{background:#f1f3f5;color:#657985}
+.keycloud{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:center;background:#fafcfb;border:1px solid #e2ede9;border-radius:15px;padding:18px;min-height:104px}
+.keycloud button{border:0;background:none;color:#17877d;box-shadow:none;padding:5px;border-radius:7px;font-weight:900}
+.keycloud button:hover,.keycloud button.active{background:#e4f5f0;color:#a9572d}
+.keybar{height:9px;background:#edf3f3;border-radius:20px;overflow:hidden;flex:1;min-width:30px}.keybar i{display:block;background:linear-gradient(90deg,#42b7a9,#2796a5);height:100%;border-radius:20px}
+.memberquote{border:1px solid #e1ece8;background:#fff;border-radius:13px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.memberquote .name{font-weight:900;color:#245d65}.memberquote .answer{font-size:13px;line-height:1.8;margin-top:5px;color:#405665}
+.insight-panel{background:#f5faf9;border-radius:16px;border:1px solid #dcece7;padding:14px;display:grid;gap:12px}
+.resulttabs{gap:6px}.resulttabs button{padding:8px 11px}.resulttabs button.active{background:#176b72;color:#fff}
+.evaltable td,.evaltable th{white-space:normal;min-width:98px}
+@media(max-width:1100px){.productcatalog{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.maplayout{grid-template-columns:1fr}.productcatalog{grid-template-columns:repeat(2,minmax(0,1fr))}.reviewgrid,.plangrid{grid-template-columns:1fr}}
+@media(max-width:420px){.productcatalog{grid-template-columns:1fr}}
+/* 단계형 진행 · 학생별 개별 입력 · 수업 관찰 */
+.stepper-card{padding:12px 17px}.stepper{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.step{display:flex;align-items:center;gap:6px;background:#f0f4f7;color:#70808d;padding:8px 11px;border-radius:99px;font-size:12px;font-weight:800}.step.active{background:#d5f2ed;color:#087b77}.step.done{background:#eaf4f7;color:#438392}.step-arrow{color:#a2b7be}.region-summary{background:#eefaF8;border-color:#bfdfdb;padding:12px 16px;box-shadow:none}.region-summary strong{font-size:15px}.region-summary .hint{line-height:1.7;margin-top:5px}.briefgrid{display:grid;grid-template-columns:1fr;gap:10px}.briefrow{display:flex;gap:7px;align-items:flex-start;flex-wrap:wrap}.briefrow .planchip{font-size:12px}.planrationale{font-size:13px;background:#f4faf9;color:#405f68;padding:9px 12px;border-radius:12px;white-space:pre-wrap}.teacher-plan-detail{background:#fff;border:1px solid #dbe9ea;padding:9px;border-radius:10px;margin-top:9px;font-size:12px}.teacher-plan-detail summary{color:#267983;font-weight:800}.teacher-work{color:#a86519}.teacher-saved{color:#087768}.teacher-notstarted{color:#657f8b}.data-value{font-size:22px;font-weight:900;color:#1c4e60}.objective-card{background:#f8fbfc;border:1px solid #dce8e9;padding:13px;border-radius:14px}.objective-card h3{font-size:15px;margin:0 0 8px}.objective-card p{font-size:13px;color:#516873;margin:5px 0;line-height:1.65}.objective-card ul{font-size:12px;color:#4f6973;margin:7px 0;padding-left:19px;line-height:1.7}.objective-facts{display:flex;flex-wrap:wrap;gap:8px}.factchip{font-size:12px;background:#edf6f6;padding:7px 10px;border-radius:9px;color:#316770}.ownwriter{background:#eaf7f4;padding:8px 12px;border-radius:12px;font-size:13px;color:#266666}.monitor-text{overflow-wrap:anywhere;white-space:pre-wrap;line-height:1.5}.folded-top{margin-top:9px}.muted-item{font-size:12px;color:#7b8b96}.tiny-btn{padding:5px 9px;font-size:11px}.briefheader{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+@media(max-width:700px){.step{padding:6px 8px;font-size:11px}.stepper{gap:3px}.step-arrow{display:none}}
+
+/* 교사용 대형 화면 한눈에 보기: 상단 상태·좌측 경매·우측 6모둠·하단 기록 */
+body.teacher-screen .shell{max-width:1920px;padding:8px 16px 4px}
+body.teacher-screen .top{margin-bottom:7px;gap:9px;min-height:55px}
+body.teacher-screen .top .kicker{font-size:10px;letter-spacing:1.4px}
+body.teacher-screen .top h1{font-size:23px;margin:0 0 1px;letter-spacing:-.5px}
+body.teacher-screen .top .sub{font-size:11px}
+body.teacher-screen .top .pill{font-size:11px;padding:5px 8px}
+body.teacher-screen .top button{padding:5px 9px;font-size:11px}
+body.teacher-screen .footer{display:none}
+.teacher-screen-layout{display:grid;gap:9px;grid-template-rows:auto minmax(0,1fr) auto;min-height:0}
+.teacher-headerstrip{background:#fff;border:1px solid #dbe7e7;border-radius:13px;padding:7px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;min-height:44px}
+.teacher-header-status{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.teacher-headerstrip .pill{font-size:11px;padding:5px 8px}
+.mini-counter{background:#f0f6f7;border-radius:8px;padding:6px 8px;font-size:12px;color:#56707b;white-space:nowrap}
+.mini-counter b{color:#124e5d;margin-left:4px;font-size:13px}
+.teacher-headerstrip .teacher-controls{gap:5px}
+.teacher-headerstrip button{font-size:11px;padding:6px 9px}
+.teacher-stage-grid{display:grid;grid-template-columns:minmax(345px,.86fr) minmax(0,1.54fr);min-height:0;gap:9px}
+.teacher-stage-grid>.card{padding:12px 14px;min-height:0;overflow:hidden;box-shadow:none}
+.teacher-live-zone{display:flex;flex-direction:column;gap:8px;min-height:0}
+.teacher-team-zone{display:flex;flex-direction:column;gap:9px;min-height:0}
+.teacher-card-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.teacher-card-heading h2{margin:0;font-size:16px;white-space:nowrap}
+.teacher-card-heading .hint{font-size:11px}
+.teacher-round-dots{min-height:15px}
+.teacher-round-dots .dot{width:12px;height:12px}
+.teacher-action-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-height:34px}
+.teacher-action-row button{font-size:13px;padding:8px 12px;min-height:32px}
+.teacher-action-row label{display:flex;align-items:center;gap:7px;margin:0;font-size:12px}
+.teacher-action-row select{min-height:31px;padding:5px 8px;font-size:12px}
+.teacher-current{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
+.teacher-current .alert{padding:9px 11px;font-size:13px}
+.teacher-current .auction-hero{grid-template-columns:130px minmax(0,1fr);gap:10px}
+.teacher-current .productstage{min-height:125px;border-radius:12px}
+.teacher-current .productstage svg{max-height:132px}
+.teacher-current .auction-hero h3{font-size:21px;margin:3px 0}
+.teacher-current .clock-surface{padding:9px 11px}
+.teacher-current .clock-value{font-size:30px}
+.teacher-current .bid-panel{padding:12px;border-radius:12px}
+.teacher-current .live-price{font-size:clamp(23px,2.9vw,35px)}
+.teacher-current .teacher-price-display .mini-metric{padding:8px 10px;border-radius:9px}
+.teacher-current .teacher-price-display strong{font-size:18px}
+.teacher-current .auction-feed{max-height:128px;gap:3px}
+.teacher-current .feed-entry{padding:5px 8px;font-size:12px}
+.teacher-current h3{font-size:13px;margin:8px 0 4px}
+.teacher-live-tip{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#75919b;border-top:1px solid #e5eeee;padding-top:7px}
+.teacher-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;flex:1;min-height:0}
+.monitor-team{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:5px;border:1px solid #dce8e9;border-radius:12px;padding:11px;background:#f9fcfc;color:#245062;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.monitor-team:hover,.monitor-team:focus-visible{border-color:#36a7a8;background:#eef9f6;outline:2px solid transparent}
+.monitor-team.leader{border:2px solid #e68e62;background:#fff9f4}
+.monitor-team .mon-top{display:flex;align-items:center;justify-content:space-between;gap:4px;min-width:0}
+.monitor-team .mon-name{font-size:15px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.monitor-team .mon-tag{border-radius:6px;background:#e4f1ef;color:#126d67;font-size:10px;font-weight:800;padding:3px 6px;white-space:nowrap}
+.monitor-team .mon-tag.wait{background:#eff1f4;color:#6b7c8c}
+.monitor-team .mon-tag.leading{background:#fff0df;color:#b3582c}
+.monitor-team .mon-region{font-size:11px;color:#607985;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.monitor-team .mon-items{color:#56747c;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.monitor-team .mon-plan{font-size:12px;line-height:1.35;color:#526e79;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.monitor-team .mon-reason{font-size:11px;line-height:1.35;color:#748891;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.monitor-team .mon-footer{border-top:1px solid #e0eaea;padding-top:6px;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:#60717c}
+.monitor-team .mon-footer b{font-size:13px;color:#185f64}
+.monitor-team .mon-bid{font-size:12px;font-weight:850;color:#b15c3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.teacher-bottom-strip{padding:7px 12px;min-height:69px;display:flex;flex-direction:column;gap:5px;box-shadow:none}
+.teacher-bottom-title{font-size:12px;gap:6px}
+.teacher-history-chips{display:flex;gap:6px;align-items:center;overflow:auto;white-space:nowrap;min-height:25px}
+.teacher-history-chip{display:flex;gap:6px;align-items:center;background:#f1f6f7;color:#486874;border-radius:8px;padding:4px 9px;font-size:11px;flex-shrink:0}
+.teacher-history-chip.current{background:#e8f7ee;color:#177861}
+.teacher-history-chip strong{color:#234d5d}
+.teacher-drawer{position:fixed;inset:0;z-index:200;display:flex;align-items:stretch;justify-content:flex-end}
+.teacher-drawer-shade{position:absolute;inset:0;background:#132d3c99;cursor:pointer}
+.teacher-drawer-sheet{position:relative;z-index:1;background:#fff;width:min(800px,94vw);height:100%;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:-15px 0 40px #173c4b30}
+.teacher-drawer-head{position:sticky;top:-18px;z-index:5;background:#fff;border-bottom:1px solid #e4ecec;padding:5px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.teacher-drawer-head h2{margin:0;font-size:21px}
+.teacher-drawer-sheet .card{box-shadow:none;padding:15px}
+.teacher-drawer-sheet .keycloud{min-height:60px;padding:9px}
+.teacher-drawer-sheet .keycloud button{font-size:13px!important}
+.teacher-inspect-item{font-size:12px;line-height:1.7;padding:10px;border-radius:9px;background:#f5faf9;overflow-wrap:anywhere}
+.teacher-inspect-item b{color:#126a73}
+.teacher-inspect-member{padding:8px 10px;background:#f7f9fa;border:1px solid #dfebee;border-radius:10px;margin-top:5px;font-size:12px;line-height:1.5;white-space:pre-wrap}
+.teacher-compact-keywords{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.teacher-compact-keywords button{border:1px solid #cfebe5;background:#f0faf7;color:#117771;padding:8px 10px;border-radius:9px;font-weight:850;font-size:13px}
+.teacher-compact-keywords button b{font-size:11px;color:#6a838c;margin-left:4px}
+.teacher-empty-keywords{font-size:13px;color:#637e85;padding:15px;background:#f5faf9;border-radius:10px}
+@media (min-width:1050px) and (min-height:650px){.teacher-screen-layout{height:calc(100dvh - 110px);overflow:hidden}}
+@media (max-width:1180px){.teacher-stage-grid{grid-template-columns:minmax(330px,.92fr) minmax(0,1.42fr)}.teacher-six{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}.monitor-team{padding:8px;gap:3px}.monitor-team .mon-reason{-webkit-line-clamp:1}}
+@media (max-width:1049px), (max-height:649px){.teacher-screen-layout{height:auto;overflow:visible}.teacher-stage-grid{min-height:500px}.teacher-live-zone,.teacher-team-zone{min-height:470px}}
+@media (max-width:730px){.teacher-stage-grid{grid-template-columns:1fr}.teacher-six{min-height:580px}.teacher-live-zone{min-height:430px}.teacher-team-zone{min-height:700px}.teacher-headerstrip{align-items:start}.teacher-drawer-sheet{width:100vw}.teacher-screen-layout{gap:8px}}
+
+/* 모바일 글자 넘침 방지: 글은 줄바꿈, 큰 데이터 표만 컨테이너 내부 스크롤 */
+:where(.shell,.card,.setting,.stack,.grid,.row,.cols,.two,.metrics,.teams,.role-grid,
+       .teacher-stage-grid,.teacher-live-zone,.teacher-team-zone,.teacher-headerstrip,
+       .teacher-header-status,.teacher-controls,.teacher-six,.teacher-current,
+       .monitor-team,.teacher-drawer-sheet,.planbox,.planfield,.plangrid,
+       .auction-hero,.bid-panel,.bid-input-row,.maplayout,.mapinfo,.productcatalog,
+       .catalogitem,.reviewgrid,.reviewcard,.resultblock,.objective-card,
+       .memberquote,.insight-panel,.briefgrid,.briefrow,.planchips,.planchip,
+       .formgrid,.history-row,.teacher-bottom-strip){min-width:0;max-width:100%}
+:where(.card,.teamcard,.role-card,.catalogitem,.mapinfo,.planbox,.planfield,.reviewcard,
+       .objective-card,.region-summary,.region-story,.planrationale,.memberquote,
+       .memberquote .answer,.teacher-inspect-item,.teacher-inspect-member,
+       .teacher-drawer-sheet,.hint,.sub,.notice,.alert,.priority,.history-row,
+       .resultblock,.briefrow,.planchip,.mon-plan,.mon-reason,.factchip,
+       .teacher-compact-keywords,.keycloud,.feed-entry){overflow-wrap:anywhere;word-break:normal}
+:where(h1,h2,h3,p,label,summary,button,.badge,.pill,.metric,.data-value,.reviewtitle,
+       .region-story,.planrationale,.planchip,.teacher-card-heading,
+       .teacher-inspect-item,.teacher-inspect-member){overflow-wrap:anywhere}
+button,input,textarea,select{max-width:100%;min-width:0}
+button{white-space:normal;overflow-wrap:anywhere}
+.tablewrap,.scroll{display:block;width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.tablewrap table{width:100%;min-width:570px;table-layout:fixed}
+.tablewrap th,.tablewrap td{white-space:normal;overflow-wrap:anywhere;word-break:normal;vertical-align:top}
+.evaltable th,.evaltable td{min-width:0}
+.teacher-history-chips{max-width:100%;min-width:0;overscroll-behavior-x:contain}
+.teacher-stage-grid>.card,.teacher-current{min-width:0}
+.teacher-drawer-sheet{min-width:0;max-width:100vw;overflow-x:hidden}
+.teacher-drawer-sheet pre{max-width:100%;overflow-x:auto}
+.teacher-inspect-member,.teacher-inspect-item{white-space:pre-wrap}
+.mapgraphic svg,.showroom svg,.productstage svg{max-width:100%}
+.bid-quick,.planchips,.resulttabs,.teacher-compact-keywords,.keycloud{min-width:0;max-width:100%}
+.bid-quick button,.resulttabs button,.keycloud button,.teacher-compact-keywords button{max-width:100%;min-width:0}
+@media (max-width:730px){
+  body.teacher-screen .shell{padding:12px 10px 24px}
+  .teacher-stage-grid{grid-template-columns:minmax(0,1fr);min-width:0}
+  .teacher-current{overflow:visible;max-height:none}
+  .teacher-headerstrip,.teacher-header-status,.teacher-controls{min-width:0;max-width:100%;flex-wrap:wrap}
+  .teacher-headerstrip .teacher-controls button{flex:0 1 auto}
+  .teacher-stage-grid>.card{overflow:visible}
+  .teacher-price-display,.teacher-current .auction-hero{grid-template-columns:minmax(0,1fr)}
+  .teacher-drawer-sheet{width:100vw;padding:12px}
+  .teacher-drawer-head{top:-12px}
+  .mini-counter{white-space:normal}
+  .monitor-team .mon-footer{flex-wrap:wrap}
+  .teacher-history-chips{overflow-x:auto}
+  .teacher-live-tip{white-space:normal;text-overflow:clip}
+  .lot{flex-wrap:wrap}
+}
+@media (max-width:560px){
+  .teacher-six{grid-template-columns:minmax(0,1fr);grid-template-rows:none;min-height:0;gap:8px}
+  .teacher-team-zone,.teacher-live-zone{min-height:0}
+  .monitor-team{min-height:0;overflow:visible}
+  .monitor-team .mon-plan,.monitor-team .mon-reason{display:block;overflow-wrap:anywhere;white-space:normal;-webkit-line-clamp:unset;max-width:100%}
+  .monitor-team .mon-name,.monitor-team .mon-region,.monitor-team .mon-items,.monitor-team .mon-bid{white-space:normal;text-overflow:clip;overflow:visible}
+  .monitor-team .mon-top{flex-wrap:wrap}
+  .monitor-team .mon-tag{white-space:normal;overflow-wrap:anywhere}
+  .teacher-history-chip{white-space:nowrap}
+  .teacher-headerstrip .pill{max-width:100%;white-space:normal}
+  .teacher-headerstrip .teacher-header-status{gap:5px}
+  .teacher-current .auction-hero{grid-template-columns:minmax(0,1fr)}
+  .teacher-current .productstage svg{max-height:170px}
+  .student-metrics,.student-metrics .metric{min-width:0}
+  .planchip{white-space:normal}
+  .bid-input-row input,.bid-input-row button{flex:1 1 145px}
+  .tablewrap table{min-width:560px}
+  .tablewrap::before{content:"↔ 표를 좌우로 밀어 나머지 항목을 확인하세요";display:block;position:sticky;left:0;width:max-content;max-width:100%;padding:4px 0 8px;color:#567680;font-size:11px;font-weight:700}
+}
+@media (max-width:360px){
+  .shell{padding-left:9px;padding-right:9px}
+  .card{padding:12px}
+  .pill,.badge{white-space:normal}
+  .teacher-card-heading h2{white-space:normal}
+  .keycloud{padding:8px;gap:5px}
+  .mapinfo{padding:13px}
+  .formgrid,.productcatalog,.plangrid,.reviewgrid{grid-template-columns:minmax(0,1fr)}
+}
+.connection-details summary{color:#0e766d!important}.teacher-header-status{min-width:0;flex-wrap:wrap}.mini-counter{white-space:nowrap}.mon-items,.teacher-inspect-item{overflow-wrap:anywhere}
+
+/* 수업 운영 개선: 예산 사전 고지, 모둠 대표 입찰, 빈도 가중 단어 구름 */
+.plan-budget-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#e2f4ed;border:1px solid #a8d8c8;border-radius:14px;padding:13px 15px;color:#235e54}
+.plan-budget-banner>div:first-child{display:flex;flex-direction:column;gap:2px}
+.plan-budget-banner span{font-size:12px;font-weight:800}.plan-budget-banner strong{font-size:24px;line-height:1.2;color:#0e7464}
+.plan-budget-banner #planBudgetNotice{font-size:12px;line-height:1.7;flex:1;min-width:175px;text-align:right}
+.plan-budget-banner #planBudgetNotice b{font-size:15px}.budget-alert{color:#b84d32!important;font-size:12px!important}
+.bid-agent-panel{border:1px solid #cee1df;border-radius:13px;background:#f4faf8;padding:12px;display:grid;gap:8px}
+.bid-agent-panel .agent-line{display:flex;align-items:center;flex-wrap:wrap;gap:8px;justify-content:space-between}
+.bid-agent-panel .agent-hint{font-size:12px;color:#617b82;line-height:1.5}
+.bid-pass-active{background:#fff6ed;border:1px solid #efcda7;border-radius:11px;padding:12px;color:#965327;font-size:13px;line-height:1.6}
+.bid-pass-btn{background:#fff7eb!important;border:1px solid #edbc86!important;color:#975529!important}
+.teacher-drawer-sheet .keycloud button{font-size:inherit!important}
+.teacher-global-words{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;background:#f6fbfa;border:1px solid #dfecea;border-radius:12px;padding:10px;min-height:90px}
+.teacher-global-words button{border:0;box-shadow:none;background:transparent;color:#168277;padding:3px 5px;white-space:normal;overflow-wrap:anywhere;line-height:1.15;font-weight:850}
+.teacher-global-words button.active,.teacher-global-words button:hover{background:#e2f5ed;color:#8d4b2d}
+.teacher-final-progress{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;color:#4c7174}
+.teacher-progress-chip{padding:5px 8px;border-radius:9px;background:#edf6f6;white-space:normal}
+.teacher-finish-analysis{display:grid;gap:8px}
+.teacher-finish-analysis .teacher-insight-caption{font-size:11px;line-height:1.5;color:#617d83}
+@media(max-width:500px){.plan-budget-banner #planBudgetNotice{text-align:left}.teacher-global-words button{max-width:100%}}
+
+
+/* Student live auction: dense TV/laptop dashboard, narrow-window safe controls.
+   Region condition is shown ONCE (studentRegionSummary), never repeated in the room. */
+.student-auction-grid{grid-template-columns:minmax(0,1.62fr) minmax(310px,.78fr);gap:10px;align-items:start}
+.student-auction-grid>.card{min-width:0;max-width:100%}
+.student-bid-card{display:flex;flex-direction:column;gap:8px;min-width:0}
+.student-bid-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-width:0}
+.student-bid-heading h2{margin:0!important;font-size:18px}
+.student-bid-reminder{font-size:11px;color:#657987;line-height:1.4}
+.student-room-card{min-width:0}
+.student-room-card>summary,.student-history-card>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;color:#235c68;min-width:0}
+.student-room-card>summary::-webkit-details-marker,.student-history-card>summary::-webkit-details-marker{display:none}
+.student-room-card>summary strong,.student-history-card>summary strong{font-size:15px;overflow-wrap:anywhere}
+.student-room-card>summary span,.student-history-card>summary span{font-size:11px;color:#6b828b;flex-shrink:0}
+.student-room-card[open]>summary{margin-bottom:7px}
+.student-room-card[open] .student-room-chevron{display:inline-block;transform:rotate(180deg)}
+.student-room-body{min-width:0}
+.student-room-body .showroom svg{min-height:0;max-height:300px;width:100%;height:auto}
+.student-room-body .hint{margin-top:7px}
+.student-history-card{padding:10px 14px!important}
+.student-history-card[open]>summary{margin-bottom:12px}
+.student-history-card #studentHistory{min-width:0;max-height:220px;overflow:auto}
+#studentAuction{min-width:0;max-width:100%}
+#studentAuction .auction-hero{min-width:0}
+#studentAuction .auction-hero>div{min-width:0}
+#studentAuction .auction-hero h3{font-size:clamp(20px,2vw,28px);line-height:1.2}
+#studentAuction .productstage{min-height:115px}
+#studentAuction .productstage svg{max-height:140px}
+#studentAuction .auction-head{font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+#studentAuction .auction-hero .hint{font-size:11px;line-height:1.35;margin-top:5px!important}
+#studentAuction .bid-panel{padding:12px;min-width:0;gap:8px}
+#studentAuction .live-price{font-size:clamp(25px,2.8vw,39px);overflow-wrap:anywhere}
+#studentAuction .clock-surface{padding:9px 11px}
+#studentAuction .clock-value{font-size:29px}
+#studentAuction .bid-panel>.row{gap:5px;font-size:10px;line-height:1.35}
+#studentAuction .leader-self,#studentAuction .leader-other{font-size:12px;padding:7px 9px}
+#studentAuction>.region-story{display:none}
+#studentAuction>.stack{min-width:0;gap:6px!important}
+#studentAuction>.stack>.field-caption{margin:0;font-size:12px}
+#studentAuction .bid-input-row{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(135px,auto);align-items:stretch}
+#studentAuction .bid-input-row input{min-width:0;max-width:100%;font-size:18px;min-height:42px}
+#studentAuction .bid-input-row button{min-width:0;min-height:42px;padding:8px 12px;white-space:normal;overflow-wrap:anywhere}
+#studentAuction .bid-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#studentAuction .bid-quick button{padding:7px 6px;min-width:0;font-size:12px;min-height:35px;white-space:normal;overflow-wrap:anywhere}
+#studentAuction .bid-quick .planned-bid{grid-column:1/-1;min-height:32px}
+#studentAuction .bid-pass-btn{font-size:12px;min-height:34px;padding:7px 10px}
+#studentAuction .bid-pass-active{padding:9px;font-size:12px}
+#studentAuction>.stack>h3{margin:0;font-size:12px}
+#studentAuction .auction-feed{max-height:75px;gap:3px}
+#studentAuction .feed-entry{font-size:11px;padding:5px 8px;min-width:0}
+#studentAuction .feed-time{font-size:10px}
+#studentAuction>.stack>.hint{font-size:10px;line-height:1.35}
+body.student-auction-screen .shell{max-width:1740px;padding:9px 16px 12px}
+body.student-auction-screen .top{margin-bottom:8px;padding-bottom:7px;gap:10px}
+body.student-auction-screen .top h1{font-size:23px;margin:0}
+body.student-auction-screen .top .kicker{font-size:10px}
+body.student-auction-screen .top .sub{font-size:11px}
+body.student-auction-screen .footer{display:none}
+body.student-auction-screen #studentView{gap:7px;min-width:0}
+body.student-auction-screen #studentView>.row{min-height:30px}
+body.student-auction-screen #studentView>.row button{padding:5px 10px;font-size:11px}
+body.student-auction-screen #studentStepper{padding:6px 9px}
+body.student-auction-screen #studentStepper .step{padding:4px 9px;font-size:11px}
+body.student-auction-screen #studentRegionSummary{padding:7px 12px}
+body.student-auction-screen #studentRegionSummary strong{font-size:13px}
+body.student-auction-screen #studentRegionSummary .hint{font-size:11px;line-height:1.45;margin-top:2px}
+body.student-auction-screen #studentMetrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+body.student-auction-screen #studentMetrics .card{padding:7px 10px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:6px;min-width:0}
+body.student-auction-screen #studentMetrics .hint{font-size:11px}
+body.student-auction-screen #studentMetrics .metric{font-size:19px;white-space:nowrap;line-height:1.2;margin:0}
+body.student-auction-screen #studentMetrics .metric small{font-size:10px}
+body.student-auction-screen #studentPlanBrief{padding:7px 11px;gap:5px;border-radius:12px}
+body.student-auction-screen #studentPlanBrief h2{font-size:13px!important}
+body.student-auction-screen #studentPlanBrief .planchip{font-size:11px;padding:4px 8px}
+body.student-auction-screen #studentPlanBrief .planchips{gap:4px}
+body.student-auction-screen #studentPlanBrief .planrationale{font-size:11px;line-height:1.3;padding:5px 8px;max-height:40px;overflow-y:auto}
+body.student-auction-screen #studentPlanBrief .briefgrid{gap:4px}
+body.student-auction-screen #studentAuctionArea>.card{padding:12px 13px;border-radius:16px}
+/* Main live product and price appear side-by-side on wide student screens. */
+@media(min-width:1200px){
+ body.student-auction-screen #studentAuction{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:start}
+ body.student-auction-screen #studentAuction>.auction-hero{grid-column:1;grid-row:1;align-self:stretch;grid-template-columns:minmax(92px,.8fr) minmax(0,1fr);gap:8px}
+ body.student-auction-screen #studentAuction>.bid-panel{grid-column:2;grid-row:1;align-self:stretch}
+ body.student-auction-screen #studentAuction>.stack:not(.bid-panel){grid-column:1/-1;grid-row:2}
+}
+/* Half-screen windows: auction controls above, optional room preview below. */
+@media(max-width:1199px){
+ .student-auction-grid{grid-template-columns:minmax(0,1fr)}
+ .student-room-card:not([open]){padding:9px 12px!important}
+ #studentAuction .auction-hero{grid-template-columns:minmax(105px,.40fr) minmax(0,1fr);gap:10px}
+ #studentAuction .productstage{min-height:112px}
+ #studentAuction .productstage svg{max-height:120px}
+}
+@media(max-width:760px){
+ body.student-auction-screen .shell{padding:8px 10px 15px}
+ body.student-auction-screen .top{margin-bottom:6px}
+ body.student-auction-screen .top h1{font-size:21px}
+ body.student-auction-screen .top .sub{display:none}
+ body.student-auction-screen #studentView{gap:6px}
+ body.student-auction-screen #studentStepper{display:none}
+ body.student-auction-screen #studentMetrics .card{padding:6px 7px}
+ body.student-auction-screen #studentMetrics .hint{font-size:10px}
+ body.student-auction-screen #studentMetrics .metric{font-size:clamp(13px,2.7vw,19px)}
+ body.student-auction-screen #studentRegionSummary .hint{font-size:11px}
+ body.student-auction-screen #studentPlanBrief .planchips{flex-wrap:wrap}
+ body.student-auction-screen #studentAuctionArea>.card{padding:10px;border-radius:14px}
+ #studentAuction .auction-hero{grid-template-columns:minmax(84px,.42fr) minmax(0,1fr);gap:8px}
+ #studentAuction .auction-hero h3{font-size:21px}
+ #studentAuction .productstage{min-height:105px}
+ #studentAuction .productstage svg{max-height:104px}
+ #studentAuction .bid-panel{padding:9px}
+ #studentAuction .live-price{font-size:clamp(23px,5.4vw,34px)}
+ #studentAuction .clock-value{font-size:26px}
+ #studentAuction .clock-surface{padding:7px 9px}
+ #studentAuction .bid-quick{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+ #studentAuction .bid-quick button{font-size:11px;padding:7px 2px}
+}
+@media(max-width:440px){
+ body.student-auction-screen #studentMetrics{gap:4px}
+ body.student-auction-screen #studentMetrics .card{display:block;padding:6px}
+ body.student-auction-screen #studentMetrics .hint{font-size:9.5px}
+ body.student-auction-screen #studentMetrics .metric{font-size:clamp(15px,4.5vw,20px);margin:2px 0 0}
+ #studentAuction .auction-hero{grid-template-columns:minmax(80px,34%) minmax(0,1fr)}
+ #studentAuction .bid-input-row{grid-template-columns:minmax(0,1fr)}
+ #studentAuction .bid-input-row button{width:100%}
+ #studentAuction .bid-quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #studentAuction .bid-quick .planned-bid{grid-column:1/-1}
+ #studentAuction .price-box{flex-wrap:nowrap;align-items:center}
+ #studentAuction .live-price{font-size:25px}
+ #studentAuction .clock-surface{flex:0 0 auto}
+ #studentAuction .clock-value{font-size:23px}
+ #studentAuction .clock-surface .price-label{font-size:10px}
+ #studentAuction .feed-time{float:none;display:block}
+}
+@media(max-width:340px){
+ body.student-auction-screen .shell{padding-left:6px;padding-right:6px}
+ #studentAuction .auction-hero{grid-template-columns:75px minmax(0,1fr);gap:6px}
+ #studentAuction .auction-head{font-size:11px}
+ #studentAuction .bid-quick button{font-size:11px}
+}
+
+
+/* Live stage fits a single full-HD/laptop view; old step trail is unnecessary here. */
+body.student-auction-screen #studentStepper{display:none}
+body.student-auction-screen #studentPlanBrief .briefheader{min-height:0}
+body.student-auction-screen #studentPlanBrief .planrationale{max-height:28px}
+body.student-auction-screen #studentPlanBrief .planrationale:focus{max-height:100px}
+body.student-auction-screen #studentRegionSummary{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+body.student-auction-screen #studentRegionSummary .hint{flex:1 1 350px;margin-top:0;min-width:0}
+body.student-auction-screen #studentAuction .bid-panel .price-box{gap:7px}
+body.student-auction-screen #studentAuction .bid-panel .price-label{font-size:11px}
+@media(min-width:1200px) and (max-height:850px){
+ body.student-auction-screen .shell{padding-top:5px;padding-bottom:5px}
+ body.student-auction-screen .top{padding-bottom:5px;margin-bottom:5px}
+ body.student-auction-screen .top .kicker,body.student-auction-screen .top .sub{display:none}
+ body.student-auction-screen .top h1{font-size:20px}
+ body.student-auction-screen #studentView{gap:5px}
+ body.student-auction-screen #studentMetrics .card{padding-top:5px;padding-bottom:5px}
+ body.student-auction-screen #studentPlanBrief{padding-top:5px;padding-bottom:5px}
+ body.student-auction-screen #studentPlanBrief .planrationale{max-height:22px}
+ body.student-auction-screen #studentAuctionArea>.card{padding:9px 11px}
+ body.student-auction-screen #studentAuction .productstage{min-height:100px}
+ body.student-auction-screen #studentAuction .productstage svg{max-height:113px}
+ body.student-auction-screen #studentAuction .clock-surface{padding:7px 10px}
+ body.student-auction-screen #studentAuction .clock-value{font-size:25px}
+ body.student-auction-screen #studentAuction .auction-feed{max-height:47px}
+ body.student-auction-screen #studentAuction>.stack>.hint{display:none}
+ body.student-auction-screen #studentAuction>.stack{gap:5px!important}
+ body.student-auction-screen #studentAuction .bid-quick button{min-height:30px;padding-top:5px;padding-bottom:5px}
+ body.student-auction-screen #studentAuction .bid-input-row button,body.student-auction-screen #studentAuction .bid-input-row input{min-height:38px}
+ body.student-auction-screen #studentAuction .timebar{margin-top:5px}
+ body.student-auction-screen #studentHistoryPanel{padding:7px 11px!important}
+}
+
+
+.student-bid-title-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.student-history-toggle{font-size:11px;padding:5px 9px!important;flex:0 0 auto}
+body.student-auction-screen #studentHistoryPanel{display:none;position:fixed;z-index:65;bottom:12px;right:12px;width:min(470px,calc(100vw - 24px));max-height:min(60dvh,550px);overflow-y:auto;box-shadow:0 12px 42px #163b4e36;border:1px solid #d4e6e5;background:white}
+body.student-auction-screen.student-history-open #studentHistoryPanel{display:block}
+body.student-auction-screen #studentHistoryPanel>summary{position:sticky;top:-10px;padding:9px 0;background:white;z-index:1}
+@media(max-width:560px){
+ .student-bid-title-actions{gap:4px}
+ .student-bid-reminder{display:none}
+ .student-history-toggle{font-size:10px;padding:5px 7px!important}
+}
+@media(min-width:1200px) and (max-height:850px){
+ body.student-auction-screen #studentAuction>.stack>h3{display:none}
+ body.student-auction-screen #studentAuction .auction-feed{max-height:34px}
+ body.student-auction-screen #studentAuction .bid-pass-btn{min-height:30px;padding-top:5px;padding-bottom:5px}
+ body.student-auction-screen #studentAuction .bid-quick .planned-bid{min-height:27px}
+}
+
+
+/* On half-sized browser windows prioritize the actual bidding form. */
+@media(max-width:760px){
+ body.student-auction-screen .top{flex-wrap:nowrap;align-items:center;gap:5px;padding-bottom:5px;margin-bottom:5px}
+ body.student-auction-screen .top>div:first-child{flex:1 1 auto;min-width:0}
+ body.student-auction-screen .top>div.row{flex:0 0 auto;gap:0}
+ body.student-auction-screen .top .kicker{display:none}
+ body.student-auction-screen .top h1{font-size:clamp(15px,2.9vw,21px);letter-spacing:-.8px;white-space:nowrap}
+ body.student-auction-screen .top #homeBtn{display:none}
+ body.student-auction-screen .top #connectionPill{font-size:10px;padding:5px 7px;white-space:nowrap}
+ body.student-auction-screen #studentView>.row{flex-wrap:nowrap;gap:4px;align-items:center}
+ body.student-auction-screen #studentView>.row>.row{flex:1 1 auto;min-width:0;gap:4px}
+ body.student-auction-screen #studentView>.row>.row .dots, body.student-auction-screen #studentPhaseBadge{display:none}
+ body.student-auction-screen #studentView>.row #studentRoomBadge{font-size:10px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+ body.student-auction-screen #studentView>.row button{flex-shrink:0;padding:4px 7px;font-size:10px}
+ body.student-auction-screen #studentRegionSummary .hint{max-height:3em;overflow-y:auto;line-height:1.4}
+ body.student-auction-screen #studentPlanBrief .planchips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-bottom:2px;overscroll-behavior-x:contain}
+ body.student-auction-screen #studentPlanBrief .planchip{flex:0 0 auto;white-space:nowrap}
+ body.student-auction-screen #studentPlanBrief .planrationale{max-height:22px;overflow-y:auto;line-height:1.3}
+}
+
+
+/* The room is ALWAYS visible while bidding; never collapse it at narrow widths. */
+.student-room-card{min-width:0;position:sticky;top:10px;align-self:start;overflow:hidden}
+.student-room-title{display:flex;align-items:center;justify-content:space-between;gap:7px;min-width:0;margin-bottom:7px;color:#235c68}
+.student-room-title strong{font-size:clamp(12px,1.3vw,15px);overflow-wrap:anywhere}
+.student-room-title .student-room-hint{color:#617d86;font-size:10px;line-height:1.25;text-align:right}
+.student-room-body .showroom{min-width:0}
+.student-room-body .showroom svg{width:100%;max-width:100%;height:auto;max-height:275px;min-height:0;display:block}
+.student-room-body .room-inventory{padding:6px;gap:4px}
+.student-room-body .room-inventory span{padding:3px 5px;font-size:10px}
+.student-room-body .student-room-caption{font-size:10px;line-height:1.35;max-height:30px;overflow:auto}
+/* In split-browser mode, keep the room beside active bidding instead of below it. */
+@media(min-width:561px) and (max-width:1199px){
+ .student-auction-grid{grid-template-columns:minmax(0,1.65fr) minmax(165px,.75fr);gap:8px;align-items:start}
+ body.student-auction-screen #studentAuctionArea>.card{padding:9px!important}
+ .student-room-card{top:8px}
+ .student-room-title{display:block}
+ .student-room-title .student-room-hint{display:block;text-align:left;margin-top:2px}
+ .student-room-body .showroom svg{max-height:240px}
+ #studentAuction .auction-hero{grid-template-columns:minmax(75px,33%) minmax(0,1fr);gap:8px}
+ #studentAuction .productstage{min-height:80px}
+ #studentAuction .productstage svg{max-height:102px}
+ #studentAuction .bid-input-row{grid-template-columns:minmax(0,1fr) minmax(98px,auto);gap:5px}
+ #studentAuction .bid-input-row button{padding:5px;font-size:11px}
+ #studentAuction .bid-quick{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+ #studentAuction .bid-quick .planned-bid{grid-column:1/-1}
+ #studentAuction .bid-quick button{min-height:30px;padding:5px 4px}
+ #studentAuction .price-box{flex-wrap:wrap}
+ #studentAuction .live-price{font-size:clamp(21px,3vw,30px)}
+ #studentAuction .clock-value{font-size:25px}
+}
+/* On phones the miniature room stays visible at the top while the auction scrolls. */
+@media(max-width:560px){
+ .student-auction-grid{grid-template-columns:minmax(0,1fr);gap:6px}
+ .student-room-card{order:-1;position:sticky;top:0;z-index:7;box-shadow:0 3px 14px #0c556014;background:#fff!important}
+ .student-room-title{margin-bottom:3px}
+ .student-room-title strong{font-size:12px}
+ .student-room-title .student-room-hint{font-size:10px}
+ .student-room-body .showroom svg{width:100%;height:94px;max-height:94px;min-height:0;object-fit:contain}
+ .student-room-body .room-inventory{padding:2px 5px;max-height:20px;overflow-y:auto}
+ .student-room-body .room-inventory span{padding:1px 4px;font-size:9px}
+ .student-room-caption{display:none}
+ body.student-auction-screen #studentAuctionArea>.student-room-card{padding:6px 9px}
+ body.student-auction-screen #studentAuctionArea>.student-bid-card{padding:10px}
+}
+@media(min-width:561px) and (max-width:720px){
+ body.student-auction-screen #studentMetrics .metric{font-size:clamp(14px,2.3vw,17px)}
+ body.student-auction-screen #studentPlanBrief .planrationale{max-height:24px}
+ #studentAuction .auction-hero h3{font-size:17px}
+ #studentAuction .auction-head{font-size:11px}
+ .student-room-body .room-inventory{max-height:65px;overflow:auto}
+}
+
+
+/* 4-step individual reflection: select 2 lots, explain each in one or two sentences */
+.reflection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.reflection-question{border:1px solid #dde9e8;border-radius:13px;background:#fbfefd;padding:13px;min-width:0;display:flex;flex-direction:column;gap:7px}
+.reflection-question .field-caption{font-size:14px;color:#214a59;line-height:1.45;margin:0}
+.reflection-question select,.reflection-question textarea{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+.reflection-question textarea{min-height:80px;max-height:140px;line-height:1.55;font-size:14px}
+.reflection-question .hint{line-height:1.5}
+.memberquote .answer{white-space:pre-line}
+@media(max-width:720px){.reflection-grid{grid-template-columns:minmax(0,1fr)}.reflection-question{padding:11px}}
+
+/* 키워드 확대/결과 방 이미지/수동 데이터 동기화 */
+.sync-toolbar{min-width:0;gap:8px;justify-content:flex-end}
+.sync-controls{display:inline-flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0}
+.sync-now-button{padding:7px 10px!important;font-size:12px!important;white-space:nowrap!important;min-height:32px}
+.sync-now-button:disabled{opacity:.55}
+.sync-stamp{font-size:11px;color:#6c8590;max-width:125px;overflow-wrap:anywhere;line-height:1.3}
+.feedback-room{display:grid;grid-template-columns:minmax(180px,.66fr) minmax(0,1.5fr);gap:13px;align-items:center;padding:14px;border:1px solid #dbe9e6;background:#f7fbf9;border-radius:15px;min-width:0}
+.feedback-room-heading h3{margin:0 0 7px;color:#235b61;font-size:16px}
+.feedback-room-heading p{margin:0;color:#627e84;font-size:12px;line-height:1.65}
+.feedback-room-image{min-width:0;width:100%;max-width:630px;margin:auto}
+.feedback-room-image .showroom{width:100%;max-width:100%;border-radius:12px}
+.feedback-room-image .showroom svg{display:block;width:100%;height:auto;max-height:295px}
+.feedback-room-image .room-inventory{max-width:100%;overflow-wrap:anywhere}
+@media(max-width:620px){
+ .sync-toolbar{justify-content:flex-start;gap:5px}
+ .sync-stamp{font-size:10px;max-width:110px}
+ .sync-now-button{font-size:11px!important;padding:6px 8px!important}
+ .feedback-room{grid-template-columns:minmax(0,1fr);padding:10px;gap:9px}
+ .feedback-room-heading p{font-size:11px}
+ .feedback-room-image .showroom svg{max-height:240px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div><div class="kicker">ECONOMICS LAB · 6 TEAMS</div><h1>🏠 내 방을 완성하라!</h1><div class="sub">자원의 희소성 · 경매 · 합리적 선택 · 기회비용</div></div>
+    <div class="row sync-toolbar"><span class="pill" id="connectionPill">연결 확인 중</span><div class="sync-controls hidden" id="syncToolbar"><button type="button" class="secondary sync-now-button" id="manualSyncBtn" onclick="manualSync()" title="Supabase에서 최신 활동 내용을 다시 확인합니다">⟳ 동기화</button><span class="sync-stamp" id="lastSyncText" role="status" aria-live="polite">서버 확인 전</span></div><button class="secondary hidden" id="homeBtn" onclick="goHome()">처음 화면</button></div>
+  </header>
+
+  <section id="home" class="welcome">
+    <div class="welcome-head"><h2>우리 지역에 딱 맞는 방을 꾸며라!</h2><div class="sub">제한된 예산과 단 하나뿐인 물품. 6개 모둠이 협력하여 가장 합리적인 선택을 찾아봅시다!</div></div>
+    <div class="role-grid">
+      <div class="card role-card"><div class="role-emoji">🎛️</div><h2>교사로 시작</h2><p>수업을 만들고 경매 시작·마감·낙찰 공개를 제어합니다. 6개 모둠의 입찰, 잔액, 성찰 결과를 종합적으로 모니터링합니다.</p><button class="large" onclick="goTeacherSetup()">교사창 열기</button></div>
+      <div class="card role-card"><div class="role-emoji">🛋️</div><h2>학생으로 참가</h2><p>우리 모둠의 지역 조건을 살펴보고 물품에 입찰합니다. 낙찰된 물품으로 방을 꾸미고 선택의 이유를 설명합니다.</p><button class="large" onclick="goStudentJoin()">학생창 열기</button></div>
+    </div>
+    <p class="alert center" style="margin-top:18px">6개 모둠 · 모둠당 600,000원 · 8종 물품 공개 경매 · 40초 기본 라운드 · 서로 다른 기기 실시간 연결 · 학생 수 제한 없음</p>
+  </section>
+
+  <section id="teacherSetup" class="setting card stack hidden">
+    <div><span class="pill rolepath">교사용</span><h2 style="margin-top:12px">수업 개설</h2><div class="hint">같은 HTML에서 교사와 학생이 각자 역할을 선택합니다. 학습 시작 전 모둠마다 지도에서 지역을 선택합니다.</div></div>
+    <div class="region-story"><b>Supabase 실시간 연동 · 6개 모둠, 학생 수 제한 없음</b><br>교사와 학생이 각자 스마트폰·노트북에서 동일한 웹 주소로 접속합니다. Realtime 변경 알림 후 최신 정보 재조회, 7초 보정 조회 및 연결 복구 시 자동 동기화를 지원합니다. 교사는 경매를 제어하고 학생은 공동 계획과 개인 성찰에 참여합니다.</div>
+    <label class="field-caption" for="teacherCode">수업 코드 (영문·숫자 4~10자리)</label><input id="teacherCode" maxlength="10" value="ROOM26" spellcheck="false">
+    <button class="large" onclick="openClassroom()">수업 개설 / 기존 수업 입장</button>
+    <div class="hint">이미 존재하는 코드는 기록을 이어서 사용할 수 있습니다. 기존 수업을 초기화하려면 교사 대시보드의 초기화 버튼을 이용하세요.</div>
+  </section>
+
+  <section id="studentJoin" class="setting card stack hidden">
+    <span class="pill rolepath">학생용</span><h2>우리 모둠 입장</h2>
+    <p class="sub" style="margin:0">선생님이 알려준 수업 코드와 우리 모둠을 선택하세요.</p>
+    <label class="field-caption" for="studentCode">수업 코드</label><input id="studentCode" maxlength="10" spellcheck="false">
+    <label class="field-caption" for="teamSelect">모둠 선택</label>
+    <select id="teamSelect">
+      <option value="1">1모둠</option><option value="2">2모둠</option><option value="3">3모둠</option><option value="4">4모둠</option><option value="5">5모둠</option><option value="6">6모둠</option>
+    </select>
+    <label class="field-caption" for="joinMemberName">모둠원 이름</label><input id="joinMemberName" maxlength="18" placeholder="본인 이름 입력" autocomplete="name"><div class="region-story">모둠원은 각자의 스마트폰·노트북에서 동일한 링크와 수업 코드로 접속할 수 있습니다. 지역은 같은 모둠에서 처음 확정한 선택이 고정되며, 필요한 경우 교사만 경매 시작 전에 초기화할 수 있습니다.</div>
+    <button class="large" onclick="joinTeam()">우리 모둠 입장하기</button>
+    <div class="alert" id="studentConnectionHelp">같은 수업 링크로 접속한 후 수업 코드·모둠·이름을 입력하세요. 6개는 모둠 수이며 학생 수에 제한이 없습니다.</div>
+  </section>
+
+  <section id="teacherView" class="teacher-screen-layout hidden">
+    <div class="teacher-headerstrip">
+      <div class="teacher-header-status"><span class="pill">수업 <b id="teacherCodeBadge"></b></span><span class="pill phasebadge" id="teacherPhaseBadge"></span><span class="mini-counter">입장 모둠 <b id="joinedMetric">0/6</b></span><span class="mini-counter">참여 학생 <b id="memberMetric">0명</b></span><span class="mini-counter">지역 <b id="regionMetric">0/6</b></span><span class="mini-counter">전략 <b id="planMetric">0/6</b></span><span class="mini-counter">회차 <b id="roundMetric">대기</b></span><span class="mini-counter">입찰 <b id="submittedMetric">—</b></span></div>
+      <div class="teacher-controls"><button class="secondary tiny-btn" onclick="copyRoomCode()">수업 코드 복사</button><button class="secondary tiny-btn" onclick="openStudentTab()">학생창 새 탭</button><button class="secondary tiny-btn" onclick="openTeacherPanel('guide')">수업 안내</button><button class="danger tiny-btn" onclick="teacherAction('reset')">전체 초기화</button></div>
+    </div>
+    <div class="teacher-stage-grid">
+      <div class="card teacher-live-zone">
+        <div class="teacher-card-heading"><h2 id="teacherLiveTitle">🔨 경매 운영</h2><button id="soundBtn" class="secondary tiny-btn" onclick="toggleSound()">🔇 알림음 끔</button></div>
+        <div class="dots teacher-round-dots" id="teacherDots"></div>
+        <div class="teacher-action-row" id="teacherControls"></div>
+        <div class="teacher-current" id="teacherCurrent"></div>
+        <div class="teacher-live-tip">지역 선택·공동 계획 → 공개 경매 → 관찰 자료 → 학생별 성찰</div>
+      </div>
+      <div class="card teacher-team-zone">
+        <div class="teacher-card-heading"><h2>👥 6개 모둠 실시간 현황</h2><span class="hint">모둠을 누르면 계획·성찰 기록 확인</span></div>
+        <div class="teacher-six" id="teamOverview"></div>
+      </div>
+    </div>
+    <div class="card teacher-bottom-strip">
+      <div class="row between teacher-bottom-title"><strong id="teacherBottomHeading">📋 낙찰 현황</strong><button class="secondary tiny-btn" id="teacherBottomBtn" onclick="openTeacherPanel('history')">경매 기록 보기</button></div>
+      <div id="teacherHistoryStrip" class="teacher-history-chips"></div>
+    </div>
+    <div class="teacher-drawer hidden" id="teacherDrawer" role="dialog" aria-modal="true" aria-label="교사 상세 기록">
+      <div class="teacher-drawer-shade" onclick="closeTeacherPanel()"></div>
+      <div class="teacher-drawer-sheet" id="teacherDrawerSheet">
+        <div class="teacher-drawer-head"><h2 id="teacherDrawerTitle">모둠 상세 보기</h2><button class="secondary" onclick="closeTeacherPanel()">✕ 닫기</button></div>
+        <div id="teacherInspectPlan" class="card hidden"></div>
+        <div class="card" id="teacherHistoryFull"><h2>📊 전체 경매 기록</h2><div class="tablewrap"><table><thead><tr><th>회차</th><th>물품</th><th>낙찰 모둠</th><th>낙찰가</th><th>입찰 참여</th></tr></thead><tbody id="teacherHistory"></tbody></table></div></div>
+        <div class="card stack hidden" id="teacherResults">
+          <div class="row between"><h2 style="margin:0" id="teacherResultHeading">📘 선택한 모둠의 학습 기록 · 개인 성찰</h2><button class="secondary" onclick="downloadCSV()">CSV 기록 저장</button></div>
+          <div class="hint">이 상세창에서는 대시보드에서 선택한 모둠의 결과만 표시됩니다. 다른 모둠은 상세창을 닫고 교사 대시보드에서 선택하세요.</div>
+          <div id="teacherDetailedFeedback"></div>
+        </div>
+        <details class="card teacher-details" id="teacherGuide"><summary>📚 50분 수업 운영·핵심 발문</summary><div class="stack" style="margin-top:12px"><div class="timing">도입 5분 → 지역 선택 5분 → 물품 탐색·전략 7분 → 경매 약 10분 → 결과 분석 5분 → 개인 성찰 8분 → 정리 10분</div><div class="priority"><b>핵심 발문</b><div>① 같은 물품도 지역마다 가치가 다른 이유는?</div><div>② 한정된 물품을 여러 모둠이 원할 때 가격이 어떻게 변화하는가?</div><div>③ 선택 때문에 포기한 가장 가치 있는 대안은 무엇인가?</div></div></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="studentView" class="grid hidden">
+    <div class="row between"><div class="row"><span class="pill" id="studentRoomBadge"></span><span class="pill phasebadge" id="studentPhaseBadge"></span><div class="dots" id="studentDots"></div></div><button class="secondary" onclick="changeTeam()">모둠 변경</button></div>
+    <div class="card stepper-card" id="studentStepper"></div>
+    <div class="card region-summary hidden" id="studentRegionSummary"></div>
+    <div class="grid metrics" id="studentMetrics">
+      <div class="card"><div class="hint">우리 모둠 잔액</div><div class="metric"><span id="studentBudget">600,000</span> <small>원</small></div></div>
+      <div class="card"><div class="hint">우리 모둠 최고가 제시 횟수</div><div class="metric"><span id="studentUtility">0</span> <small>회</small></div></div>
+      <div class="card"><div class="hint">낙찰 물품</div><div class="metric"><span id="studentCount">0</span> <small>개</small></div></div>
+    </div>
+    <div class="card stack" id="studentRegionPanel"><div class="row between"><h2 style="margin:0">🗺️ 지도에서 우리 모둠의 지역 선택</h2><span class="pill">경매 전에 1개 지역 선택</span></div><div class="hint">모둠원들과 상의한 뒤 한 사람이 확정하세요. <b>먼저 확정된 지역은 잠기며</b> 다른 모둠원이 다른 지역을 눌러도 바뀌지 않습니다.</div><div class="maplayout"><div id="regionMap"></div><div id="regionSelectionInfo" class="mapinfo"></div></div></div>
+    <div class="card stack" id="studentCatalog"><div class="row between"><h2 style="margin:0">② 경매 물품 확인 · 모둠 공동 구매 전략</h2><span class="pill">경매 전 물품 8종 공개</span></div><div class="hint">물품 8종을 비교하고 모둠에서 구매할 물품·최대 지불액·이유를 의논하세요. <b>작성은 모둠 대표 한 사람이 맡는 것을 권장합니다.</b> 입력 중인 내용은 교사 화면에 공유됩니다. 편집 권한은 향후 서버 연결 시 확정합니다.</div><div class="productcatalog" id="studentCatalogGrid"></div><div id="planEditor" class="stack"></div></div>
+    <div class="card stack hidden" id="studentPlanBrief"></div>
+    <div class="grid student-auction-grid" id="studentAuctionArea">
+      <div class="card student-bid-card"><div class="student-bid-heading"><h2>🔔 경매장 <span class="auction-live-tag" id="studentLiveTag"><i class="live-bulb"></i> LIVE</span></h2><div class="student-bid-title-actions"><span class="student-bid-reminder">지역 조건 · 예산 · 포기할 대안을 비교하며 입찰하세요.</span><button type="button" class="secondary student-history-toggle" id="studentHistoryToggle" onclick="toggleStudentHistory()" aria-expanded="false" aria-controls="studentHistoryPanel">📜 이전 낙찰 결과</button></div></div><div id="studentAuction"></div></div>
+      <aside class="card student-room-card" id="studentRoomCard" aria-label="우리 모둠 방 미리보기"><div class="student-room-title"><strong id="studentTeamHeading">🏠 우리 모둠의 방</strong><span class="student-room-hint">낙찰 물품 자동 배치</span></div><div class="student-room-body"><div id="roomArtwork"></div><div class="hint student-room-caption">기본 침대·탁자 제공 · 낙찰받은 물품은 방에 추가됩니다.</div></div></aside>
+    </div>
+    <details class="card student-history-card" id="studentHistoryPanel"><summary><strong id="studentHistoryHeading">📜 지난 낙찰 결과</strong><span>펼쳐보기 ▾</span></summary><div class="grid two" id="studentHistory"></div></details>
+    <div class="card stack hidden" id="studentResults">
+      <div class="row between"><h2 style="margin:0">🔎 우리 모둠 활동 데이터 돌아보기</h2><span class="pill">점수·등급 없는 사실 기반 피드백</span></div>
+      <div class="hint">아래 데이터는 학생이 어떤 성찰 문장을 쓰더라도 달라지지 않습니다. 사전 계획과 실제 행동을 먼저 비교한 다음 스스로 경제 개념과 연결해 보세요.</div>
+      <div id="studentFeedback"></div>
+      <div class="line"></div>
+      <h2>✍️ 내 개인 성찰 · 내 기기에서 작성</h2>
+      <div class="hint">모둠 활동 데이터를 확인한 뒤 본인 답변을 작성하세요. 이 기기에서는 저장 후에도 같은 학생의 답변만 수정할 수 있습니다. 다른 모둠의 개인 답변은 학생 화면에 표시하지 않습니다.</div>
+      <label class="field-caption" for="reflectionName">모둠원 이름</label>
+      <input id="reflectionName" maxlength="30" placeholder="본인 이름 전체를 입력하세요" autocomplete="name"><div class="hint">이름이 잘못 표시되면 여기에서 수정한 뒤 성찰 답변을 저장하세요. 작성자 기록은 그대로 유지됩니다.</div>
+      <div class="reflection-grid">
+        <div class="reflection-question">
+          <label class="field-caption" for="reflectionDecision">① 가장 중요한 구매 또는 포기 결정은 무엇이었나요?</label>
+          <select id="reflectionDecision" onchange="if(state&&teamId)populateReflectionLotChoices(state.teams[teamId-1])"><option value="">물품과 활동 결과를 선택하세요</option></select>
+          <div class="hint">8개 물품 가운데 선택하세요. 낙찰·추가 입찰 포기·미낙찰 여부가 함께 표시됩니다.</div>
+        </div>
+        <div class="reflection-question">
+          <label class="field-caption" for="reflectionReason">② 그렇게 판단한 이유는 무엇인가요?</label>
+          <textarea id="reflectionReason" maxlength="220" rows="3" placeholder="지역 환경, 물품의 필요성, 경매 가격 등 고려한 근거를 1~2문장으로 작성하세요."></textarea>
+        </div>
+        <div class="reflection-question">
+          <label class="field-caption" for="reflectionAlternative">③ 그 결정으로 포기한 가장 가치 있는 대안은 무엇이었나요?</label>
+          <select id="reflectionAlternative"><option value="">대안 물품을 선택하세요</option></select>
+          <div class="hint">낙찰받지 못한 물품 중에서 선택하세요. 미낙찰 물품이 곧바로 기회비용이 되는 것은 아닙니다.</div>
+        </div>
+        <div class="reflection-question">
+          <label class="field-caption" for="reflectionAlternativeReason">④ 왜 그 물품이 가장 가치 있는 대안이었나요?</label>
+          <textarea id="reflectionAlternativeReason" maxlength="220" rows="3" placeholder="그 물품을 선택했을 때 얻을 수 있었던 이익을 1~2문장으로 설명하세요."></textarea>
+        </div>
+      </div>
+      <div id="reflectionLegacy" class="hint hidden"></div>
+      <div class="row"><button onclick="saveReflection()">내 성찰 답변 저장</button><span class="hint" id="reflectionSaved"></span></div>
+      <div id="studentReflectionInsights"></div>
+    </div>
+  </section>
+  <footer class="footer">학습 목표: 자원의 희소성을 설명하고, 예산 제약에서 합리적으로 선택하며 기회비용을 분석할 수 있다. · 본 웹은 교실 수업용 시뮬레이션입니다.</footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const REGIONS=[
+ {name:'해안 마을',emoji:'🌊',desc:'바다가 가까운 오래된 주택입니다. 바닷바람이 자주 들어오고, 빨래가 마르는 데 시간이 꽤 오래 걸립니다. 방의 크기는 약 9평입니다.',need:['제습기','수납장'],scene:'coast'},
+ {name:'산골 마을',emoji:'⛰️',desc:'산 중턱의 단독주택입니다. 겨울이 길고 밤과 낮의 기온 차가 큽니다. 오래된 창문 틈으로 바람이 들어올 때가 있습니다.',need:['난방기','단열 커튼'],scene:'mountain'},
+ {name:'도심 주거지',emoji:'🏙️',desc:'번화가 근처의 작은 원룸입니다. 밖에는 차량과 사람이 많고, 방 면적은 약 6평입니다. 수업과 휴식을 같은 공간에서 합니다.',need:['수납장','방음 패널'],scene:'city'},
+ {name:'농촌 마을',emoji:'🌾',desc:'논밭 옆 오래된 주택입니다. 낮에는 밖에서 활동하는 시간이 길고, 현관으로 흙먼지가 들어오기도 합니다. 실내에서 밤에 작업할 때도 있습니다.',need:['청소기','조명'],scene:'rural'},
+ {name:'더운 남부 지역',emoji:'☀️',desc:'햇볕이 강하게 들어오는 남향 방입니다. 여름이 길고 낮에는 벽과 바닥까지 달아오르며, 창문이 큰 편입니다.',need:['냉방기','단열 커튼'],scene:'hot'},
+ {name:'비가 잦은 지역',emoji:'🌧️',desc:'비 오는 날이 많은 지역의 1층 주택입니다. 창가에 물방울이 잘 맺히며 신발이 젖은 채 실내로 들어오는 날이 많습니다.',need:['제습기','청소기'],scene:'rain'}
+];
+const LOTS=[
+ {name:'제습기',emoji:'💧',category:'실내 환경',start:130000,desc:'실내 공기에서 수분을 모아 습도를 조절하는 가전제품.'},
+ {name:'난방기',emoji:'🔥',category:'실내 환경',start:90000,desc:'추운 날 실내를 따뜻하게 유지하는 이동식 가전제품.'},
+ {name:'수납장',emoji:'🗄️',category:'공간 활용',start:120000,desc:'책·옷·생활용품을 정리할 수 있는 가구.'},
+ {name:'냉방기',emoji:'❄️',category:'실내 환경',start:220000,desc:'더운 날 실내 온도를 낮추는 냉방 가전제품.'},
+ {name:'단열 커튼',emoji:'🪟',category:'실내 환경',start:70000,desc:'햇빛을 가리고 창문의 열 손실을 줄이는 커튼.'},
+ {name:'청소기',emoji:'🧹',category:'생활 편의',start:110000,desc:'바닥과 실내의 먼지를 빨아들이는 생활 가전제품.'},
+ {name:'방음 패널',emoji:'🔇',category:'공간 활용',start:90000,desc:'실내의 소리 반사를 줄이는 벽면 패널. 외부 소음 차단 효과는 설치 방식에 따라 다릅니다.'},
+ {name:'조명',emoji:'💡',category:'생활 편의',start:60000,desc:'작업·휴식에 맞춰 밝기를 조절할 수 있는 실내 조명.'}
+];
+const BUDGET=600000, MIN_STEP=10000, STATE_PREFIX='room-auction-single-browser-v1-', SESSION_KEY='room-auction-tab-v6';
+const qs=new URLSearchParams(location.search), $=id=>document.getElementById(id);
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=v=>Number(v||0).toLocaleString('ko-KR');
+const deepCopy=v=>JSON.parse(JSON.stringify(v));
+let view='home',connection='browser',state=null,roomCode='',teamId=0,busy=false,refreshBusy=false,toastHandle=null,selectedRegionIndex=null,teacherDetailTeam=1,activeStudentKeyword='',activeTeacherKeyword='',activeGlobalKeyword='',reflectionDraftId='',memberId='',memberName='',editPlanOverride=false,planDraftDirty=false,planSaveTimer=null,planDraftRevision=0,bidDraft=null;
+let personalTextDraft='',personalEditing=false;
+
+function toast(message){const el=$('toast');el.textContent=message;el.style.display='block';clearTimeout(toastHandle);toastHandle=setTimeout(()=>el.style.display='none',3400)}
+function writeSession(){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({view,roomCode,teamId,memberId,memberName,reflectionDraftId}))}catch{}}
+function clearSession(){try{sessionStorage.removeItem(SESSION_KEY)}catch{}}
+function show(which){view=which;document.body.classList.toggle('teacher-screen',which==='teacherView');if(which!=='studentView'){document.body.classList.remove('student-auction-screen');document.body.classList.remove('student-history-open');}for(const id of ['home','teacherSetup','studentJoin','teacherView','studentView'])$(id).classList.toggle('hidden',id!==which);$('homeBtn').classList.toggle('hidden',which==='home');updateConnectionUI();$('syncToolbar')?.classList.toggle('hidden',!['teacherView','studentView'].includes(which));writeSession();if(state&&['teacherView','studentView'].includes(which))render()}
+function connectionLabel(){return connection==='browser'?'🔗 같은 브라우저 탭 연동 중':'⚠️ 브라우저 저장소를 사용할 수 없습니다'}
+function updateConnectionUI(){$('connectionPill').textContent=connectionLabel();const help=$('studentConnectionHelp');if(help)help.textContent=connection==='browser'?'교사와 같은 브라우저에서 동일한 HTML 파일을 다른 탭으로 열고 수업 코드를 입력하세요. 6개는 모둠 수이며 학생 수에 제한은 없습니다. 브라우저가 다른 경우에는 연동되지 않습니다.':'이 브라우저는 현재 저장 기능이 제한되어 있습니다. 일반 브라우저 창에서 HTML 파일을 다시 열어 주세요.';}
+function goHome(){state=null;roomCode='';teamId=0;memberId='';memberName='';reflectionDraftId='';clearSession();show('home')}
+function goTeacherSetup(){show('teacherSetup')}
+function goStudentJoin(){show('studentJoin');if(qs.get('room'))$('studentCode').value=qs.get('room').toUpperCase()}
+function changeTeam(){teamId=0;state=null;roomCode='';localPriority=[];selectedRegionIndex=null;reflectionDraftId='';memberId='';memberName='';editPlanOverride=false;clearSession();goStudentJoin()}
+// Storage is shared by tabs of the same browser profile for the same HTML URL.
+// No server, Python runtime, external database or practice/real mode is required.
+const storageKey=code=>STATE_PREFIX+code;
+const lockKey=code=>STATE_PREFIX+'lock-'+code;
+const tabLockId='tab-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+function localRead(code){const raw=localStorage.getItem(storageKey(code));if(!raw)return null;try{return JSON.parse(raw)}catch{throw Error('저장된 수업 데이터를 읽을 수 없습니다.')}}
+function localWrite(code,next){try{localStorage.setItem(storageKey(code),JSON.stringify(next))}catch(e){throw Error('브라우저 저장 공간에 기록하지 못했습니다. 저장 공간과 개인정보 보호 설정을 확인하세요.')}try{roomChannel?.postMessage({code,version:next.version})}catch{}}
+async function withRoomLock(code,work){
+  // Web Locks prevent two tabs from overwriting each other's simultaneous changes.
+  if(navigator.locks?.request)return navigator.locks.request('auction-room-'+code,{mode:'exclusive'},work);
+  // Older browsers: short, expiring lease. All state transactions are synchronous.
+  const key=lockKey(code);
+  for(let i=0;i<100;i++){
+    let holder=null;try{holder=JSON.parse(localStorage.getItem(key)||'null')}catch{}
+    if(!holder||holder.until<Date.now()||holder.owner===tabLockId){
+      localStorage.setItem(key,JSON.stringify({owner:tabLockId,until:Date.now()+4000}));
+      let confirmed=null;try{confirmed=JSON.parse(localStorage.getItem(key)||'null')}catch{}
+      if(confirmed?.owner===tabLockId){try{return await work()}finally{let now=null;try{now=JSON.parse(localStorage.getItem(key)||'null')}catch{}if(now?.owner===tabLockId)localStorage.removeItem(key)}}
+    }
+    await new Promise(resolve=>setTimeout(resolve,20));
+  }
+  throw Error('다른 탭에서 기록을 저장하고 있습니다. 잠시 후 다시 시도하세요.');
+}
+let roomChannel=null;
+function initTabSync(){
+  try{localStorage.setItem(STATE_PREFIX+'health','ok');if(localStorage.getItem(STATE_PREFIX+'health')!=='ok')throw Error('저장소 확인 실패');connection='browser'}catch{connection='unavailable'}
+  if(connection!=='browser')return;
+  if(typeof BroadcastChannel!=='undefined')try{roomChannel=new BroadcastChannel('auction-browser-sync-v1');roomChannel.onmessage=e=>{if(e.data?.code===roomCode)refresh()}}catch{}
+  window.addEventListener('storage',e=>{if(e.key===storageKey(roomCode))refresh()});
+}
+function makeInitial(code){return{code,version:1,phase:'lobby',round:0,duration:40,endsAt:0,extensionCount:0,leader:null,auctionLog:[],teams:REGIONS.map((r,i)=>({id:i+1,region:null,name:(i+1)+'모둠',joined:false,budget:BUDGET,items:[],bids:{},plan:{items:[],ceilings:{},reason:''},planWorking:{items:[],ceilings:{},reason:'',updated:0},memberNotes:[],reflections:[],members:[],passes:{},lastSeen:0})),history:[],updated:Date.now()}}
+async function getState(code){if(connection!=='browser')throw Error('브라우저 저장 기능을 사용할 수 없습니다.');return localRead(code)}
+async function createState(code){return withRoomLock(code,()=>{const prev=localRead(code);if(prev)return prev;const initial=makeInitial(code);localWrite(code,initial);return initial})}
+async function modifyState(code,change,opts={}){
+ if(busy){if(!opts.quiet)toast('이전 요청을 저장 중입니다.');return false}
+ busy=true;
+ try{
+  const next=await withRoomLock(code,async()=>{
+   const previous=await getState(code);
+   if(!previous)throw Error('수업을 찾을 수 없습니다.');
+   const revised=change(deepCopy(previous));if(!revised)return null;
+   revised.version=(previous.version||0)+1;revised.updated=Date.now();
+   localWrite(code,revised);return revised;
+  });
+  if(!next)return false;
+  state=next;render();return true;
+ }catch(e){if(!opts.quiet)toast(e.message);return false}
+ finally{busy=false}
+}
+async function refresh(){if(!roomCode||refreshBusy||busy||!['teacherView','studentView'].includes(view))return;refreshBusy=true;try{const latest=await getState(roomCode);if(latest&&latest.version!==state?.version){state=latest;render();if(view==='teacherView'&&latest.phase==='bidding'){const bidKey=latest.round+'-'+(latest.leader?.time||0)+'-'+(latest.leader?.amount||0);if(lastSoundBidKey&&bidKey!==lastSoundBidKey&&latest.leader)playBidSound();lastSoundBidKey=bidKey}}$('connectionPill').textContent=connectionLabel()}catch(e){$('connectionPill').textContent='⚠️ 연결 오류';}finally{refreshBusy=false}}
+function stage(s){return{lobby:'지역 선택·전략 수립',bidding:'입찰 진행 중',reveal:'낙찰 결과 공개',finished:'활동 데이터·개인 성찰'}[s.phase]||'대기'}
+function dots(s){return LOTS.map((l,i)=>`<span class="dot ${i<s.round?'done':i===s.round?'now':''}" title="${i+1}회 ${l.name}"></span>`).join('')}
+const svgDefs=`<defs>
+  <linearGradient id="wall" x1="0" x2=".25" y1="0" y2="1"><stop stop-color="#fdfcf8"/><stop offset="1" stop-color="#eee8de"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="#debd95"/><stop offset="1" stop-color="#ae815b"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#d8e3e4"/><stop offset="1" stop-color="#abbcc4"/></linearGradient>
+  <linearGradient id="cabinet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4bc88"/><stop offset="1" stop-color="#9d7047"/></linearGradient>
+  <linearGradient id="fabric" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b4cdd3"/><stop offset="1" stop-color="#759fa9"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b8dce8"/><stop offset="1" stop-color="#e9f5e9"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="6"/></filter>
+  <pattern id="rugs" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 12H24M12 0V24" stroke="#fff" stroke-opacity=".2"/></pattern>
+  <pattern id="grain" width="55" height="18" patternUnits="userSpaceOnUse"><path d="M3 10h28M31 6h20" stroke="#845d43" stroke-opacity=".13" stroke-width="2"/></pattern>
+</defs>`;
+const productPaths=[
+// 0 dehumidifier
+`<ellipse cx="116" cy="175" rx="64" ry="10" fill="#172b35" opacity=".11"/><path d="M65 35Q65 20 81 20H151Q167 20 167 36V158Q167 170 154 170H77Q65 170 65 157Z" fill="url(#metal)" stroke="#8aa0a5" stroke-width="2"/><rect x="76" y="34" width="80" height="29" rx="6" fill="#d3e8e9"/><g stroke="#92adb1" stroke-width="3">${Array.from({length:7},(_,i)=>`<path d="M83 ${42+i*3}h66"/>`).join('')}</g><rect x="90" y="80" width="52" height="45" rx="4" fill="#eaf4f4" stroke="#b2c5c9"/><rect x="105" y="90" width="22" height="17" rx="3" fill="#a4d3d6"/><circle cx="116" cy="144" r="8" fill="#9eafb7"/><circle cx="80" cy="169" r="6" fill="#4d5e64"/><circle cx="152" cy="169" r="6" fill="#4d5e64"/>`,
+// 1 radiator
+`<ellipse cx="118" cy="177" rx="97" ry="8" fill="#172b35" opacity=".12"/><rect x="24" y="48" width="190" height="116" rx="13" fill="#a9afb0"/><rect x="28" y="45" width="186" height="109" rx="12" fill="url(#metal)" stroke="#96aab2" stroke-width="2"/><g stroke="#95abb4" stroke-width="3">${Array.from({length:9},(_,i)=>`<path d="M${43+i*19} 57v84"/>`).join('')}</g><rect x="34" y="155" width="18" height="15" rx="2" fill="#6b8087"/><rect x="180" y="155" width="18" height="15" rx="2" fill="#6b8087"/><circle cx="201" cy="69" r="7" fill="#e5a577"/>`,
+// 2 shelf
+`<ellipse cx="118" cy="180" rx="89" ry="10" fill="#142f3c" opacity=".12"/><path d="M44 22L190 16L190 174L44 179Z" fill="url(#cabinet)" stroke="#966a45" stroke-width="3"/><path d="M44 22L28 33L28 179L44 179Z" fill="#926647"/><rect x="56" y="35" width="120" height="58" fill="#f5e9d6" stroke="#9d7956" stroke-width="3"/><rect x="56" y="104" width="120" height="57" fill="#f5e9d6" stroke="#9d7956" stroke-width="3"/><rect x="64" y="58" width="19" height="31" rx="2" fill="#7d9da4"/><rect x="88" y="51" width="18" height="38" fill="#bc876f"/><rect x="111" y="60" width="21" height="29" fill="#bbc4a0"/><rect x="71" y="120" width="46" height="31" rx="3" fill="#9bb8b4"/><rect x="126" y="121" width="37" height="29" rx="3" fill="#e6be80"/>`,
+// 3 air conditioner
+`<ellipse cx="125" cy="152" rx="105" ry="10" fill="#173c4a" opacity=".08"/><path d="M22 52Q22 36 42 36H202Q220 36 220 54V112Q220 128 201 128H43Q22 128 22 110Z" fill="url(#metal)" stroke="#a8b9bc" stroke-width="2"/><path d="M30 91Q118 107 212 92L205 118H39Z" fill="#9ab7bf"/><path d="M42 111H200" stroke="#6f8c95" stroke-width="4"/><rect x="154" y="53" width="40" height="14" rx="4" fill="#daeae6"/><circle cx="47" cy="60" r="5" fill="#40a3a4"/><g stroke="#a1cbd3" stroke-width="3" stroke-opacity=".45" fill="none"><path d="M65 144q12 18 0 36M112 144q12 18 0 36M157 144q12 18 0 36"/></g>`,
+// 4 curtains
+`<path d="M19 15H219" stroke="#82786d" stroke-width="9" stroke-linecap="round"/><path d="M26 20Q36 39 34 91Q36 138 22 180H83Q64 135 78 85Q88 38 95 20Z" fill="#dfbb97" stroke="#bc9778" stroke-width="2"/><path d="M211 20Q202 42 207 98Q201 143 223 180H166Q177 134 159 88Q149 44 142 20Z" fill="#dfbb97" stroke="#bc9778" stroke-width="2"/><g stroke="#b28f72" stroke-opacity=".65" stroke-width="3"><path d="M40 25q9 68 1 144M66 25q-10 66 6 144M193 25q-9 69 1 144M170 25q12 76 1 144"/></g>`,
+// 5 vacuum cleaner
+`<ellipse cx="118" cy="177" rx="86" ry="9" fill="#172b35" opacity=".1"/><path d="M125 48L183 15" stroke="#899da6" stroke-width="12" stroke-linecap="round"/><path d="M183 16L198 20" stroke="#263a42" stroke-width="10" stroke-linecap="round"/><path d="M132 58L91 141" stroke="#354d59" stroke-width="12" stroke-linecap="round"/><ellipse cx="85" cy="149" rx="49" ry="22" fill="#587f8c"/><path d="M37 145Q90 115 133 145L132 161Q84 184 39 161Z" fill="url(#metal)" stroke="#829aa2" stroke-width="2"/><rect x="61" y="128" width="44" height="17" rx="8" fill="#6da1ac"/><circle cx="54" cy="165" r="10" fill="#314750"/><circle cx="118" cy="165" r="10" fill="#314750"/>`,
+// 6 acoustic panels
+`<ellipse cx="118" cy="184" rx="100" ry="7" fill="#172b35" opacity=".09"/><rect x="23" y="24" width="194" height="139" rx="6" fill="#7d8891"/><g>${Array.from({length:5},(_,r)=>Array.from({length:7},(_,c)=>`<rect x="${29+c*26}" y="${31+r*26}" width="22" height="22" rx="2" fill="${(r+c)%2?'#688792':'#afc1c6'}"/>`).join('')).join('')}</g>`,
+// 7 standing lamp
+`<ellipse cx="118" cy="180" rx="76" ry="10" fill="#172b35" opacity=".13"/><path d="M116 69L116 167" stroke="#8d7161" stroke-width="9"/><ellipse cx="115" cy="172" rx="47" ry="9" fill="#80746b"/><path d="M79 35Q116 15 154 35L164 81Q114 91 69 81Z" fill="#f7db9e" stroke="#bdac83" stroke-width="3"/><ellipse cx="116" cy="81" rx="47" ry="7" fill="#ead095"/><path d="M84 35Q116 23 150 35" stroke="#fff7d7" stroke-width="7" fill="none"/>`
+];
+function furnitureSVG(index){return `<svg viewBox="0 0 240 194" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${LOTS[index].name} 제품 그림">${svgDefs}${productPaths[index]}</svg>`}
+const sceneColors={coast:['#c8eaf4','#a0c5b0'],mountain:['#c9dce9','#96abb2'],city:['#d2dfe6','#9faeac'],rural:['#bcdde4','#8bb58f'],hot:['#f9dfb4','#b9c9ad'],rain:['#abbfcd','#92a8ad']};
+
+const REGION_PIECES=[
+ {d:'M15 46 Q31 13 105 18 L200 34 L205 143 L142 173 L40 164 Z',x:107,y:78,fill:'#b9dae2'},
+ {d:'M205 34 L342 15 L418 49 L395 145 L272 167 L205 143 Z',x:300,y:84,fill:'#c1d7b9'},
+ {d:'M418 49 L557 24 L646 78 L621 169 L501 160 L395 145 Z',x:526,y:91,fill:'#ddd5c3'},
+ {d:'M40 164 L142 173 L225 244 L185 353 L69 344 L14 257 Z',x:112,y:248,fill:'#d8e4a8'},
+ {d:'M142 173 L272 167 L395 145 L423 245 L355 357 L185 353 L225 244 Z',x:302,y:251,fill:'#f0dbab'},
+ {d:'M395 145 L501 160 L621 169 L653 272 L594 357 L355 357 L423 245 Z',x:519,y:261,fill:'#b8d5d9'}
+];
+const REGION_SHORT=['해안 마을','산골 마을','도심 주거지','농촌 마을','남부 지역','다우 지역'];
+function mapHTML(s,t){const shapes=REGION_PIECES.map((p,i)=>{const r=REGIONS[i];const other=s.teams.find(o=>o.id!==t.id&&o.region===i);const own=t.region===i;const sel=selectedRegionIndex===i;return `<g class="mapshape ${other?'taken':''} ${own?'owned':''} ${sel?'selected':''}" role="button" tabindex="0" aria-label="${r.name}${other?', 다른 모둠 선택 완료':''}" onclick="previewRegion(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();previewRegion(${i})}"><path class="terrain" d="${p.d}" fill="${p.fill}"/><text class="map-emoji" x="${p.x}" y="${p.y-14}" text-anchor="middle">${r.emoji}</text><text class="map-title" x="${p.x}" y="${p.y+12}" text-anchor="middle">${REGION_SHORT[i]}</text><text class="map-subtitle" x="${p.x}" y="${p.y+33}" text-anchor="middle">${other?'선택 완료':own?'우리 지역': '선택 가능'}</text></g>`}).join('');return `<div class="mapgraphic"><svg viewBox="0 0 670 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6개 지역을 직접 선택하는 가상의 주거 환경 지도"><rect width="670" height="380" fill="#d5eae8"/><path d="M0 26Q79 -15 168 4T380 9Q470 -4 555 1T670 40V370H0Z" fill="#e3f1e6"/><path d="M12 371Q53 315 77 289T183 196Q280 159 320 160T427 224Q477 250 534 218T670 191" stroke="#fff" stroke-width="14" opacity=".65" fill="none"/>${shapes}<path d="M21 360Q96 346 123 332T224 348Q279 360 330 349T432 363Q520 366 646 344" stroke="#9dc6cd" stroke-width="12" fill="none" opacity=".8"/><text x="20" y="23" fill="#2d6a7a" font-size="13" font-weight="900">우리 반 가상 주거 지도</text><text x="648" y="25" fill="#3b7582" text-anchor="end" font-size="11">▲ 북</text></svg></div>`}
+function previewRegion(i){if(!state||!teamId)return;const existing=state.teams[teamId-1].region;if(existing!==null){toast(`우리 모둠의 지역은 이미 ${REGIONS[existing].name}(으)로 확정됐습니다.`);return}selectedRegionIndex=i;renderRegionSelect()}
+function renderRegionSelect(){if(!state||!teamId)return;const t=state.teams[teamId-1],s=state;const chosen=selectedRegionIndex??t.region;$('regionMap').innerHTML=mapHTML(s,t);if(chosen===null){$('regionSelectionInfo').innerHTML='<h3>원하는 지역을 클릭하세요</h3><p>기후·생활 방식·주거 조건을 보고 모둠원끼리 의논한 다음 선택하세요.</p>';return}const r=REGIONS[chosen],other=s.teams.find(q=>q.id!==t.id&&q.region===chosen);$('regionSelectionInfo').innerHTML=`<div class="pill">${r.emoji} ${r.name}</div><h3>${r.name}</h3><p>${escapeHTML(r.desc)}</p>${other?'<div class="notice">다른 모둠이 이미 선택한 지역입니다. 다른 곳을 선택하세요.</div>':s.phase!=='lobby'?'<div class="hint">경매가 시작되어 지역을 변경할 수 없습니다.</div>':`<button class="large" onclick="commitRegion(${chosen})">${t.region===chosen?'선택한 지역 유지':'이 지역 선택 확정'}</button>`}<div class="info-note">특정 제품이 정답이라는 안내는 제공하지 않습니다. 생활환경만 보고 필요를 추론하세요.</div>`}
+async function commitRegion(i){const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 후에는 지역을 바꿀 수 없습니다.');if(s.teams[teamId-1].region!==null)throw Error('우리 모둠의 지역은 이미 확정되었습니다. 교사에게 변경을 요청하세요.');if(s.teams.some(t=>t.id!==teamId&&t.region===i))throw Error('이미 다른 모둠이 선택했습니다.');s.teams[teamId-1].region=i;return s});if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 지역이 확정되었습니다. 다음은 구매 전략입니다.');document.querySelector('#studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'})}}
+function catalogHTML(s,t){return LOTS.map((l,i)=>{const rank=(t.plan?.items||[]).indexOf(i);return `<div class="catalogitem ${rank>=0?'in-plan':''}"><div class="catalogart">${furnitureSVG(i)}</div><h3>${escapeHTML(l.name)} <span class="badge">${l.category}</span></h3><p>${escapeHTML(l.desc)}</p><div class="catalogprice">${fmt(l.start)}원 <span class="hint">시작가</span></div>${s.phase==='lobby'?`<button class="${rank>=0?'':'secondary'}" onclick="togglePriority(${i})" ${t.region===null?'disabled title="지역을 먼저 선택하세요"':''}>${rank>=0?rank+1+'순위 선택됨 · 취소':'+ 우선순위 추가'}</button>`:''}</div>`}).join('')}
+let localPriority=[],priorityCeilings={},priorityReason='';
+function syncPlanDraft(t){const w=t.planWorking?.updated?t.planWorking:(t.plan||{});localPriority=[...(w.items||[])];priorityCeilings={...(w.ceilings||{})};priorityReason=w.reason||'';planDraftDirty=false;if($('planEditor'))$('planEditor').innerHTML=''}
+function togglePriority(i){if(!state||state.phase!=='lobby')return;if(state.teams[teamId-1].region===null)return toast('지도를 먼저 선택하세요.');const pos=localPriority.indexOf(i);if(pos>=0)localPriority.splice(pos,1);else{if(localPriority.length>=3)return toast('우선순위는 세 개까지 선택할 수 있습니다.');localPriority.push(i)}planDraftDirty=true;renderCatalog();schedulePlanAutosave(true)}
+function renderCatalog(){if(!state||view!=='studentView')return;const t=state.teams[teamId-1];if(!t)return;const copy={...t,plan:{items:localPriority,ceilings:priorityCeilings,reason:priorityReason}};const focused=document.activeElement,focusId=focused?.id,focusLot=focused?.dataset?.lot,selStart=(focused&&'selectionStart'in focused)?focused.selectionStart:null;
+ $('studentCatalogGrid').innerHTML=catalogHTML(state,copy);
+ const content=`<div class="planbox"><div class="plan-budget-banner"><div><span>우리 모둠에 지급된 총예산</span><strong>${fmt(BUDGET)}원</strong></div><div id="planBudgetNotice">${planBudgetSummary()}</div></div><strong>📝 모둠 공동 구매 계획 · 모둠 대표 1명 작성 권장</strong><div class="planchips">${localPriority.length?localPriority.map((idx,n)=>`<span class="planchip">${n+1}순위 · ${LOTS[idx].name}</span>`).join(''):'<span class="hint">위 물품을 눌러 1~3순위를 정하세요.</span>'}</div>${localPriority.length?`<div class="plangrid">${localPriority.map((idx,n)=>`<div class="planfield"><label>${n+1}순위 · ${LOTS[idx].name}<br>최대 지불 의사 금액(원)</label><input type="number" class="planlimit" data-lot="${idx}" oninput="setPlanCeiling(${idx},this.value)" min="0" step="10000" max="${BUDGET}" value="${priorityCeilings[idx]??LOTS[idx].start}"></div>`).join('')}</div>`:''}<label class="field-caption" for="planReason">이 물품을 고른 우리 모둠의 이유</label><textarea id="planReason" oninput="setPlanReason(this.value)" maxlength="350" placeholder="예: 지역의 생활환경을 고려해 ○○를 우선하고, 예산이 부족하면 △△를 포기하기로 했다.">${escapeHTML(priorityReason)}</textarea><div class="row"><button onclick="savePlan()" ${t.region===null?'disabled':''}>공동 구매 전략 확정 → 경매장</button><span class="hint">${t.plan?.savedAt?'저장된 전략 수정 중 · 확정하면 갱신됩니다.':'작성 중인 내용도 교사창에 표시됩니다. 충돌을 방지하기 위해 한 사람이 작성하세요.'}</span></div></div>`;
+ $('planEditor').innerHTML=content;
+ if(focusId){const el=focusId==='planReason'?$('planReason'):(focusLot!==undefined?document.querySelector(`.planlimit[data-lot="${focusLot}"]`):null);if(el){el.focus({preventScroll:true});if(selStart!==null&&el.setSelectionRange)try{el.setSelectionRange(selStart,selStart)}catch{}}}
+}
+function sPhaseText(){return state.phase==='finished'?'아래에서 사전 계획과 실제 행동을 비교해 보세요.':'경매 진행 중에는 구매 계획을 수정할 수 없습니다.'}
+function planBudgetSummary(){const sum=localPriority.reduce((n,i)=>n+(Number(priorityCeilings[i]??LOTS[i].start)||0),0);return `설정한 최고 지불액 합계 <b>${fmt(sum)}원</b>${sum>BUDGET?' · <strong class="budget-alert">총예산 초과: 모두 낙찰받을 수 없습니다.</strong>':' · 실제 낙찰 시에만 예산이 차감됩니다.'}`}
+function setPlanReason(value){priorityReason=value;planDraftDirty=true;schedulePlanAutosave()}
+function setPlanCeiling(i,value){priorityCeilings[i]=Number(value)||0;planDraftDirty=true;schedulePlanAutosave();const el=$('planBudgetNotice');if(el)el.innerHTML=planBudgetSummary()}
+function schedulePlanAutosave(immediate=false){clearTimeout(planSaveTimer);if(!state||state.phase!=='lobby'||!teamId)return;const snapshot=++planDraftRevision;planSaveTimer=setTimeout(()=>{if(snapshot===planDraftRevision)saveWorkingPlan()},immediate?150:800)}
+async function saveWorkingPlan(){if(!planDraftDirty||!state||state.phase!=='lobby'||!teamId)return;const items=[...localPriority],ceilings={...priorityCeilings},reason=priorityReason.slice(0,350),editor=memberName;const ok=await modifyState(roomCode,s=>{const t=s.teams[teamId-1];if(s.phase!=='lobby'||t.region===null)return null;t.planWorking={items,ceilings,reason,updated:Date.now(),editor};return s},{quiet:true});if(ok&&items.join(',')===localPriority.join(',')&&reason===priorityReason)planDraftDirty=false}
+function revisePlan(){if(!state||state.phase!=='lobby')return;editPlanOverride=true;syncPlanDraft(state.teams[teamId-1]);renderStudent();document.getElementById('studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'})}
+async function savePlan(){const reason=$('planReason')?.value.trim()||priorityReason.trim();const ceilings={...priorityCeilings};document.querySelectorAll('.planlimit').forEach(el=>{ceilings[el.dataset.lot]=Math.max(0,Math.min(BUDGET,Number(el.value)||0))});if(!localPriority.length)return toast('물품을 1개 이상 선택해 주세요.');if(localPriority.some(i=>(ceilings[i]||0)<LOTS[i].start))return toast('최대 지불액은 물품 시작가 이상으로 설정하세요.');if(!reason)return toast('우리 모둠이 물품을 선택한 이유를 작성하세요.');const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 전까지만 전략을 저장할 수 있습니다.');const t=s.teams[teamId-1];if(t.region===null)throw Error('지역 선택을 먼저 완료하세요.');t.plan={items:[...localPriority],ceilings,reason:reason.slice(0,350),savedAt:Date.now()};t.planWorking={...t.plan,updated:Date.now(),editor:memberName};return s});if(ok){clearTimeout(planSaveTimer);planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 구매 전략이 확정되었습니다. 경매장으로 이동합니다.');document.getElementById('studentPlanBrief')?.scrollIntoView({behavior:'smooth',block:'start'})}}
+function outdoorScene(region){const c=sceneColors[region.scene]||sceneColors.city;return `<rect x="316" y="59" width="257" height="180" fill="${c[0]}"/><circle cx="515" cy="102" r="20" fill="#fff6d4" opacity=".65"/><path d="M316 170Q375 122 431 163T573 155V238H316Z" fill="${c[1]}" opacity=".75"/>${region.scene==='city'?`<g fill="#6d8999"><rect x="348" y="96" width="32" height="143"/><rect x="396" y="119" width="49" height="120"/><rect x="472" y="86" width="40" height="153"/></g>`:''}${region.scene==='coast'?'<path d="M316 193Q385 180 453 190T573 191V239H316Z" fill="#78b8ca"/>':''}${region.scene==='rain'?'<g stroke="#eaf6f8" stroke-width="3" opacity=".76"><path d="M354 72l-23 46M410 70l-23 46M483 63l-23 46M558 91l-23 46"/></g>':''}`}
+const itemPlacements=[
+ 'translate(535 331) scale(.42 .54)', // dehumidifier
+ 'translate(26 307) scale(.62 .52)', // heater
+ 'translate(702 178) scale(.79 1.13)', // cabinet
+ 'translate(641 74) scale(.92 .59)', // A/C
+ 'translate(290 51) scale(1.21 1.05)', // curtain
+ 'translate(777 343) scale(.57 .81)', // vacuum
+ 'translate(30 123) scale(.73 .78)', // panels
+ 'translate(569 295) scale(.41 .52)' // lamp
+];
+function roomArt(items,region=REGIONS[0]){
+ const visible=(index)=>items.includes(index)?`<g class="furn-in" transform="${itemPlacements[index]}">${productPaths[index]}</g>`:'';
+ const inventory=items.length?items.map(idx=>`<span>${escapeHTML(LOTS[idx].name)}</span>`).join(''):'<span>아직 낙찰된 제품이 없습니다</span>';
+ return `<div class="showroom"><svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="창문과 가구가 놓인 실내 공간. 구매 물품 ${items.length}개">${svgDefs}
+  <rect width="900" height="520" fill="#f7f6f0"/><path d="M0 0H900V340L0 373Z" fill="url(#wall)"/><path d="M0 0L90 0L90 343L0 384Z" fill="#e1e1d9"/>
+  <path d="M0 375L900 321V520H0Z" fill="url(#wood)"/><path d="M0 375L900 321V520H0Z" fill="url(#grain)"/><g stroke="#986c49" opacity=".2" stroke-width="2"><path d="M0 430L900 370M0 480L900 430M160 365L130 520M410 350L418 520M680 336L734 520"/></g>
+  ${outdoorScene(region)}<rect x="309" y="52" width="270" height="192" rx="4" fill="none" stroke="#f2efe6" stroke-width="17"/><path d="M444 53V239M310 150H577" stroke="#fcfaf3" stroke-width="10"/>
+  <path d="M0 375L900 321" stroke="#b4a899" stroke-width="7"/>
+  ${visible(6)}${visible(3)}${visible(4)}
+  <path d="M130 397Q336 367 566 400L679 471Q400 501 132 469Z" fill="#9a7769" opacity=".18" filter="url(#shadow)"/>
+  <path d="M235 417L572 393L683 465L300 498Z" fill="#d9c6ac"/><path d="M235 417L572 393L683 465L300 498Z" fill="url(#rugs)"/>
+  <g><path d="M105 318L345 300L446 355L219 378Z" fill="#89776a"/><path d="M104 333L221 408L446 378L446 355L219 376L105 318Z" fill="#bba88f"/><path d="M114 310L333 294L430 347L218 367Z" fill="#f8f2e8" stroke="#d7c9b4" stroke-width="4"/><path d="M114 310L218 366L217 385L115 331Z" fill="#ad9983"/><path d="M121 305Q161 275 215 307L265 332Q220 352 187 345Z" fill="#a7c7ca"/><path d="M262 302Q299 285 343 313L385 335Q350 347 312 332Z" fill="#b8d3d4"/><path d="M260 343L408 340L427 354L226 375Z" fill="#d8bdb5" opacity=".7"/></g>
+  <g><path d="M584 309L700 300L725 323L615 335Z" fill="#a17d5e"/><path d="M590 330L590 397M717 325L717 393" stroke="#85664d" stroke-width="11"/><path d="M603 300L686 300" stroke="#fff3e7" stroke-width="6"/></g>
+  ${visible(2)}${visible(1)}${visible(0)}${visible(7)}${visible(5)}
+  <path d="M858 521L900 521L900 309" fill="none" stroke="#dec9ae" stroke-width="9" opacity=".6"/>
+  <rect x="17" y="15" width="172" height="36" rx="12" fill="#fff" opacity=".92"/><text x="31" y="38" font-size="17" font-weight="750" fill="#344c57">ROOM SHOWROOM</text>
+ </svg><div class="room-inventory">${inventory}</div></div>`
+}
+function score(t){return{utility:0,diversity:0,total:0}}
+function determineWinner(s){if(s.leader){const t=s.teams[s.leader.team-1];return t&&s.leader.amount>=LOTS[s.round].start&&s.leader.amount<=t.budget?{id:s.leader.team,offer:s.leader.amount,time:s.leader.time}:null}const item=LOTS[s.round],offers=s.teams.map(t=>({id:t.id,offer:t.bids[s.round]?.value??0,time:t.bids[s.round]?.time??Infinity})).filter(x=>x.offer>=item.start&&x.offer<=s.teams[x.id-1].budget);offers.sort((a,b)=>b.offer-a.offer||a.time-b.time||a.id-b.id);return offers[0]||null}
+function render(){if(!state)return;if(view==='teacherView')renderTeacher();if(view==='studentView')renderStudent()}
+function highest(s){if(s.leader&&s.phase==='bidding')return s.leader;const b=determineWinner(s);return b?{team:b.id,amount:b.offer,time:b.time}:null}
+function auctionFeed(s,limit=5){const logs=(s.auctionLog||[]).filter(x=>x.round===s.round).slice(-limit).reverse();return logs.length?`<div class="auction-feed">${logs.map((x,i)=>`<div class="feed-entry ${i===0?'flash-bid':''}"><span>🔨 <b>${x.team}모둠</b>이 <b>${fmt(x.amount)}원</b>으로 최고가 경신</span><span class="feed-time">${new Date(x.time).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}</span></div>`).join('')}</div>`:'<div class="hint">첫 입찰을 기다리는 중입니다.</div>'}
+function productHero(s){const lot=LOTS[s.round];return `<div class="auction-hero"><div class="productstage">${furnitureSVG(s.round)}</div><div><span class="pill">LOT ${String(s.round+1).padStart(2,'0')} / 08</span><h3>${escapeHTML(lot.name)}</h3><div class="auction-head">${escapeHTML(lot.desc)}</div><div class="hint" style="margin-top:10px">경매 시작가 ${fmt(lot.start)}원 · 1개 한정 · 물품은 실생활 가전·가구를 표현한 모습입니다.</div></div></div>`}
+function auctionStatus(s,myTeam=0){const leader=highest(s),starting=LOTS[s.round].start;const min=leader?leader.amount+1:starting;return `<div class="bid-panel stack"><div class="price-box"><div><div class="price-label">${leader?'현재 최고 입찰가':'현재 입찰 시작가'}</div><div class="live-price">${fmt(leader?.amount??starting)} <small>원</small></div><div class="live-leader">${leader?`🏁 ${leader.team}모둠이 현재 최고가`:'아직 최고 입찰자가 없습니다'}</div></div><div class="clock-surface"><div class="price-label">남은 시간</div><div class="clock-value" data-clock>--:--</div></div></div><div class="timebar"><i data-timebar></i></div><div class="row between tiny"><span>입찰은 현재 최고가보다 10,000원 이상 높아야 합니다.</span><span>마감 5초 전 입찰 시 최대 2회 5초 연장</span></div>${myTeam?`<div class="${leader?.team===myTeam?'leader-self':'leader-other'}">${leader?.team===myTeam?'🏆 우리 모둠이 현재 1위입니다. 다른 모둠이 더 높은 가격을 제시하면 역전됩니다.':leader?'다른 모둠이 앞서고 있습니다. 예산과 물품 가치를 비교해 추가 입찰을 판단하세요.':'첫 입찰을 시작할 수 있습니다.'}</div>`:''}</div>`}
+
+const REFLECTION_FORMAT='room-auction-reflection-v2';
+function parseReflectionAnswer(raw){
+ try{const x=JSON.parse(raw);if(x?.format===REFLECTION_FORMAT&&Number.isInteger(x.decision)&&Number.isInteger(x.alternative)&&typeof x.reason==='string'&&typeof x.alternativeReason==='string')return x;}catch{}
+ return null;
+}
+function reflectionTextForDisplay(raw){
+ const x=parseReflectionAnswer(raw);
+ if(!x)return String(raw||'');
+ const a=LOTS[x.decision]?.name||'미확인 물품',b=LOTS[x.alternative]?.name||'미확인 물품';
+ return `① 중요 결정: ${a}\n② 결정 이유: ${x.reason}\n③ 포기한 대안: ${b}\n④ 대안의 가치: ${x.alternativeReason}`;
+}
+function reflectionTextForKeywords(raw){
+ const x=parseReflectionAnswer(raw);
+ return x?`${x.reason} ${x.alternativeReason}`:String(raw||'');
+}
+function mentionsKeyword(r,k){const words=k.normalized||k.words.map(normalizeKeywordText);const clean=normalizeKeywordText(reflectionTextForKeywords(r.text));return words.some(word=>clean.includes(word))}
+function reflectionLotLabel(t,i){
+ const name=LOTS[i].name;
+ if(t.items?.includes(i))return `${name} · 낙찰(구매)`;
+ if(t.passes?.[i])return `${name} · 추가 입찰 포기`;
+ if(t.bids?.[i]?.value)return `${name} · 입찰했으나 미낙찰`;
+ return `${name} · 구매하지 않음`;
+}
+function populateReflectionLotChoices(t){
+ const dec=$('reflectionDecision'),alt=$('reflectionAlternative');if(!dec||!alt)return;
+ const signature=JSON.stringify({items:t.items,bids:t.bids,passes:t.passes});
+ if(dec.dataset.choices!==signature){
+   for(const [node,label] of [[dec,'결정한 물품을 선택하세요'],[alt,'포기한 대안 물품을 선택하세요']]){
+     const old=node.value;
+     node.innerHTML='<option value="">'+label+'</option>'+LOTS.map((it,i)=>`<option value="${i}">${escapeHTML(reflectionLotLabel(t,i))}</option>`).join('');
+     node.value=old;
+   }
+   dec.dataset.choices=signature;
+ }
+ for(const opt of alt.options){opt.disabled=opt.value!==''&&(opt.value===dec.value||t.items?.includes(Number(opt.value)));}
+ if(alt.value!==''&&(alt.value===dec.value||t.items?.includes(Number(alt.value))))alt.value='';
+}
+function reflectionFields(){
+ const d=$('reflectionDecision').value,a=$('reflectionAlternative').value;
+ return {format:REFLECTION_FORMAT,decision:d===''?null:Number(d),reason:$('reflectionReason').value.trim(),alternative:a===''?null:Number(a),alternativeReason:$('reflectionAlternativeReason').value.trim()};
+}
+// 폭넓은 교과 개념/환경 표현 사전. 문장 내용만 분석하며 객관적인 활동 평가에 영향을 주지 않습니다.
+// 짧은 조사·기호·띄어쓰기를 제거해 '바닷가에서', '바다 가', '기회 비용' 등도 포착합니다.
+const ECONOMIC_KEYWORDS=[
+ {label:'희소성',words:['희소성','희소','자원부족','부족한자원','물량제한','수량제한','한정된물품','한정수량','한개뿐','하나뿐','한정','품귀','품절','물건이적','공급부족','수요초과','수요가많','물건이없','살수가없','모든모둠이','경쟁','서로가지려고','한정된예산']},
+ {label:'기회비용',words:['기회비용','기회 비용','포기','포기했','포기해야','포기한것','포기한대안','대안','차선책','차선','다른선택','다른물품','대신에','대신선택','놓친','놓치게','못사','사지못','구매하지못','구입하지못','살수없','얻지못','희생','아쉬웠','아쉽','양보','대체선택','버리기로','포기한가치','선택의대가','포기한이익']},
+ {label:'예산 제약',words:['예산','금액','가격','값이','값을','금전','금전적','가격대','가성비','구매액','지불','구매비','구입비','초기자본','초기자금','자본금','잔액','남은돈','돈이모자','돈이부족','돈을아끼','돈을남기','예산부족','예산초과','예산제약','자금','재정','입찰가','낙찰가','시작가','최고가','지출','한도','상한','하한','비싸','비싼','저렴','싸게','싸다고','싸서','절약','절감','아껴','아끼기','할인','원으로','만원','투입금','지갑']},
+ {label:'합리적 선택',words:['합리적','합리','효율적','효율성','경제적','효율','합당','타당','적절','적합','실용','실용성','필요성','필요했','필요하','필수','더유용','유용','효용','가치','중요도','적당','고려','비교','따져','판단','결정','선택','선호','고민','대비','이득','편익','실익','실생활','유리하','현명','생각해','도움','가장좋','맞춤','최선','장단점','우선할만','만족도','기능성','효과적']},
+ {label:'우선순위',words:['우선순위','우선','먼저','최우선','가장중요','우선적','일순위','이순위','삼순위','1순위','2순위','3순위','중요도','필수품','급한','급해서','급선무','시급','가장필요','주력','우선구매','포기순서','구매순서','순서','차례','먼저사','먼저구매','먼저입찰','선결','차선책']}
+];
+const REGION_KEYWORDS=[
+ {label:'해안·바다 환경',words:['해안','바다','바닷가','바닷바람','바닷물','바다근처','바다앞','해변','해변가','해수','해수욕장','해안가','해안지대','해안지역','해변지역','연안','항구','어촌','갯벌','파도','물가','염분','염기','소금기','짠바람','바닷내음','해풍','습한바람','습풍','물비린내','염해','습도높','젖은빨래','빨래안말','건조가안','눅눅','꿉꿉','축축','곰팡이','결로','수분','제습','환기']},
+ {label:'산골·추위 환경',words:['산골','산간','산속','산중','산지','산악','고지대','높은지대','산동네','산마을','산기슭','계곡','언덕','강원도','추위','추운','춥다','춥기','추워','차가운','차갑','냉기','한기','한파','혹한','강추위','영하','기온차','일교차','겨울','겨울철','장기간추위','외풍','찬바람','찬공기','바람이들','창문틈','틈바람','단열','보온','난방','열손실','따뜻','온기','열기','난방비','보일러','방한']},
+ {label:'도심·소음·좁은 공간',words:['도심','도시','시내','번화가','번화한','상업지역','주택가','아파트','원룸','자취방','고시원','작은방','좁은방','좁은집','좁다','좁아','작은공간','작은주거','협소','공간부족','공간이좁','평수가작','평수','6평','수납부족','물건이많','정리정돈','정리','물건정리','보관','수납','차소리','차량','자동차','도로','교통','교통량','사람들','인파','인구밀집','인구밀도','층간소음','주변소음','거리소음','외부소음','시끄럽','시끄러운','소음','소란','소리','방음','소음차단','집중','공부','학습','조용','방해','휴식']},
+ {label:'농촌·먼지·야외 활동',words:['농촌','농가','농업','농사','시골','전원','논밭','논','밭','텃밭','농지','작물','농기계','농장','들판','흙먼지','흙','흙탕','흙이묻','흙이들','먼지','먼지가많','모래','모래먼지','황토','진흙','오염','지저분','더러워','더러운','청결','깨끗','쓸고','닦고','청소','실외활동','야외활동','밖에서일','바깥활동','현관','신발','일손','농작업','저녁작업','야간작업','밤에작업','야간','불빛','밝기','조도','어두운','어둡','조명','작업등']},
+ {label:'남부·더위·햇빛 환경',words:['남부','남쪽','고온','고온다습','무더위','더위','더워','더운','더워서','더워지','덥다','덥기','폭염','찜통','열대야','태양','태양광','일사량','햇빛','햇볕','햇살','햇볕강','빛이강','햇빛이강','직사광선','남향','일조','일조량','한여름','여름','여름철','여름이길','온도','기온상승','실내온도','체감온도','열기','열손실','냉방','에어컨','냉풍','시원','서늘','차광','그늘','커튼','블라인드','햇빛차단','열차단']},
+ {label:'다우·장마·젖은 환경',words:['비가잦','비가많','비오는날','비가내','비바람','장마','장마철','호우','폭우','강수','강수량','다우','우기','우중','빗물','빗방울','비에젖','비맞','젖은','젖어서','축축','눅눅','습기','습도','과습','습한','습하','곰팡이','물방울','물기','바닥물기','결로','수분','침수','물웅덩이','진흙','우산','장화','젖은신발','신발이젖','실내청결','제습','건조','빨래','빨래안말','환기']}
+];
+const HOME_ENVIRONMENT_WORDS=['지역','지역적','지역특성','주거환경','주거조건','거주환경','거주지','생활환경','동네','마을','집의특징','집의조건','집환경','방의환경','위치','위치상','기후','기후조건','기온','기온차','날씨','기상','지형','지형적','공간','공간활용','주택','자취방','방크기','방면적','면적','주거형태','생활여건','특성','환경','지역에맞','우리동네','우리지역'];
+const LOT_KEYWORDS=[
+ ['제습기','제습','습기제거','습도조절','습도관리','수분제거','물기제거','곰팡이예방','곰팡이방지','습기방지','제습가전','방습','건조기능'],
+ ['난방기','난방','히터','전기히터','온풍기','라디에이터','보온기','전기난로','난로','보일러','온열기','난방장치','따뜻하게','난방시설'],
+ ['수납장','수납','수납공간','수납가구','옷장','서랍','서랍장','정리함','선반','책장','보관함','물건정리','공간정리','붙박이장','정리장','공간효율'],
+ ['냉방기','냉방','에어컨','에어콘','냉풍기','선풍기','에어쿨러','쿨러','냉각기','시원한공기','온도낮','열기제거','실내냉각'],
+ ['단열커튼','단열커텐','커튼','커텐','암막커튼','암막커텐','블라인드','차광막','단열막','열차단','햇빛차단','햇볕차단','열손실방지','보온커튼','방한커튼'],
+ ['청소기','청소','진공청소기','무선청소기','로봇청소기','먼지제거','미세먼지제거','바닥청소','청결관리','쓸기','청소도구'],
+ ['방음패널','방음재','방음벽','방음장치','흡음재','흡음패널','흡음판','소음차단','방음시설','방음시공','차음','소음감소','소음완화','소음방지'],
+ ['조명','전등','형광등','스탠드','탁상등','책상등','공부등','무드등','LED등','엘이디','밝기조절','조도조절','조명기구','조명시설','램프','전구','불빛','야간조명','빛조절']
+];
+// 지역별 세부 분류는 그 지역을 뚜렷하게 드러내는 표현만 사용하여
+// '장마철' 답변이 무관한 '해안'이나 '농촌'에도 동시에 집계되지 않게 합니다.
+// 반면 '지역 특성'은 모든 지역의 공통 환경 단서(습기·먼지·온도 등)를 폭넓게 포착합니다.
+const REGION_SIGNATURE_KEYWORDS=[
+ {label:'해안·바다 환경',words:['해안','바다','바닷가','바닷바람','바닷물','바다근처','바다앞','해변','해변가','해수','해수욕장','해안가','해안지대','해안지역','해변지역','연안','항구','어촌','갯벌','파도','염분','소금기','짠바람','해풍','염해']},
+ {label:'산골·추위 환경',words:['산골','산간','산속','산중','산지','산악','고지대','높은지대','산동네','산마을','산기슭','계곡','언덕','강원도','추위','추운','춥다','춥기','추워','차가운','차갑','냉기','한기','한파','혹한','강추위','영하','기온차','일교차','겨울','겨울철','외풍','찬바람','찬공기','창문틈','틈바람','방한']},
+ {label:'도심·소음·좁은 공간',words:['도심','도시','시내','번화가','상업지역','원룸','고시원','좁은방','좁은집','좁다','좁아','작은공간','협소','공간부족','6평','평수가작','차소리','차량','자동차','도로','교통','교통량','인구밀집','층간소음','주변소음','거리소음','외부소음','시끄럽','소음','소란','소음차단','방음']},
+ {label:'농촌·먼지·야외 활동',words:['농촌','농가','농업','농사','시골','전원','논밭','텃밭','농지','작물','농기계','농장','들판','흙먼지','농작업','농작물','실외활동','야외활동','밖에서일','바깥활동','농촌현관','저녁작업','야간작업','밤에작업','농사일','밭일']},
+ {label:'남부·더위·햇빛 환경',words:['남부','남쪽','고온','무더위','더위','더워','더운','더워서','더워지','덥다','폭염','찜통','열대야','태양','태양광','일사량','햇빛','햇볕','햇살','직사광선','남향','일조','일조량','한여름','여름','여름철','기온상승','체감온도','차광','햇빛차단']},
+ {label:'다우·장마·젖은 환경',words:['비가잦','비가많','비오는날','비가내','비바람','장마','장마철','호우','폭우','강수','강수량','다우','우기','우중','빗물','빗방울','비에젖','비맞','침수','물웅덩이','젖은신발','신발이젖','물방울맺','창가물방울']}
+];
+const KEY_DICTIONARY=[...ECONOMIC_KEYWORDS,
+  {label:'지역 특성',words:[...HOME_ENVIRONMENT_WORDS,...REGION_KEYWORDS.flatMap(r=>r.words)]},
+  ...REGION_SIGNATURE_KEYWORDS,
+  ...LOTS.map((lot,i)=>({label:lot.name,words:LOT_KEYWORDS[i]}))
+];
+function normalizeKeywordText(text){return String(text||'').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}\s]/gu,'')}
+const NORMALIZED_KEYWORDS=KEY_DICTIONARY.map(k=>({...k,normalized:[...new Set(k.words.map(normalizeKeywordText).filter(x=>x.length>=2))]}));
+function reflectionList(t){return Array.isArray(t.reflections)?t.reflections:[]}
+function keywordStats(t){const members=reflectionList(t).filter(r=>r.text?.trim());return NORMALIZED_KEYWORDS.map(k=>{const matching=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:matching.length,members:matching}}).filter(x=>x.count>0).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko'))}
+function classKeywordStats(s){const members=s.teams.flatMap(t=>reflectionList(t)).filter(x=>x.text?.trim());return NORMALIZED_KEYWORDS.map(k=>{const selected=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:selected.length,memberCount:members.length}}).filter(k=>k.count).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko')).slice(0,11)}
+function tag(level){return `<span class="reviewstatus ${level}">${level}</span>`}
+function activityData(s,t){
+ const plan=t.plan||{},planned=plan.items||[],won=t.items||[],logs=(s.auctionLog||[]).filter(x=>x.team===t.id),spend=BUDGET-t.budget;
+ const bidRounds=[...new Set(logs.map(x=>x.round))];const competitions=bidRounds.filter(i=>new Set((s.auctionLog||[]).filter(x=>x.round===i).map(x=>x.team)).size>1);
+ const exceeded=logs.filter(b=>Number(plan.ceilings?.[b.round])>0&&b.amount>Number(plan.ceilings[b.round]));
+ return {planned,won,logs,spend,bidRounds,competitions,exceeded,passes:Object.keys(t.passes||{}).filter(i=>t.passes[i]).map(Number),unwon:planned.filter(i=>!won.includes(i)),unplanned:won.filter(i=>!planned.includes(i)),maxPlannedSum:planned.reduce((a,i)=>a+(Number(plan.ceilings?.[i])||0),0)}
+}
+function assessment(s,t){const a=activityData(s,t);return [
+ {label:'선택 지역',value:t.region===null?'미선택':REGIONS[t.region].name},
+ {label:'사전 전략',value:t.plan?.savedAt?'확정':'미확정'},
+ {label:'총지출',value:`${fmt(a.spend)}원`},
+ {label:'현재 잔액',value:`${fmt(t.budget)}원`},
+ {label:'경쟁 참여 품목',value:`${a.competitions.length}종`},
+ {label:'계획 물품 미낙찰',value:`${a.unwon.length}종`}
+ ]}
+function feedbackHTML(s,t){const d=activityData(s,t),region=t.region===null?null:REGIONS[t.region],p=t.plan||{},fmtItem=i=>escapeHTML(LOTS[i].name),planned=d.planned.map((i,n)=>`${n+1}순위 ${fmtItem(i)} (${fmt(p.ceilings?.[i]||0)}원 한도)`),wins=d.won.map(i=>`${fmtItem(i)} (${fmt(s.history.find(h=>h.round===i)?.price||0)}원)`),missed=d.unwon.map(fmtItem),extra=d.unplanned.map(fmtItem);
+ return `<div class="insight-panel"><div class="row between"><strong>${t.name} · ${region?.name||'지역 미선택'}</strong><span class="pill">사전 계획과 실제 기록 비교</span></div>
+ <div class="objective-facts"><span class="factchip">초기 예산 ${fmt(BUDGET)}원</span><span class="factchip">총지출 ${fmt(d.spend)}원</span><span class="factchip">잔액 ${fmt(t.budget)}원</span><span class="factchip">낙찰 ${d.won.length}종</span><span class="factchip">입찰 ${d.logs.length}회</span></div>
+ <div class="feedback-room"><div class="feedback-room-heading"><h3>🏠 경매를 마친 우리 방의 모습</h3><p>선택한 지역의 풍경과 실제 낙찰받은 가구·가전제품이 반영됩니다. 기본 침대와 탁자는 공통으로 제공됩니다.</p></div><div class="feedback-room-image">${roomArt(d.won,region||REGIONS[0])}</div></div>
+ <div class="reviewgrid">
+ <div class="objective-card"><h3>① 지역·구매 계획</h3><p><b>선택 환경:</b> ${region?escapeHTML(region.desc):'미선택'}</p><p><b>사전 우선순위:</b> ${planned.join(' → ')||'기록 없음'}</p><p><b>우리 모둠이 작성한 이유:</b> ${escapeHTML(p.reason||'작성 없음')}</p></div>
+ <div class="objective-card"><h3>② 구매와 예산 제약</h3><p><b>실제 낙찰:</b> ${wins.join(' · ')||'없음'}</p><p><b>사전 최대 지불 의사 금액 합계:</b> ${fmt(d.maxPlannedSum)}원 (동시 구매 확정액은 아님)</p><p><b>사전 한도를 초과해 제시한 입찰:</b> ${d.exceeded.length}회</p><p><b>지출률:</b> ${Math.round(d.spend/BUDGET*100)}%</p></div>
+ <div class="objective-card"><h3>③ 희소성과 경매 경쟁</h3><p><b>입찰한 물품:</b> ${d.bidRounds.length}종 · 실제 경쟁한 물품: ${d.competitions.length}종</p><p><b>경쟁 물품:</b> ${d.competitions.map(fmtItem).join(' · ')||'없음'}</p><p>한정된 물품을 여러 모둠이 원했을 때 내 입찰 금액과 결과가 어떻게 달라졌는지 확인하세요.</p></div>
+ <div class="objective-card"><h3>④ 선택과 포기한 후보</h3><p><b>계획했지만 낙찰받지 못한 물품:</b> ${missed.join(' · ')||'없음'}</p><p><b>계획 밖에서 낙찰받은 물품:</b> ${extra.join(' · ')||'없음'}</p><p><b>추가 입찰을 포기한 물품:</b> ${d.passes.map(fmtItem).join(' · ')||'없음'}</p><p><b>성찰 질문:</b> 선택 때문에 포기한 <u>가장 가치 있는 대안</u>은 무엇이었나요? 미낙찰 물품이 곧 기회비용이라는 뜻은 아닙니다.</p></div>
+ </div><div class="notice">이 자료는 관찰 가능한 행동을 요약한 것입니다. <b>경제 개념을 이해했는지에 대한 등급·점수는 부여하지 않습니다.</b> 성찰 답변은 이 결과를 보며 스스로 설명하기 위한 자료이며, 답변의 단어가 위 수치를 바꾸지 않습니다.</div></div>`}
+function globalWordCloud(stats){
+ const max=Math.max(1,...stats.map(x=>x.count));
+ return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map(k=>{const size=15+Math.round(20*Math.sqrt(k.count/max));return `<button style="font-size:${size}px" class="${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord('${escapeHTML(k.label)}')" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small style="font-size:10px;vertical-align:middle;margin-left:3px">${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
+}
+function toggleGlobalWord(k){activeGlobalKeyword=activeGlobalKeyword===k?'':k;renderTeacher()}
+function teacherProgressSummary(s){
+ const memberTotal=s.teams.reduce((n,t)=>n+(t.members||[]).length,0), answered=s.teams.reduce((n,t)=>n+reflectionList(t).length,0),teamsDone=s.teams.filter(t=>reflectionList(t).length>0).length;
+ return `<div class="teacher-final-progress"><span class="teacher-progress-chip">답변 <b>${answered}/${memberTotal}명</b></span><span class="teacher-progress-chip">성찰 참여 모둠 <b>${teamsDone}/6</b></span><span class="teacher-progress-chip">활동 완료 <b>${s.history.length}/${LOTS.length}물품</b></span></div>`;
+}
+function teacherSelectedExcerpts(s){if(!activeGlobalKeyword)return '<div class="teacher-insight-caption">단어를 누르면 실제 학생 답변의 관련 부분을 확인할 수 있습니다. 단어 빈도만으로 학습 성취를 판단하지 않습니다.</div>';const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return '';const hits=s.teams.flatMap(t=>reflectionList(t).filter(r=>mentionsKeyword(r,group)).map(r=>({team:t.id,name:r.name,text:r.text})));return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeGlobalKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,3).map(r=>`${r.team}모둠 ${escapeHTML(r.name)}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,85))}${reflectionTextForDisplay(r.text).length>85?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`}
+function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword('${escapeHTML(k.label)}','${scope}')" title="${k.count}명이 언급">${k.label} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
+function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
+function membersHTML(t,keyword=''){const refs=reflectionList(t);const criterion=KEY_DICTIONARY.find(k=>k.label===keyword);const shown=criterion?refs.filter(r=>mentionsKeyword(r,criterion)):refs;return shown.length?shown.map((r,i)=>`<div class="memberquote"><div class="row between"><span class="name">${escapeHTML(r.name||'모둠원')}</span><span class="hint">${r.updated?new Date(r.updated).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join(''):'<div class="hint">선택한 키워드가 들어간 답변이 아직 없습니다.</div>'}
+function renderStudentInsight(){if(!state||view!=='studentView')return;const t=state.teams[teamId-1];const stats=keywordStats(t),n=reflectionList(t).length;const top=stats.slice(0,5);$('studentReflectionInsights').innerHTML=`<div class="stack" style="margin-top:16px"><div class="row between"><h3 style="margin:0">💬 우리 모둠 성찰 키워드</h3><span class="pill">현재 ${n}명 작성</span></div>${keywordCloud(stats,'student',activeStudentKeyword)}${top.length?`<div class="stack">${top.map(k=>`<div class="row"><div style="min-width:85px;font-weight:750;font-size:13px">${k.label}</div><div class="keybar"><i style="width:${Math.round(k.count/Math.max(1,n)*100)}%"></i></div><span class="hint">${k.count}/${n}명</span></div>`).join('')}</div>`:''}<div class="hint">${activeStudentKeyword?'“'+activeStudentKeyword+'”와 연결된 답변만 표시 중 · 키워드 재클릭 시 전체 표시':'키워드를 클릭하면 해당 단어·표현이 포함된 학생 답변을 모아 볼 수 있습니다.'}</div><div class="stack">${membersHTML(t,activeStudentKeyword)}</div></div>`}
+function renderTeacherDetail(){if(!state||view!=='teacherView')return;const t=state.teams[teacherDetailTeam-1];if(!t)return;const n=reflectionList(t).length,stats=keywordStats(t);$('teacherDetailedFeedback').innerHTML=`<div class="stack"><h3>${t.name} · ${t.region!==null?REGIONS[t.region].name:'지역 미선택'} — 활동 기록과 개인별 답변</h3>${feedbackHTML(state,t)}<h3>모둠원 ${n}명 · 핵심 키워드</h3>${keywordCloud(stats,'teacher',activeTeacherKeyword)}<div class="hint">${activeTeacherKeyword?'“'+activeTeacherKeyword+'” 언급 답변만 표시':'키워드를 선택하면 그 표현이 나타난 답변을 확인할 수 있습니다.'}</div>${membersHTML(t,activeTeacherKeyword)}</div>`}
+function renderClassExcerpts(){const out=$('teacherClassExcerpts');if(!out)return;if(!activeGlobalKeyword){out.innerHTML='';return}const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return;const refs=state.teams.flatMap(t=>reflectionList(t).filter(x=>mentionsKeyword(x,group)).map(x=>({team:t.name,...x})));out.innerHTML=`<div class="insight-panel"><div class="row between"><strong>“${escapeHTML(activeGlobalKeyword)}” 관련 답변 · ${refs.length}명</strong><button class="secondary" onclick="activeGlobalKeyword='';renderClassExcerpts()">모아보기 닫기</button></div><div class="stack">${refs.map(r=>`<div class="memberquote"><div class="name">${r.team} · ${escapeHTML(r.name)}</div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join('')||'<div class="hint">관련 문장을 찾지 못했습니다.</div>'}</div></div>`}
+function renderTeacherResults(){
+ if(!state||state.phase!=='finished')return;
+ const team=state.teams[teacherDetailTeam-1];
+ $('teacherResultHeading').textContent=`📘 ${teacherDetailTeam}모둠 · ${team?.region===null?'지역 미선택':REGIONS[team.region].name} 학습 기록 · 개인 성찰`;
+ renderTeacherDetail();
+}
+function selectTeacherTeam(id){teacherDetailTeam=id;activeTeacherKeyword='';renderTeacherResults()}
+function closeTeacherPanel(){const d=$('teacherDrawer');if(d)d.classList.add('hidden');$('teacherInspectPlan')?.classList.add('hidden')}
+function openTeacherPanel(type='history'){
+ const d=$('teacherDrawer');d.classList.remove('hidden');
+ $('teacherInspectPlan').classList.add('hidden');
+ $('teacherHistoryFull').classList.toggle('hidden',state?.phase==='finished'||type==='analysis'||type==='guide');
+ $('teacherResults').classList.toggle('hidden',state?.phase!=='finished'||type==='guide'||type==='history');
+ $('teacherGuide').classList.toggle('hidden',type!=='guide');
+ $('teacherDrawerTitle').textContent=type==='guide'?'수업 운영 안내':type==='analysis'?`${teacherDetailTeam}모둠 · 학습 기록·개인 성찰`:'경매 전체 기록';
+ if(type==='guide')$('teacherGuide').open=true;
+ if(type==='analysis'&&state?.phase==='finished')renderTeacherResults();
+ $('teacherDrawerSheet')?.scrollTo(0,0);
+}
+function inspectTeacherTeam(id){
+ if(!state)return;teacherDetailTeam=id;
+ const t=state.teams[id-1];if(!t)return;
+ const r=t.region===null?null:REGIONS[t.region];
+ const p=t.planWorking?.updated?t.planWorking:t.plan||{};
+ const plans=(p.items||[]).map((i,n)=>`<div class="teacher-inspect-item"><b>${n+1}순위 · ${escapeHTML(LOTS[i]?.name||'물품')}</b> · 최고 지불 의사 금액 ${fmt((p.ceilings||{})[i]||0)}원</div>`).join('')||'<div class="teacher-inspect-item">우선순위 입력 전</div>';
+ $('teacherDrawerTitle').textContent=`${id}모둠 · ${r?.name||'지역 미선택'} 자세히 보기`;
+ $('teacherInspectPlan').innerHTML=`<div class="row between"><h2 style="margin:0">📋 공동 구매 계획 · 현재 작성 현황</h2><span class="pill">${t.plan?.savedAt?'전략 확정':p.updated?'작성 중':'미작성'}</span></div><div class="stack" style="margin-top:10px"><div class="teacher-inspect-item"><b>지역:</b> ${escapeHTML(r?.name||'미선택')} · <b>잔액:</b> ${fmt(t.budget)}원 · <b>낙찰:</b> ${t.items.length}개</div>${plans}<div class="teacher-inspect-item"><b>모둠 공동 이유</b><div>${escapeHTML(p.reason||'아직 작성하지 않았습니다.')}</div></div><div><h3>참여 모둠원 (${(t.members||[]).length}명)</h3><div class="hint">${(t.members||[]).map(m=>escapeHTML(m.name)).join(' · ')||'아직 참여한 학생이 없습니다.'}</div></div>${state.phase==='lobby'&&t.region!==null?`<button class="secondary" onclick="unlockRegion(${id})">이 모둠의 지역 선택 취소 (교사)</button>`:''}</div>`;
+ $('teacherInspectPlan').classList.remove('hidden');
+ $('teacherDrawer').classList.remove('hidden');
+  if(state.phase==='finished'){$('teacherHistoryFull').classList.add('hidden');$('teacherResults').classList.remove('hidden');$('teacherGuide').classList.add('hidden');selectTeacherTeam(id)}else{$('teacherHistoryFull').classList.add('hidden');$('teacherResults').classList.add('hidden');$('teacherGuide').classList.add('hidden')}
+ $('teacherDrawerSheet')?.scrollTo(0,0);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTeacherPanel()});
+function renderTeacher(){
+ const s=state, joined=s.teams.filter(t=>t.joined).length, members=s.teams.reduce((n,t)=>n+(t.members||[]).length,0), chosen=s.teams.filter(t=>t.region!==null).length,planned=s.teams.filter(t=>t.plan?.savedAt).length;
+ const durationPref=$('timeSelect')?.value||'40';
+ $('teacherCodeBadge').textContent=s.code;$('teacherPhaseBadge').textContent=stage(s);
+ $('joinedMetric').textContent=joined+'/6';$('memberMetric').textContent=members+'명';$('regionMetric').textContent=chosen+'/6';$('planMetric').textContent=planned+'/6';
+ $('roundMetric').textContent=s.phase==='lobby'?'대기':s.phase==='finished'?`${LOTS.length}/${LOTS.length}`:`${s.round+1}/${LOTS.length}`;
+ $('submittedMetric').textContent=s.phase==='bidding'?s.teams.filter(t=>t.bids[s.round]?.value>0).length+'/6':'—';$('teacherDots').innerHTML=dots(s);
+ $('teacherLiveTitle').textContent=s.phase==='finished'?'💬 학급 전체 성찰 키워드':s.phase==='lobby'?'🗺️ 지역·구매 전략 준비':s.phase==='reveal'?'🔨 낙찰 결과 발표':'🔔 실시간 경매 운영';
+ if(s.phase==='lobby'){
+   $('teacherCurrent').innerHTML=`<div class="stack"><div class="bid-panel"><div class="row between"><strong>지역 선택 ${chosen}/6모둠</strong><strong>구매 전략 ${planned}/6모둠</strong></div><div class="timebar"><i style="width:${Math.round(planned/6*100)}%"></i></div><div class="hint" style="margin-top:9px">오른쪽 모둠을 누르면 현재 우선순위·공동 이유·작성 상태를 확인할 수 있습니다.</div></div><div class="region-story">학생들은 지도에서 지역을 선택한 뒤 물품 8종을 살펴보고, 구매 우선순위와 지불 한도를 작성하고 있습니다. 전략은 각 모둠이 확정할 때까지 수정할 수 있습니다.</div><div class="hint">준비 완료 확인: 입장한 모둠은 지역과 공동 구매 전략을 확정해야 경매를 시작할 수 있습니다.</div></div>`;
+   $('teacherControls').innerHTML=`<label class="field-caption" for="timeSelect">물품당 <select id="timeSelect" class="timer-select"><option value="30">30초</option><option value="40">40초 권장</option><option value="60">60초</option></select></label><button class="large" onclick="teacherAction('start')">첫 경매 시작 ▶</button>`;
+   $('timeSelect').value=durationPref;
+ }else if(s.phase==='finished'){
+   const all=classKeywordStats(s),n=s.teams.reduce((a,t)=>a+reflectionList(t).length,0);
+    $('teacherCurrent').innerHTML=`<div class="teacher-finish-analysis"><strong>📚 학급 전체 학습 개념 · 성찰 모아보기</strong>${teacherProgressSummary(s)}${globalWordCloud(all)}${teacherSelectedExcerpts(s)}<div class="teacher-insight-caption">한 사람이 같은 개념을 여러 번 사용해도 1명으로 셉니다. 언급 빈도는 이해도 평가가 아닙니다.</div></div>`;
+   $('teacherControls').innerHTML=`<div class="hint">6개 모둠 카드 중 하나를 선택하면 그 모둠의 상세 기록만 열립니다.</div><button class="secondary" onclick="downloadCSV()">전체 CSV 저장</button>`;
+ }else if(s.phase==='reveal'){
+   const last=s.history.at(-1);
+   $('teacherCurrent').innerHTML=`${productHero(s)}<div class="bid-panel"><div class="price-label">${last?.winner?'낙찰 완료 🔨':'유찰'}</div><div class="live-price">${last?.winner?`${last.winner}모둠 · ${fmt(last.price)}원`:'낙찰자 없음'}</div><div class="hint" style="margin-top:7px">낙찰 확인 후 다음 물품을 시작하세요.</div></div>`;
+   $('teacherControls').innerHTML=`<button class="large" onclick="teacherAction('next')">${s.round===7?'활동 피드백 공개':'다음 물품 경매 시작 ▶'}</button>`;
+ }else{
+   $('teacherCurrent').innerHTML=`${productHero(s)}${auctionStatus(s)}<div class="teacher-price-display"><div class="mini-metric"><div class="hint">최고가 모둠</div><strong>${highest(s)?.team?highest(s).team+'모둠':'아직 없음'}</strong></div><div class="mini-metric"><div class="hint">현재 입찰 경쟁</div><strong>${(s.auctionLog||[]).filter(x=>x.round===s.round).length}회</strong></div></div><h3>실시간 입찰 기록</h3>${auctionFeed(s)}`;
+   $('teacherControls').innerHTML=`<button class="secondary" onclick="teacherAction('extend')">+5초 연장</button><button class="warn large" onclick="teacherAction('close')">지금 낙찰 확정 🔨</button>`;
+ }
+ const leader=highest(s);
+ $('teamOverview').innerHTML=s.teams.map(t=>{
+   const r=t.region===null?null:REGIONS[t.region],p=t.planWorking?.updated?t.planWorking:t.plan||{},bid=t.bids[s.round];
+   const leading=s.phase==='bidding'&&leader?.team===t.id;const waived=s.phase==='bidding'&&bidPassActive(t,s.round);
+   const badge=s.phase==='finished'?`${reflectionList(t).length}/${(t.members||[]).length}명 성찰` : waived?'추가 입찰 포기':leading?'👑 최고가':s.phase==='bidding'&&bid?.value?'입찰 중':t.plan?.savedAt?'계획 확정':t.planWorking?.updated?'작성 중':t.joined?'준비 중':'미입장';
+   const rank=(p.items||[]).map((i,n)=>`${n+1}.${LOTS[i].name}`).join('  ')||'우선순위 작성 전';
+   const reason=(p.reason||'').trim()||'공동 선택 이유 작성 전';
+   const bottom=s.phase==='bidding'&&waived?'입찰 중단':s.phase==='bidding'&&bid?.value?`입찰 ${fmt(bid.value)}원`:s.phase==='finished'?`지출 ${fmt(BUDGET-t.budget)}원`:`낙찰 ${t.items.length}개`;
+   return `<button type="button" class="monitor-team ${leading?'leader':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 상세 보기"><div class="mon-top"><span class="mon-name">${r?.emoji||'🗺️'} ${t.id}모둠</span><span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div><div class="mon-region">${r?.name||'지역 미선택'}</div><div class="mon-plan">${escapeHTML(rank)}</div><div class="mon-reason">${escapeHTML(reason)}</div><div class="mon-items">👥 ${(t.members||[]).length}명 · 📦 ${t.items.length}종 낙찰 · 성찰 ${reflectionList(t).length}명</div><div class="mon-footer"><span>잔액 <b>${fmt(t.budget)}원</b></span><span class="mon-bid">${bottom}</span></div></button>`;
+ }).join('');
+  $('teacherHistoryStrip').innerHTML=s.phase==='finished'?s.teams.map(t=>{
+    const expected=(t.members||[]).length, actual=reflectionList(t).length;
+    return `<button class="teacher-history-chip" onclick="inspectTeacherTeam(${t.id})"><strong>${t.id}모둠</strong> 📝 ${actual}/${expected}명 작성 · 낙찰 ${t.items.length}종</button>`;
+  }).join(''):LOTS.map((lot,i)=>{const h=s.history.find(h=>h.round===i),curr=s.phase!=='finished'&&i===s.round;return `<span class="teacher-history-chip ${curr?'current':''}"><strong>${i+1}회 ${lot.emoji}</strong> ${h?(h.winner?`${h.winner}모둠 ${fmt(h.price)}원`:'유찰'):curr?'진행 중':'대기'}</span>`}).join('');
+  $('teacherBottomHeading').textContent=s.phase==='finished'?'📝 6개 모둠 개인별 성찰 진행 현황':'📋 8개 경매 물품 낙찰 상황';
+  $('teacherBottomBtn').textContent=s.phase==='finished'?'1모둠 상세 보기':'경매 기록 보기';
+  $('teacherBottomBtn').setAttribute('onclick',s.phase==='finished'?"inspectTeacherTeam(1)":"openTeacherPanel('history')");
+ $('teacherHistory').innerHTML=s.history.length?s.history.map(h=>`<tr><td>${h.round+1}회</td><td>${LOTS[h.round].emoji} ${LOTS[h.round].name}</td><td>${h.winner?h.winner+'모둠':'유찰'}</td><td>${h.winner?fmt(h.price)+'원':'—'}</td><td>${h.submitted}/6</td></tr>`).join(''):'<tr><td colspan="5" class="hint">경매 기록이 아직 없습니다.</td></tr>';
+ $('teacherResults').classList.toggle('hidden',s.phase!=='finished');
+ if(s.phase==='finished')renderTeacherResults();
+ if(!$('teacherInspectPlan').classList.contains('hidden')){const id=teacherDetailTeam;$('teacherInspectPlan').classList.add('hidden');if(s.teams[id-1])inspectTeacherTeam(id)}
+ updateClockDisplay();
+}
+function toggleStudentHistory(force){
+ const el=$('studentHistoryPanel'),btn=$('studentHistoryToggle');if(!el||!btn)return;
+ const active=typeof force==='boolean'?force:!document.body.classList.contains('student-history-open');
+ document.body.classList.toggle('student-history-open',active);
+ el.open=active;
+ btn.setAttribute('aria-expanded',String(active));
+ btn.textContent=active?'✕ 기록 닫기':'📜 이전 낙찰 결과';
+}
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('student-history-open'))toggleStudentHistory(false)});
+function renderStudent(){
+ const s=state,t=s.teams.find(q=>q.id===teamId);if(!t)return;const region=t.region===null?null:REGIONS[t.region],phase=s.phase;
+ if(!planDraftDirty&&t.planWorking?.updated&&!editPlanOverride){const remote=t.planWorking;if(JSON.stringify(localPriority)!==JSON.stringify(remote.items||[])||priorityReason!==remote.reason){localPriority=[...(remote.items||[])];priorityCeilings={...(remote.ceilings||{})};priorityReason=remote.reason||''}}
+ const step=phase==='finished'?4:phase!=='lobby'?3:region===null?1:(t.plan?.savedAt&&!editPlanOverride?3:2);
+ const labels=['지도에서 지역 선택','공동 구매 계획','실시간 경매','활동 결과·성찰'];
+ document.body.classList.toggle('student-auction-screen',step===3);
+ if(step!==3)document.body.classList.remove('student-history-open');
+ $('studentStepper').innerHTML=`<div class="stepper">${labels.map((label,i)=>`<span class="step ${i+1===step?'active':i+1<step?'done':''}">${i+1}. ${label}</span>${i<3?'<span class="step-arrow">›</span>':''}`).join('')}</div>`;
+ $('studentRoomBadge').textContent=s.code+' · '+t.name+' · '+memberName;$('studentPhaseBadge').textContent=stage(s);$('studentDots').innerHTML=dots(s);$('studentLiveTag').classList.toggle('hidden',phase!=='bidding');
+ $('studentBudget').textContent=fmt(t.budget);$('studentUtility').textContent=(s.auctionLog||[]).filter(x=>x.team===teamId).length;$('studentCount').textContent=t.items.length;
+ $('studentMetrics').classList.toggle('hidden',step===1||step===2);
+ $('studentRegionSummary').classList.toggle('hidden',!region);
+ if(region)$('studentRegionSummary').innerHTML=`<strong>${region.emoji} ${escapeHTML(region.name)} · 우리 모둠이 선택한 주거 환경</strong><div class="hint">${escapeHTML(region.desc)}</div>`;
+ $('studentRegionPanel').classList.toggle('hidden',step!==1);if(step===1)renderRegionSelect();
+ $('studentCatalog').classList.toggle('hidden',step!==2);if(step===2)renderCatalog();
+ $('studentPlanBrief').classList.toggle('hidden',step!==3);
+ if(step===3){const p=t.plan||{},chips=(p.items||[]).map((i,n)=>`<span class="planchip">${n+1}순위 ${LOTS[i].name} · 최대 ${fmt(p.ceilings?.[i]||0)}원</span>`).join('');$('studentPlanBrief').innerHTML=`<div class="briefheader"><h2 style="margin:0">📌 우리 모둠의 사전 경매 전략</h2>${phase==='lobby'?'<button class="secondary tiny" onclick="revisePlan()">전략 다시 수정</button>':''}</div><div class="briefgrid"><div class="planchips">${chips||'<span class="hint">확정된 전략 없음</span>'}</div><div class="planrationale"><b>선택 이유 ·</b> ${escapeHTML(p.reason||'작성 없음')}</div></div></div>`}
+ $('studentAuctionArea').classList.toggle('hidden',step!==3);
+ $('studentHistoryPanel').classList.toggle('hidden',step!==3);
+ if(step===3){
+ $('studentTeamHeading').textContent='🏠 '+t.name+'의 방 미리보기';
+ $('roomArtwork').innerHTML=roomArt(t.items,region||REGIONS[2]);
+ const lot=LOTS[s.round],offer=t.bids[s.round];
+ if(phase==='lobby')$('studentAuction').innerHTML='<div class="region-story">✅ 지역과 공동 구매 전략이 확정됐습니다. 다른 모둠이 준비를 마치면 교사가 첫 경매를 시작합니다.</div>';
+ else if(phase==='reveal')$('studentAuction').innerHTML=`${productHero(s)}<div class="bid-panel"><div class="price-label">이번 경매 낙찰 결과 🔨</div><div class="live-price">${s.history.at(-1)?.winner?`${s.history.at(-1).winner}모둠 · ${fmt(s.history.at(-1).price)}원`:'유찰'}</div><div class="hint">교사가 다음 경매를 시작하면 다시 입찰할 수 있습니다.</div></div>`;
+  else if(phase==='bidding'){
+    const leader=highest(s),min=leader?leader.amount+MIN_STEP:lot.start;
+    const passed=bidPassActive(t,s.round),canBid=!passed&&t.budget>=min&&t.region!==null;
+    const prev=bidDraft?.round===s.round?bidDraft.value:null,defaultInput=prev??Math.min(t.budget,Math.max(min,offer?.value||0));
+    const passPanel=passed?`<div class="bid-pass-active">🟠 우리 모둠이 이번 물품의 추가 입찰을 포기했습니다. 기존 입찰은 그대로 유효합니다.<br><button class="secondary" onclick="decideBidPass(true)">포기 취소 · 다시 입찰하기</button></div>`:`<button class="secondary bid-pass-btn" onclick="decideBidPass(false)">🚫 우리 모둠 추가 입찰 포기</button>`;
+    $('studentAuction').innerHTML=`${productHero(s)}${auctionStatus(s,teamId)}<div class="region-story" style="padding:10px 12px;font-size:13px"><b>모둠 공동 입찰</b> · 같은 모둠의 누구나 입찰·포기를 변경할 수 있습니다. 누르기 전에 모둠원과 상의하세요. 더 낮은 가격의 중복 입찰은 자동 거절됩니다.</div><div class="stack" style="gap:9px"><label class="field-caption" for="studentBidInput">우리 모둠 입찰 예정액 · 최소 ${fmt(min)}원</label><div class="bid-input-row"><input id="studentBidInput" data-round="${s.round}" type="number" min="${min}" max="${t.budget}" step="10000" inputmode="numeric" oninput="cacheBidDraft(this.value)" onkeydown="if(event.key==='Enter')submitBid()" value="${canBid?defaultInput:''}" ${canBid?'':'disabled'}><button onclick="submitBid()" ${canBid?'':'disabled'}>이 금액으로 입찰 🔨</button></div><div class="bid-quick"><button class="secondary" onclick="quickBid(0)" ${canBid?'':'disabled'}>최소가로</button><button class="secondary" onclick="quickBid(10000)" ${canBid?'':'disabled'}>+1만원</button><button class="secondary" onclick="quickBid(30000)" ${canBid?'':'disabled'}>+3만원</button><button class="secondary" onclick="quickBid(50000)" ${canBid?'':'disabled'}>+5만원</button>${Number(t.plan?.ceilings?.[s.round])>0?`<button class="secondary planned-bid" onclick="loadPlannedBid()" ${canBid?'':'disabled'}>📋 계획가격 불러오기 (${fmt(t.plan.ceilings[s.round])}원)</button>`:''}</div>${passPanel}<div class="hint">빠른 입찰 금액은 누를 때마다 올라갑니다. 포기·포기 취소는 모둠 전체에 적용되며, 누구나 변경할 수 있습니다. 이미 제출한 입찰은 취소되지 않습니다.</div><h3>실시간 입찰 흐름</h3>${auctionFeed(s,4)}</div>`;
+  }
+ $('studentHistoryHeading').textContent=`📜 지난 낙찰 결과 (${s.history.length}건)`; $('studentHistory').innerHTML=s.history.length?s.history.map(h=>`<div class="history-row"><div class="row between"><b>${h.round+1}회 · ${LOTS[h.round].name}</b><span class="pill">${h.winner?`${h.winner}모둠 · ${fmt(h.price)}원`:'유찰'}</span></div><div class="tiny" style="margin-top:6px">${h.winner===teamId?'🏡 우리 모둠 낙찰':h.winner?'다른 모둠 낙찰':'입찰 없음'}</div></div>`).join(''):'<div class="hint">아직 공개된 낙찰 결과가 없습니다.</div>';
+ }
+ $('studentResults').classList.toggle('hidden',step!==4);if(step===4){$('studentFeedback').innerHTML=feedbackHTML(s,t);renderPersonalReflection(t);renderStudentInsight()}
+ updateClockDisplay();
+}
+function cacheBidDraft(v){if(state&&state.phase==='bidding')bidDraft={round:state.round,value:Number(v)||0}}
+function bidPassActive(t,round){return !!(t?.passes?.[round])}
+async function decideBidPass(undo=false){
+ if(!state||state.phase!=='bidding')return;
+ const t=state.teams[teamId-1],round=state.round;
+ if(!undo){const prior=t.bids?.[round]?.value;const msg=prior?`이미 낸 ${fmt(prior)}원 입찰은 취소되지 않습니다. 이 물품에 더 이상 추가 입찰하지 않으시겠습니까?`:'이 물품의 입찰을 포기할까요? 남은 시간 안에는 다시 참여할 수 있습니다.';if(!confirm(msg))return;}
+ const ok=await modifyState(roomCode,s=>{if(s.phase!=='bidding'||s.round!==round||Date.now()>=s.endsAt)throw Error('경매 시간이 종료되었습니다.');const q=s.teams[teamId-1];q.passes=q.passes||{};if(undo)delete q.passes[round];else q.passes[round]={by:memberName,at:Date.now()};return s});
+ if(ok)toast(undo?'포기를 취소했습니다. 다시 입찰할 수 있습니다.':'이번 물품의 추가 입찰을 포기했습니다.');
+}
+function loadPlannedBid(){if(!state||state.phase!=='bidding')return;const t=state.teams[teamId-1];if(bidPassActive(t,state.round))return toast('모둠이 추가 입찰을 포기한 상태입니다. 먼저 포기를 취소하세요.');const price=Number(t.plan?.ceilings?.[state.round]||0),leader=highest(state),minimum=leader?leader.amount+MIN_STEP:LOTS[state.round].start;if(!price)return toast('이번 물품에 저장한 계획가격이 없습니다.');if(price<minimum)return toast(`계획가격 ${fmt(price)}원이 현재 최소 입찰가 ${fmt(minimum)}원보다 낮습니다. 가격을 높일지 포기할지 결정하세요.`);if(price>t.budget)return toast('계획가격이 현재 잔액보다 높습니다.');const el=$('studentBidInput');if(el){el.value=price;cacheBidDraft(price);el.focus();toast('사전에 정한 최대 지불액을 불러왔습니다. 실제 입찰 여부를 결정하세요.')}}
+function renderPersonalReflection(t){
+ const entry=reflectionList(t).find(r=>r.memberId===memberId);
+ const name=$('reflectionName'),dec=$('reflectionDecision'),alt=$('reflectionAlternative'),why=$('reflectionReason'),altWhy=$('reflectionAlternativeReason'),legacy=$('reflectionLegacy');
+ if(document.activeElement!==name)name.value=memberName;
+ name.readOnly=false;
+ populateReflectionLotChoices(t);
+ if(entry){
+   reflectionDraftId=entry.id;
+   if(dec.dataset.loadedId!==entry.id){
+     const parsed=parseReflectionAnswer(entry.text);
+     if(parsed){dec.value=String(parsed.decision);alt.value=String(parsed.alternative);why.value=parsed.reason;altWhy.value=parsed.alternativeReason;legacy.classList.add('hidden');legacy.textContent='';}
+     else{legacy.classList.remove('hidden');legacy.textContent='이전에 작성한 자유 서술형 답변: '+entry.text+' · 아래 네 항목을 새로 작성하면 새 형식으로 저장됩니다.';}
+     dec.dataset.loadedId=entry.id;
+     populateReflectionLotChoices(t);
+   }
+ }else if(!entry && dec.dataset.loadedId){
+    dec.value='';alt.value='';why.value='';altWhy.value='';dec.dataset.loadedId='';legacy.classList.add('hidden');
+ }
+ $('reflectionSaved').textContent=entry?'내 답변이 저장되어 있습니다. 수정 후 다시 저장할 수 있습니다.':'아직 내 답변을 저장하지 않았습니다.';
+}
+async function openClassroom(){const code=$('teacherCode').value.trim().toUpperCase();if(!/^[A-Z0-9]{4,10}$/.test(code))return toast('수업 코드는 영문·숫자 4~10자리로 입력하세요.');try{let s=await getState(code);if(s){if(!confirm('이미 동일한 수업 코드가 있습니다. 기존 수업 기록을 불러올까요?'))return}else s=await createState(code);roomCode=code;teamId=0;state=s;show('teacherView');render()}catch(e){toast('수업 개설 실패: '+e.message)}}
+let autoClosing=false,lastSoundBidKey='',soundOn=false,audioCtx=null;
+function playBidSound(){if(!soundOn||!window.AudioContext)return;try{audioCtx=audioCtx||new AudioContext();const t=audioCtx.currentTime;for(const [i,hz] of [620,860].entries()){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=hz;g.gain.setValueAtTime(.0001,t+i*.075);g.gain.exponentialRampToValueAtTime(.075,t+i*.075+.015);g.gain.exponentialRampToValueAtTime(.0001,t+i*.075+.12);o.connect(g).connect(audioCtx.destination);o.start(t+i*.075);o.stop(t+i*.075+.13)}}catch{}}
+function toggleSound(){soundOn=!soundOn;const el=$('soundBtn');if(el)el.textContent=soundOn?'🔊 알림음 켜짐':'🔇 알림음 끔';toast(soundOn?'교사 화면의 입찰 알림음을 켰습니다.':'입찰 알림음을 껐습니다.')}
+function startRound(s){s.phase='bidding';s.endsAt=Date.now()+(Number(s.duration)||40)*1000;s.extensionCount=0;s.leader=null;s.auctionLog=s.auctionLog||[]}
+function updateClockDisplay(){if(!state||state.phase!=='bidding')return;const rem=Math.max(0,(state.endsAt||0)-auctionNow());const secs=Math.ceil(rem/1000);const label=`${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`;document.querySelectorAll('[data-clock]').forEach(el=>{el.textContent=label;el.classList.toggle('hurry',secs<=10)});const total=(Number(state.duration)||40)*1000;const pct=Math.min(100,Math.max(0,rem/total*100));document.querySelectorAll('[data-timebar]').forEach(el=>{el.style.width=pct+'%';el.classList.toggle('hurry',secs<=10)});if(rem===0&&view==='teacherView'&&!busy&&!autoClosing){autoClosing=true;teacherAction('close',true).finally(()=>{autoClosing=false})}}
+function quickBid(delta){const el=$('studentBidInput');if(!el||!state||!teamId)return;const t=state.teams[teamId-1];if(bidPassActive(t,state.round))return toast('모둠이 추가 입찰을 포기한 상태입니다. 먼저 포기를 취소하세요.');const leader=highest(state),min=leader?leader.amount+MIN_STEP:LOTS[state.round].start,cap=state.teams[teamId-1].budget;const prev=Number(el.value)||min;const next=delta===0?min:Math.max(min,prev)+delta;if(next>cap){toast('보유 예산을 초과할 수 없습니다.');el.value=cap;return}el.value=next;cacheBidDraft(next);el.focus();}
+async function unlockRegion(id){if(!state||state.phase!=='lobby')return;if(!confirm(`${id}모둠 지역 선택을 취소할까요? 공동 구매 전략도 초기화됩니다.`))return;const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 중에는 변경할 수 없습니다.');const t=s.teams[id-1];t.region=null;t.plan={items:[],ceilings:{},reason:''};t.planWorking={items:[],ceilings:{},reason:'',updated:0};return s});if(ok)toast(`${id}모둠 지역 선택을 다시 열었습니다.`)}
+async function teacherAction(action,automatic=false){if(action==='reset'&&!confirm('6개 모둠의 입찰 및 결과를 전부 초기화할까요?'))return;const ok=await modifyState(roomCode,s=>{if(action==='start'){if(s.phase!=='lobby')throw Error('대기 상태에서만 시작할 수 있습니다.');if(s.teams.filter(t=>t.joined).some(t=>t.region===null))throw Error('입장한 모둠이 지역 선택을 마친 뒤 경매를 시작하세요.');if(!s.teams.some(t=>t.region!==null))throw Error('먼저 학생 모둠에서 지역을 선택해 주세요.');if(s.teams.some(t=>t.joined&&!t.plan?.savedAt))throw Error('입장한 모둠의 공동 구매 전략이 모두 확정되어야 경매를 시작할 수 있습니다.');s.duration=Number($('timeSelect')?.value)||40;startRound(s)}else if(action==='close'){if(s.phase!=='bidding'){if(automatic)return null;throw Error('입찰 중이 아닙니다.')}if(automatic&&Date.now()<s.endsAt)return null;const w=determineWinner(s);if(w){const winner=s.teams[w.id-1];winner.budget-=w.offer;winner.items.push(s.round)}s.history.push({round:s.round,winner:w?.id||0,price:w?.offer||0,submitted:s.teams.filter(t=>t.bids[s.round]?.value>0).length});s.phase='reveal';s.endsAt=0}else if(action==='extend'){if(s.phase!=='bidding')throw Error('입찰 중에만 연장할 수 있습니다.');s.endsAt=Math.max(s.endsAt,Date.now())+5000}else if(action==='next'){if(s.phase!=='reveal')throw Error('낙찰 공개 후에만 진행할 수 있습니다.');if(s.round===LOTS.length-1)s.phase='finished';else{s.round++;bidDraft=null;startRound(s)}}else if(action==='reset'){const initial=makeInitial(roomCode);initial.version=s.version;s=initial}return s});if(ok&&action==='reset')toast('수업이 초기화되었습니다. 학생은 다시 입장해야 합니다.')}
+async function joinTeam(){const code=$('studentCode').value.trim().toUpperCase(),team=Number($('teamSelect').value),name=$('joinMemberName').value.trim().slice(0,18);if(!/^[A-Z0-9]{4,10}$/.test(code))return toast('수업 코드를 정확히 입력하세요.');if(!Number.isInteger(team)||team<1||team>6)return toast('1~6모둠 중 하나를 선택하세요.');if(!name)return toast('모둠원 이름을 입력하세요.');try{const s=await getState(code);if(!s)return toast('해당 수업이 없습니다. 코드와 접속 방식을 확인하세요.');roomCode=code;teamId=team;state=s;memberName=name;if(!memberId)memberId='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);const ok=await modifyState(code,next=>{const t=next.teams[team-1];t.joined=true;t.lastSeen=Date.now();t.members=Array.isArray(t.members)?t.members:[];const existing=t.members.find(m=>m.id===memberId);if(existing){existing.name=name;existing.lastSeen=Date.now()}else{t.members.push({id:memberId,name,joinedAt:Date.now(),lastSeen:Date.now()})}return next});if(ok){syncPlanDraft(state.teams[team-1]);selectedRegionIndex=state.teams[team-1].region;reflectionDraftId='';editPlanOverride=false;show('studentView');render()}}catch(e){toast('입장 오류: '+e.message)}}
+async function submitBid(){if(!state||state.phase!=='bidding')return;const team=state.teams[teamId-1],round=state.round,el=$('studentBidInput');if(bidPassActive(team,round))return toast('이번 물품을 포기한 상태입니다. 포기를 취소한 후 입찰하세요.');if(!el)return;const value=Number(el.value);if(!Number.isInteger(value)||value<LOTS[round].start||value>team.budget||value%MIN_STEP!==0)return toast('1만원 단위로 시작가 이상·예산 이하의 금액을 입력하세요.');const ok=await modifyState(roomCode,s=>{if(s.phase!=='bidding'||s.round!==round||Date.now()>=s.endsAt)throw Error('이번 경매가 종료되었거나 입찰 가능 시간이 지났습니다.');const t=s.teams[teamId-1];if(bidPassActive(t,round))throw Error('모둠이 이번 물품에 대한 추가 입찰을 포기했습니다. 먼저 포기를 취소하세요.');const current=s.leader?.amount||0,min=Math.max(LOTS[round].start,current+MIN_STEP);if(value<min)throw Error('경쟁이 치열합니다! 현재 최고가보다 높게 다시 입찰하세요.');if(value>t.budget)throw Error('예산이 부족합니다.');const stamp=Date.now();t.bids[round]={value,time:stamp,by:memberName};s.leader={team:teamId,amount:value,time:stamp};s.auctionLog=(s.auctionLog||[]).concat({round,team:teamId,amount:value,time:stamp,by:memberName}).slice(-100);if(s.endsAt-stamp<=5000&&s.extensionCount<2){s.endsAt+=5000;s.extensionCount++;s.lastExtension=stamp}return s});if(ok){bidDraft={round,value};toast(`🔨 ${fmt(value)}원 입찰 성공! 현재 최고가입니다.`)}}
+function newReflectionWriter(){/* 학생별 기기에서 작성하므로 전환 기능은 사용하지 않습니다. */}
+async function saveReflection(){
+ const name=($('reflectionName').value||'').trim().slice(0,30),form=reflectionFields();
+ if(!name)return toast('모둠원 이름을 입력하세요.');
+ if(form.decision===null||form.alternative===null)return toast('①과 ③에서 물품을 각각 선택해 주세요.');
+ if(form.decision===form.alternative)return toast('중요 결정과 포기한 대안은 서로 다른 물품을 선택하세요.');
+ if(form.reason.length<5||form.alternativeReason.length<5)return toast('②와 ④의 이유를 각각 5자 이상 작성해 주세요.');
+ const answer=JSON.stringify(form);if(answer.length>900)return toast('답변이 너무 깁니다. 이유를 조금 줄여 주세요.');
+ const entryId=reflectionDraftId||('r'+Date.now().toString(36)+Math.random().toString(36).slice(2,9));
+ const ok=await modifyState(roomCode,s=>{if(s.phase!=='finished')throw Error('종료 후에만 작성할 수 있습니다.');const t=s.teams[teamId-1];const m=(t.members||[]).find(x=>x.id===memberId);if(m)m.name=name;t.reflections=Array.isArray(t.reflections)?t.reflections:[];const prev=t.reflections.findIndex(r=>r.memberId===memberId||r.id===entryId);const record={id:entryId,memberId,name,text:answer,updated:Date.now()};if(prev>=0){record.id=t.reflections[prev].id;t.reflections[prev]=record}else{if(t.reflections.length>=120)throw Error('모둠당 최대 120개의 개별 답변을 저장할 수 있습니다.');t.reflections.push(record)}return s});
+ if(ok){memberName=name;reflectionDraftId=entryId;$('reflectionDecision').dataset.loadedId=entryId;$('reflectionSaved').textContent='내 답변이 저장되었습니다. 수정하려면 다시 저장하세요.';writeSession();toast('내 개인 성찰을 저장했습니다.');}
+}
+function copyText(text,success){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(()=>toast(success)).catch(()=>fallbackCopy(text,success))}else fallbackCopy(text,success)}
+function fallbackCopy(text,success){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let done=false;try{done=document.execCommand('copy')}catch{}ta.remove();toast(done?success:'복사되지 않았습니다. 주소 또는 코드를 직접 선택해 복사하세요.')}
+function copyRoomCode(){copyText(roomCode,'수업 코드를 복사했습니다.')}
+function studentURL(){const url=new URL(location.href);url.search='';url.hash='';url.searchParams.set('role','student');url.searchParams.set('room',roomCode);return url.toString()}
+function copyStudentLink(){copyText(studentURL(),'학생 링크를 복사했습니다. 같은 브라우저의 새 탭에서 열어 주세요.')}
+function openStudentTab(){const opened=window.open(studentURL(),'_blank','noopener');if(!opened)toast('학생창이 열리지 않으면 새 탭에서 동일한 HTML 파일을 여세요.')}
+function downloadCSV(){if(!state)return;const rows=[['모둠','지역','잔액(원)','낙찰 물품','전략 우선순위','공동 계획 이유','총지출(원)','경쟁 입찰 물품(종)','계획 미낙찰 물품(종)','모둠원','개인 성찰']];for(const t of state.teams){const a=assessment(state,t),refs=reflectionList(t);const base=[t.name,t.region===null?'미선택':REGIONS[t.region].name,t.budget,t.items.map(i=>LOTS[i].name).join(' / '),(t.plan?.items||[]).map(i=>LOTS[i].name).join(' / '),t.plan?.reason||'',a.find(x=>x.label==='총지출')?.value||'',a.find(x=>x.label==='경쟁 참여 품목')?.value||'',a.find(x=>x.label==='계획 물품 미낙찰')?.value||''];for(const r of refs.length?refs:[{name:'',text:''}])rows.push([...base,r.name,reflectionTextForDisplay(r.text)])}const csv='\ufeff'+rows.map(r=>r.map(x=>'"'+String(x??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='방꾸미기_경매_학습기록_'+roomCode+'.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500)}
+async function boot(){
+ initTabSync();updateConnectionUI();
+ let saved=null;try{saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null')}catch{}
+ if(qs.get('room')){$('studentCode').value=qs.get('room').toUpperCase();$('teacherCode').value=qs.get('room').toUpperCase()}
+ if(qs.get('role')==='student'){goStudentJoin()}
+ else if(saved&&saved.roomCode&&['teacherView','studentView'].includes(saved.view)){
+  roomCode=saved.roomCode;teamId=saved.teamId||0;memberId=saved.memberId||'';memberName=saved.memberName||'';reflectionDraftId=saved.reflectionDraftId||'';
+  if(saved.view==='studentView'&&(!memberId||!memberName)){goStudentJoin();return}
+  show(saved.view);
+  getState(roomCode).then(s=>{if(s){state=s;if(teamId>0&&s.teams[teamId-1]){syncPlanDraft(s.teams[teamId-1]);selectedRegionIndex=s.teams[teamId-1].region}render()}else goHome()}).catch(()=>goHome())
+ }else show('home');
+ setInterval(refresh,750);setInterval(updateClockDisplay,150);
+}
+// Online boot attaches below, after the backend adapters.
+
+// --- Supabase connection for the single production classroom workflow ---
+// Set these two values once before publishing index.html on GitHub Pages.
+const AUCTION_SUPABASE_URL = 'https://pwgjmgywlmznrvmcexvf.supabase.co';
+const AUCTION_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HtGffFm0tu8ebe2v-kxt6Q_YHjbnkRd';
+const ONLINE_SESSION_KEY = 'room-auction-online-2026-v1';
+let auctionDB=null, auctionRoomUUID='', auctionChannel=null, auctionOnlineStatus='설정 필요', auctionRefreshTimer=null;
+let auctionPollingTimer=null, auctionConnected=false, auctionRequeryPending=false, auctionAuthPromise=null, auctionPlanSaving=false;
+let auctionServerTimeOffsetMs=0;
+function auctionNow(){return Date.now()+auctionServerTimeOffsetMs}
+const auctionConfigOK=()=>/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(AUCTION_SUPABASE_URL)&&
+  !AUCTION_SUPABASE_URL.includes('YOUR_PROJECT')&&AUCTION_SUPABASE_PUBLISHABLE_KEY.length>30&&
+  !AUCTION_SUPABASE_PUBLISHABLE_KEY.includes('PASTE_');
+function showOnlineStatus(txt){auctionOnlineStatus=txt; const p=$('connectionPill');if(p)p.textContent=txt;}
+connectionLabel = function(){return auctionOnlineStatus};
+updateConnectionUI = function(){showOnlineStatus(auctionOnlineStatus);const h=$('studentConnectionHelp');if(h)h.textContent='학생은 교사와 같은 웹 주소로 접속하고, 같은 수업 코드를 입력합니다. 6개는 모둠 수이며 학생 수에는 제한이 없습니다.';};
+writeSession=function(){try{sessionStorage.setItem(ONLINE_SESSION_KEY,JSON.stringify({view,roomCode,roomUUID:auctionRoomUUID,teamId,memberId,memberName,reflectionDraftId}))}catch{}};
+clearSession=function(){try{sessionStorage.removeItem(ONLINE_SESSION_KEY)}catch{}};
+initTabSync=function(){};
+const uuidRE=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function makeOnlineUUID(){return crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const v=crypto.getRandomValues(new Uint8Array(1))[0]&15;return(c==='x'?v:((v&3)|8)).toString(16)})}
+async function onlineAuth(){
+ if(!auctionDB)throw Error('Supabase 연결 설정을 먼저 완료해 주세요.');
+ if(auctionAuthPromise)return auctionAuthPromise;
+ auctionAuthPromise=(async()=>{
+  const {data, error}=await auctionDB.auth.getSession();if(error)throw error;
+  if(!data.session){const r=await auctionDB.auth.signInAnonymously();if(r.error)throw Error('Supabase 익명 로그인 설정을 확인하세요: '+r.error.message)}
+ })();
+ try{await auctionAuthPromise}finally{auctionAuthPromise=null}
+}
+async function onlineRPC(fn,args={}){
+ await onlineAuth(); const {data,error}=await auctionDB.rpc(fn,args);
+ if(error){let msg=error.message||'Supabase 요청 실패';
+   if(/row-level security|permission denied/i.test(msg))msg+=' (RLS·RPC 권한 확인 필요)';
+   if(/function .* does not exist|could not find the function/i.test(msg))msg+=' (SQL 동기화 패치가 설치되어 있는지 확인하세요)';
+   throw Error(msg);
+ }
+ return data;
+}
+function serverTime(str){return str?new Date(str).getTime()||0:0}
+function onlineNormalize(packet){
+ if(!packet||!packet.session)throw Error('수업 응답을 읽을 수 없습니다.');
+ const r=packet.session;const model=makeInitial(r.code);
+ model.code=r.code;model.version=Number(r.version)||1;model.phase=r.phase;
+ model.round=r.round_index;model.duration=r.duration_sec;
+ model.endsAt=serverTime(r.ends_at);model.extensionCount=r.extension_count||0;
+ model.updated=serverTime(r.updated_at);
+ const byKey=new Map();
+ for(const m of packet.members||[]){
+   const t=model.teams[(m.team_no||0)-1];if(!t)continue;
+   const item={id:m.member_key,name:m.display_name,joinedAt:serverTime(m.joined_at),lastSeen:serverTime(m.last_seen)};
+   t.members.push(item);byKey.set(m.member_key,item);
+   if(m.reflection){t.reflections.push({id:'r'+m.member_key,memberId:m.member_key,name:m.display_name,text:m.reflection,updated:serverTime(m.reflection_updated_at)})}
+ }
+ for(const t of packet.teams||[]){
+   const out=model.teams[(t.team_no||0)-1];if(!out)continue;
+   out.joined=Boolean(t.joined);out.region=t.region_no??null;
+   out.budget=t.budget_krw??BUDGET;
+   out.items=Array.isArray(t.acquired_lots)?t.acquired_lots:[];
+   out.plan={items:Array.isArray(t.plan_items)?t.plan_items.map(Number):[],ceilings:t.plan_ceilings||{},reason:t.plan_reason||'',savedAt:serverTime(t.plan_saved_at)};
+   out.planWorking={items:Array.isArray(t.draft_items)?t.draft_items.map(Number):[],ceilings:t.draft_ceilings||{},reason:t.draft_reason||'',updated:serverTime(t.draft_updated_at),editor:t.draft_editor||''};
+   out.passes=t.passed?{[t.passed_round]:{by:'모둠',at:serverTime(t.updated_at)}}:{};
+   out.lastSeen=serverTime(t.updated_at);
+ }
+ model.auctionLog=(packet.bids||[]).map(b=>({round:b.round_index,team:b.team_no,amount:b.amount_krw,time:serverTime(b.created_at),by:byKey.get(b.member_key)?.name||'모둠원'}));
+ for(const b of model.auctionLog){const t=model.teams[b.team-1];if(!t)continue;const prev=t.bids[b.round];if(!prev||b.time>=prev.time)t.bids[b.round]={value:b.amount,time:b.time,by:b.by};}
+ model.history=(packet.results||[]).map(h=>({round:h.round_index,winner:h.winning_team||0,price:h.price_krw||0,submitted:h.bid_count||0}));
+ const leaderBid=model.auctionLog.filter(x=>x.round===model.round&&x.team===r.leader_team&&x.amount===r.leader_amount).at(-1);
+ model.leader=r.leader_team?{team:r.leader_team,amount:r.leader_amount,time:leaderBid?.time||serverTime(r.updated_at)}:null;
+ return model;
+}
+getState=async function(code){
+ await onlineAuth();
+ if(!auctionRoomUUID){const rid=await onlineRPC('auction_lookup_room',{p_code:code});if(!rid)return null;auctionRoomUUID=rid;}
+ const sentAt=Date.now();const packet=await onlineRPC('auction_snapshot',{p_room:auctionRoomUUID,p_member_key:teamId>0?memberId:null});
+ const arrivedAt=Date.now();if(packet.server_now){const serverNow=serverTime(packet.server_now);auctionServerTimeOffsetMs=serverNow-Math.round((sentAt+arrivedAt)/2)}
+ markSyncChecked('자동 동기화');
+ return onlineNormalize(packet);
+};
+createState=async function(code){auctionRoomUUID=await onlineRPC('auction_create_room',{p_code:code});return getState(code)};
+function unsubscribeOnline(){if(auctionChannel&&auctionDB){auctionDB.removeChannel(auctionChannel).catch(()=>{});auctionChannel=null;}clearTimeout(auctionRefreshTimer)}
+function scheduleOnlineRefresh(){clearTimeout(auctionRefreshTimer);auctionRefreshTimer=setTimeout(()=>refresh(),260)}
+function startOnlineSubscription(){
+ if(!auctionRoomUUID||!auctionDB)return;
+ unsubscribeOnline();
+ const id=auctionRoomUUID;
+ auctionChannel=auctionDB.channel('room-auction-'+id+'-'+makeOnlineUUID().slice(0,7))
+  .on('postgres_changes',{event:'UPDATE',schema:'public',table:'auction_sessions',filter:'id=eq.'+id},scheduleOnlineRefresh)
+  .subscribe(status=>{
+    if(status==='SUBSCRIBED'){auctionConnected=true;showOnlineStatus('🟢 실시간 연결됨');scheduleOnlineRefresh()}
+    if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'||status==='CLOSED'){
+      auctionConnected=false;showOnlineStatus('🟠 연결 확인 중 · 자동 재조회');
+    }
+  });
+}
+async function onlineMutation(fn,args={},opts={}){
+ if(busy){if(!opts.quiet)toast('이전 요청을 저장 중입니다.');return false}
+ busy=true;
+ try{
+   await onlineRPC(fn,args);
+   state=await getState(roomCode);
+   showOnlineStatus(auctionConnected?'🟢 실시간 연결됨':'🟠 서버 저장 완료 · 연결 확인 중');
+   // Avoid destroying a currently-composing Korean input field.
+   if(!(view==='studentView'&&document.activeElement?.matches('#planReason,.planlimit')&&planDraftDirty))render();
+   return true;
+ }catch(e){if(!opts.quiet)toast(e.message);return false}
+ finally{busy=false}
+}
+modifyState=async function(){throw Error('온라인 모드에서는 서버 검증 함수를 사용해야 합니다.')};
+refresh=async function(){
+ if(!roomCode||refreshBusy||busy||!['teacherView','studentView'].includes(view))return;
+ refreshBusy=true;
+ try{
+   const latest=await getState(roomCode);
+   if(latest&&latest.version!==state?.version){
+     const old=state;
+     state=latest;
+     if(!(view==='studentView'&&document.activeElement?.matches('#planReason,.planlimit')&&planDraftDirty))render();
+     if(view==='teacherView'&&latest.phase==='bidding'){
+       const k=latest.round+'-'+(latest.leader?.time||0)+'-'+(latest.leader?.amount||0);
+       if(lastSoundBidKey&&k!==lastSoundBidKey&&latest.leader)playBidSound();lastSoundBidKey=k;
+     }
+     if(view==='studentView'&&old?.round!==latest.round)bidDraft=null;
+   }
+   if(auctionConnected)showOnlineStatus('🟢 실시간 연결됨');
+ }catch(e){showOnlineStatus('🟠 재연결 중'); if(/입장한 사용자만 조회/.test(e.message)){toast('수업이 초기화되었습니다. 다시 입장해 주세요.');goHome();}}
+ finally{refreshBusy=false}
+};
+openClassroom=async function(){
+ const code=$('teacherCode').value.trim().toUpperCase();
+ if(!/^[A-Z0-9]{4,10}$/.test(code))return toast('수업 코드는 영문·숫자 4~10자리로 입력하세요.');
+ try{await onlineAuth();roomCode=code;teamId=0;memberId='';auctionRoomUUID=await onlineRPC('auction_create_room',{p_code:code});
+   state=await getState(code);show('teacherView');startOnlineSubscription();render();}
+ catch(e){toast('수업 개설 오류: '+e.message)}
+};
+joinTeam=async function(){
+ const code=$('studentCode').value.trim().toUpperCase(),team=Number($('teamSelect').value),name=$('joinMemberName').value.trim();
+ if(!/^[A-Z0-9]{4,10}$/.test(code))return toast('수업 코드를 확인하세요.');
+ if(!Number.isInteger(team)||team<1||team>6)return toast('1~6모둠 중 선택하세요.');
+ if(!name||name.length>30)return toast('모둠원 이름은 1~30자로 입력하세요.');
+ try{await onlineAuth();roomCode=code;teamId=team;memberName=name;
+   if(!uuidRE.test(memberId))memberId=makeOnlineUUID();
+   auctionRoomUUID=await onlineRPC('auction_lookup_room',{p_code:code});if(!auctionRoomUUID)throw Error('존재하지 않는 수업 코드입니다.');
+   await onlineRPC('auction_join_room',{p_code:code,p_team:team,p_member_key:memberId,p_name:memberName});
+   state=await getState(code);syncPlanDraft(state.teams[team-1]);selectedRegionIndex=state.teams[team-1].region;
+   reflectionDraftId='';editPlanOverride=false;show('studentView');startOnlineSubscription();render();
+ }catch(e){toast('모둠 입장 오류: '+e.message)}
+};
+commitRegion=async function(i){const ok=await onlineMutation('auction_choose_region',{p_room:auctionRoomUUID,p_member_key:memberId,p_region:i});
+ if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 확정 · 다음은 구매 계획입니다.');$('studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'});}
+};
+saveWorkingPlan=async function(){
+ if(!planDraftDirty||!state||state.phase!=='lobby'||!teamId)return;
+ if(busy){schedulePlanAutosave();return}
+ const items=[...localPriority],ceilings={...priorityCeilings},reason=priorityReason.slice(0,350),revision=planDraftRevision;
+ const ok=await onlineMutation('auction_save_plan',{p_room:auctionRoomUUID,p_member_key:memberId,p_items:items,p_ceilings:ceilings,p_reason:reason,p_final:false},{quiet:true});
+ if(ok&&revision===planDraftRevision)planDraftDirty=false;
+ else if(!ok)schedulePlanAutosave();
+};
+savePlan=async function(){
+ const reason=($('planReason')?.value||priorityReason).trim();const ceilings={...priorityCeilings};
+ document.querySelectorAll('.planlimit').forEach(el=>{ceilings[el.dataset.lot]=Math.max(0,Math.min(BUDGET,Number(el.value)||0))});
+ if(!localPriority.length)return toast('우선순위 물품을 선택하세요.');
+ if(localPriority.some(i=>(ceilings[i]||0)<LOTS[i].start))return toast('최대 지불액이 시작가보다 낮습니다.');
+ if(!reason)return toast('공동 구매 이유를 작성하세요.');
+ clearTimeout(planSaveTimer);
+ const ok=await onlineMutation('auction_save_plan',{p_room:auctionRoomUUID,p_member_key:memberId,p_items:[...localPriority],p_ceilings:ceilings,p_reason:reason.slice(0,350),p_final:true});
+ if(ok){planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 계획을 확정했습니다.');$('studentPlanBrief')?.scrollIntoView({behavior:'smooth',block:'start'});}
+};
+submitBid=async function(){
+ if(!state||state.phase!=='bidding')return;
+ const el=$('studentBidInput');if(!el)return;
+ const amount=Number(el.value),t=state.teams[teamId-1];
+ if(!Number.isInteger(amount)||amount%10000||amount<LOTS[state.round].start||amount>t.budget)return toast('1만원 단위로 잔액 이내 금액을 입력하세요.');
+ const ok=await onlineMutation('auction_bid',{p_room:auctionRoomUUID,p_member_key:memberId,p_amount:amount});
+ if(ok){bidDraft={round:state.round,value:amount};toast(`🔨 ${fmt(amount)}원 입찰이 서버에 확정됐습니다.`)}
+};
+decideBidPass=async function(undo=false){
+ if(!state||state.phase!=='bidding')return;
+ const t=state.teams[teamId-1],round=state.round;
+ if(!undo){const prior=t.bids?.[round]?.value;const msg=prior?`이미 낸 ${fmt(prior)}원 입찰은 취소되지 않습니다. 추가 입찰만 포기할까요?`:'이번 물품의 추가 입찰을 포기할까요?';if(!confirm(msg))return;}
+ const ok=await onlineMutation('auction_pass',{p_room:auctionRoomUUID,p_member_key:memberId,p_pass:!undo});
+ if(ok)toast(undo?'추가 입찰 포기를 취소했습니다.':'추가 입찰을 포기했습니다.');
+};
+unlockRegion=async function(id){
+ if(!state||state.phase!=='lobby')return;
+ if(!confirm(`${id}모둠의 지역 선택을 취소할까요? 계획도 초기화됩니다.`))return;
+ const ok=await onlineMutation('auction_teacher_unlock_region',{p_room:auctionRoomUUID,p_team:id});
+ if(ok)toast('지역 선택을 다시 열었습니다.');
+};
+teacherAction=async function(action,automatic=false){
+ if(action==='reset'&&!confirm('경매 활동 기록과 학생 답변을 모두 삭제하고 초기화할까요?'))return;
+ const duration=Number($('timeSelect')?.value)||state?.duration||40;
+ const code=action==='close'&&automatic?'close_if_due':action;
+ const ok=await onlineMutation('auction_teacher_action',{p_room:auctionRoomUUID,p_action:code,p_duration:duration},{quiet:automatic});
+ if(ok&&action==='reset')toast('수업이 초기화됐습니다. 학생은 다시 입장해야 합니다.');
+};
+saveReflection=async function(){
+ const name=($('reflectionName')?.value||'').trim(),form=reflectionFields();
+ if(!name||name.length>30)return toast('모둠원 이름을 확인하세요.');
+ if(form.decision===null||form.alternative===null)return toast('①과 ③에서 물품을 각각 선택해 주세요.');
+ if(form.decision===form.alternative)return toast('중요 결정과 포기한 대안은 서로 다른 물품을 선택하세요.');
+ if(form.reason.length<5||form.alternativeReason.length<5)return toast('②와 ④의 이유를 각각 5자 이상 작성해 주세요.');
+ const answer=JSON.stringify(form);
+ if(answer.length>900)return toast('답변이 너무 깁니다. ②와 ④의 이유를 조금 줄여 주세요.');
+ const ok=await onlineMutation('auction_save_reflection',{p_room:auctionRoomUUID,p_member_key:memberId,p_name:name,p_text:answer});
+ if(ok){memberName=name;reflectionDraftId='r'+memberId;$('reflectionDecision').dataset.loadedId=reflectionDraftId;writeSession();toast('내 성찰 답변을 저장했습니다.');}
+};
+
+let manualSyncPending=false;
+function markSyncChecked(note='서버 확인 완료'){
+ const label=$('lastSyncText');if(!label)return;
+ const clock=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+ label.textContent=note+' · '+clock;
+ label.title='마지막 서버 조회: '+new Date().toLocaleString('ko-KR');
+}
+function captureReflectionDraft(){
+ if(view!=='studentView'||state?.phase!=='finished')return null;
+ const ids=['reflectionName','reflectionDecision','reflectionReason','reflectionAlternative','reflectionAlternativeReason'];
+ return Object.fromEntries(ids.map(id=>[id,$(id)?.value??'']));
+}
+function restoreReflectionDraft(draft){
+ if(!draft||view!=='studentView'||state?.phase!=='finished')return;
+ const ids=['reflectionName','reflectionDecision','reflectionReason','reflectionAlternative','reflectionAlternativeReason'];
+ for(const id of ids){const el=$(id);if(el&&id!=='reflectionAlternative')el.value=draft[id];}
+ populateReflectionLotChoices(state.teams[teamId-1]);
+ const alternative=$('reflectionAlternative');if(alternative&&[...alternative.options].some(o=>o.value===draft.reflectionAlternative&&!o.disabled))alternative.value=draft.reflectionAlternative;
+}
+async function manualSync(){
+ if(!roomCode||!auctionRoomUUID||!['teacherView','studentView'].includes(view))return toast('먼저 수업에 입장해 주세요.');
+ if(manualSyncPending||busy||refreshBusy)return toast('다른 동기화 또는 저장 요청이 진행 중입니다.');
+ manualSyncPending=true;
+ const btn=$('manualSyncBtn');if(btn){btn.disabled=true;btn.textContent='⟳ 확인 중';}
+ const stamp=$('lastSyncText');if(stamp)stamp.textContent='서버 최신 기록 조회 중…';
+ try{
+   // 작성 중인 모둠 구매 계획은 덮어쓰지 않도록 먼저 저장한다.
+   if(view==='studentView'&&state?.phase==='lobby'&&planDraftDirty){
+     clearTimeout(planSaveTimer);
+     await saveWorkingPlan();
+     if(planDraftDirty)throw Error('공동 계획 초안이 아직 저장되지 않았습니다. 입력 내용은 유지됩니다.');
+   }
+   if(!auctionConnected)startOnlineSubscription();
+   const formDraft=captureReflectionDraft();
+   const previous=state;
+   const latest=await getState(roomCode);
+   if(!latest)throw Error('수업 데이터를 찾지 못했습니다.');
+   state=latest;
+   // 학생 개인 성찰 입력 중에는 서버 재조회로 작성 문장을 지우지 않는다.
+   render();
+   restoreReflectionDraft(formDraft);
+   if(view==='teacherView'&&latest.phase==='bidding'){
+     const k=latest.round+'-'+(latest.leader?.time||0)+'-'+(latest.leader?.amount||0);
+     if(lastSoundBidKey&&k!==lastSoundBidKey&&latest.leader)playBidSound();lastSoundBidKey=k;
+   }
+   if(view==='studentView'&&previous?.round!==latest.round)bidDraft=null;
+   markSyncChecked('최신 기록 확인');
+   toast('✅ 서버의 최신 활동 기록을 다시 불러왔습니다.');
+ }catch(err){
+   if(stamp)stamp.textContent='확인 실패 · 다시 시도';
+   toast('동기화 실패: '+(err?.message||'인터넷 연결을 확인하세요.'));
+ }finally{
+   manualSyncPending=false;
+   if(btn){btn.disabled=false;btn.textContent='⟳ 동기화';}
+ }
+}
+const previousGoHome=goHome;
+goHome=function(){unsubscribeOnline();auctionRoomUUID='';previousGoHome()};
+changeTeam=function(){unsubscribeOnline();teamId=0;roomCode='';auctionRoomUUID='';state=null;
+ memberId='';memberName='';reflectionDraftId='';selectedRegionIndex=null;
+ localPriority=[];priorityCeilings={};priorityReason='';clearSession();goStudentJoin()};
+copyStudentLink=function(){copyText(studentURL(),'학생 접속 링크를 복사했습니다.')};
+openStudentTab=function(){const opened=window.open(studentURL(),'_blank','noopener');if(!opened)toast('팝업이 차단됐습니다. 학생 링크를 새 탭에서 여세요.')};
+boot=async function(){
+ showOnlineStatus('🟠 Supabase 연결 준비');
+ if(!auctionConfigOK()){
+   showOnlineStatus('⚠️ Supabase URL·공개 키 설정 필요');
+   $('home').insertAdjacentHTML('afterbegin','<div class="alert" style="margin-bottom:12px"><b>온라인 연결 설정 필요</b> · HTML 파일의 AUCTION_SUPABASE_URL 및 AUCTION_SUPABASE_PUBLISHABLE_KEY에 기존 모의입법 프로젝트의 URL·Publishable key를 입력한 다음 GitHub Pages에 게시하세요. Secret 또는 service_role 키는 절대 입력하지 마세요.</div>');
+   show('home');return;
+ }
+ if(!window.supabase?.createClient){showOnlineStatus('🔴 연결 라이브러리 로드 실패');toast('인터넷 연결을 확인하고 새로고침하세요.');return}
+ auctionDB=window.supabase.createClient(AUCTION_SUPABASE_URL,AUCTION_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ try{await onlineAuth();showOnlineStatus('🟢 Supabase 인증 완료');}
+ catch(e){showOnlineStatus('🔴 인증 오류');toast(e.message);return;}
+ let saved=null;try{saved=JSON.parse(sessionStorage.getItem(ONLINE_SESSION_KEY)||'null')}catch{}
+ if(qs.get('room')){$('studentCode').value=qs.get('room').toUpperCase();$('teacherCode').value=qs.get('room').toUpperCase()}
+ if(qs.get('role')==='student'){goStudentJoin()}
+ else if(saved?.roomCode&&['teacherView','studentView'].includes(saved.view)){
+   roomCode=saved.roomCode;auctionRoomUUID=saved.roomUUID||'';teamId=saved.teamId||0;
+   memberId=saved.memberId||'';memberName=saved.memberName||'';reflectionDraftId=saved.reflectionDraftId||'';
+   if(teamId>0&&!uuidRE.test(memberId)){goStudentJoin();return}
+   show(saved.view);
+   try{state=await getState(roomCode);if(teamId>0){syncPlanDraft(state.teams[teamId-1]);selectedRegionIndex=state.teams[teamId-1].region;}render();startOnlineSubscription();}
+   catch(e){toast('이전 접속을 다시 불러올 수 없습니다. 수업에 다시 입장하세요.');goHome()}
+ }else show('home');
+ auctionPollingTimer=setInterval(()=>{if(!document.hidden)refresh()},7000);
+ setInterval(updateClockDisplay,150);
+ window.addEventListener('online',()=>{showOnlineStatus('🟠 다시 연결 중');if(auctionRoomUUID){startOnlineSubscription();scheduleOnlineRefresh()}});
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(!auctionConnected&&auctionRoomUUID)startOnlineSubscription();scheduleOnlineRefresh()}});
+ window.addEventListener('focus',scheduleOnlineRefresh);
+};
+
+window.addEventListener('DOMContentLoaded',boot);
+</script>
+</body>
+</html>
