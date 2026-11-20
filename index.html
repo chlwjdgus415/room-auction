@@ -820,10 +820,9 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .team-room-preview .showroom{width:100%;height:100%;min-height:0;padding:0;border:0;box-shadow:none;background:transparent;display:grid;place-items:center}
 .team-room-preview .showroom svg{display:block;width:100%;height:100%;max-height:140px;object-fit:contain}
 .team-room-preview .room-inventory-head,.team-room-preview .room-inventory{display:none}
-.auction-team .team-priority-list{flex:1;grid-template-rows:repeat(2,minmax(0,1fr));min-height:0}
+.auction-team .team-priority-list{flex:1;grid-template-rows:repeat(4,minmax(0,1fr));min-height:0}
 .auction-team .team-priority-item{min-height:0}
-.auction-team.auction-reveal .team-priority-item{min-height:44px}
-.auction-team.auction-live .team-priority-list{margin-top:auto}
+.auction-team.auction-live .team-priority-list{margin-top:0}
 .team-priority-list{gap:6px}
 .team-priority-item{min-height:42px;border-width:1.5px}
 .team-priority-item strong{font-size:11px}
@@ -930,8 +929,6 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
  body.teacher-screen .team-priority-item{height:21px;min-height:0;padding:1px 3px;box-sizing:border-box}
  body.teacher-screen .team-priority-item strong{font-size:8px;line-height:1.1}
  body.teacher-screen .team-priority-item .priority-rank{font-size:8px}
- body.teacher-screen .auction-team.auction-reveal .team-priority-list{height:auto;flex:1}
- body.teacher-screen .auction-team.auction-reveal .team-priority-item{height:auto;min-height:0}
 }
 @media(max-width:1100px){.team-priority-item strong{font-size:10px}.auction-bid-focus strong{font-size:22px}}
 @media(max-width:730px){#teacherTeamHint{max-width:100%;text-align:left}.teacher-team-zone .teacher-card-heading{align-items:flex-start;flex-direction:column}.team-legend,.team-legend-note{justify-content:flex-start}.team-priority-list{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(38px,1fr))}.team-priority-item{min-height:38px}.team-priority-item strong{font-size:9.5px}}
@@ -944,10 +941,6 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .monitor-team .team-priority-item strong{display:grid;grid-template-columns:1.2em minmax(0,1fr);align-items:center;column-gap:4px;min-width:0;max-width:100%;font-size:clamp(12px,.9vw,15px);line-height:1.2;text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
 .monitor-team .team-item-emoji{grid-column:1;grid-row:1;align-self:center;line-height:1}
 .monitor-team .team-item-name{grid-column:2;min-width:0}
-@media screen and (min-width:760px) and (max-height:560px){
- body.teacher-screen .auction-team.auction-reveal .team-priority-list{height:auto;flex:1}
- body.teacher-screen .auction-team.auction-reveal .team-priority-item{height:auto;min-height:0}
-}
 .teacher-drawer-sheet{width:min(1180px,98vw);padding:6px 12px;gap:6px}
 .teacher-drawer-head{top:-6px;padding:2px 0 5px}
 .teacher-drawer-sheet #teacherResults{gap:4px;padding:8px}
@@ -971,6 +964,24 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 @media(max-width:900px){
  .teacher-drawer-sheet{width:100vw}
  .teacher-team-feedback .plan-action-grid,.teacher-team-feedback .reviewgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+body.teacher-screen .teacher-team-zone .monitor-team{gap:6px;padding:10px}
+body.teacher-screen .teacher-team-zone .monitor-team .team-priority-heading,
+body.teacher-screen .teacher-team-zone .monitor-team .auction-bid-focus{box-sizing:border-box;display:flex;align-items:center;flex:0 0 32px;width:100%;height:32px;min-height:32px;margin:0}
+body.teacher-screen .teacher-team-zone .monitor-team .team-priority-heading{overflow:hidden;padding:0 4px;white-space:nowrap;text-overflow:ellipsis}
+body.teacher-screen .teacher-team-zone .monitor-team .auction-bid-focus{justify-content:space-between;padding:4px 8px;gap:8px}
+body.teacher-screen .teacher-team-zone .monitor-team .auction-bid-focus strong{font-size:15px;line-height:1.1}
+body.teacher-screen .teacher-team-zone .monitor-team .auction-bid-focus span{display:none}
+body.teacher-screen .teacher-team-zone .monitor-team .team-priority-list{flex:1;min-height:0;height:auto;grid-template-rows:repeat(4,minmax(0,1fr));margin-top:0}
+body.teacher-screen .teacher-team-zone .monitor-team .team-priority-item{min-height:0}
+body.teacher-screen .teacher-team-zone .feedback-team .team-room-preview{flex:1;min-height:0}
+@media screen and (min-width:760px) and (max-height:680px){
+ body.teacher-screen .teacher-team-zone .monitor-team{gap:3px;padding:6px}
+}
+@media screen and (min-width:760px) and (max-height:560px){
+ body.teacher-screen .teacher-team-zone .monitor-team{gap:2px;padding:4px}
+ body.teacher-screen .teacher-team-zone .monitor-team .team-priority-list{height:44px;flex:0 0 44px;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+ body.teacher-screen .teacher-team-zone .feedback-team .team-room-preview{height:44px;flex:0 0 44px}
 }
 </style>
 </head>
@@ -1626,24 +1637,23 @@ function teacherPriorityRows(s,t,mode='prep'){
  }).join('')}</div>`;
 }
 function teacherTeamCard(s,t,stageName,leader){
- const r=t.region===null?null:REGIONS[t.region],p=t.planWorking?.updated&&s.phase==='lobby'?t.planWorking:(t.plan||{}),d=activityData(s,t),bid=t.bids[s.round];
+ const r=t.region===null?null:REGIONS[t.region],bid=t.bids[s.round];
  const teamIdentity=`<div class="team-identity"><span class="mon-name">${t.id}모둠</span><span class="mon-region-inline ${r?'selected':'unselected'}">${r?`${r.emoji} ${escapeHTML(r.name)}`:'지역 미선택'}</span></div>`;
  if(stageName==='prep'){
   const ready=!!(t.joined&&t.region!==null&&t.plan?.savedAt);
   const badge=!t.joined?'미입장':t.region===null?'지역 선택 전':t.plan?.savedAt?'계획 확정':t.planWorking?.updated?'계획 작성 중':'계획 미확정';
-  const plannedItems=Array.isArray(p.items)?p.items:[];
-  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div><div class="team-priority-heading">사전 계획 방 · ${plannedItems.length}개 물품</div><div class="team-room-preview ${r?'selected':'unselected'}">${roomArt(plannedItems,r||REGIONS[2])}</div></button>`;
+  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div><div class="team-priority-heading">사전 구매 우선순위</div>${teacherPriorityRows(s,t,'prep')}</button>`;
  }
  if(stageName==='auction'){
   const live=s.phase==='bidding',leading=live&&leader?.team===t.id,waived=live&&bidPassActive(t,s.round);
   const badge=live?(waived?'추가 입찰 포기':leading?'현재 최고가':bid?.value?'입찰 제출':'입찰 대기'):s.phase==='reveal'?'결과 공개':t.joined?'참여':'미입장';
   const bidFocus=live?`<div class="auction-bid-focus ${bid?.value?'has-bid':''}"><small>현재 제시 금액</small><strong>${bid?.value?`${fmt(bid.value)}원`:'—'}</strong><span>${waived?'추가 입찰 포기':bid?.value?'이번 물품에 제출한 금액':'아직 제시하지 않음'}</span></div>`:'';
-  const heading=s.phase==='reveal'?'':'<div class="team-priority-heading">8개 물품 · 사전 계획과 경매 결과</div>';
-  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''} ${live?'auction-live':''} ${s.phase==='reveal'?'auction-reveal':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div>${bidFocus}${heading}${teacherPriorityRows(s,t,'auction')}</button>`;
+  const heading='<div class="team-priority-heading">사전 계획 · 경매 결과</div>';
+  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''} ${live?'auction-live':''} ${s.phase==='reveal'?'auction-reveal':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div>${bidFocus||heading}${teacherPriorityRows(s,t,'auction')}</button>`;
  }
- const match=d.won.filter(i=>d.planned.includes(i)).length,offPlan=d.unplanned.length,answered=reflectionList(t).length;
+ const answered=reflectionList(t).length;
  const badge=answered?'성찰 작성':'성찰 대기';
- return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 계획과 행동 비교 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${answered?'ready':'wait'}">${badge}</span></div><div class="team-priority-heading">8개 물품 · 사전 계획과 실제 선택</div>${teacherPriorityRows(s,t,'auction')}<div class="mon-footer"><span>지출 ${fmt(d.spend)}원</span><b>잔액 ${fmt(t.budget)}원</b></div></button>`;
+ return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 후 방 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${answered?'ready':'wait'}">${badge}</span></div><div class="team-priority-heading">경매를 마친 우리 방 · ${(t.items||[]).length}개 물품</div><div class="team-room-preview ${r?'selected':'unselected'}">${roomArt(t.items||[],r||REGIONS[2])}</div></button>`;
 }
 function renderTeacher(){
  const s=state;if(!s)return;
@@ -1667,9 +1677,10 @@ function renderTeacher(){
  });
  $('teacherLiveTitle').textContent=currentStage==='prep'?'경매 전 활동 · 준비 상황':currentStage==='auction'?'실시간 경매 운영':'피드백 · 계획과 실제 행동 비교';
  $('soundBtn').classList.toggle('hidden',currentStage!=='auction');
- $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 계획 방':currentStage==='auction'?(s.phase==='reveal'?'경매 결과 · 8개 물품 현황':'모둠별 제시 금액 · 경매 결과'):'모둠별 사전 계획 · 실제 선택';
+ $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 구매 우선순위':currentStage==='auction'?(s.phase==='reveal'?'경매 결과 · 8개 물품 현황':'모둠별 제시 금액 · 경매 결과'):'모둠별 경매 후 방 · 성찰';
  if(currentStage==='prep')$('teacherTeamHint').innerHTML='<span class="team-legend-note">메달은 사전 구매 우선순위 · 회색은 우선순위 밖 물품</span>';
- else $('teacherTeamHint').innerHTML='<span class="team-legend"><i class="legend-swatch blue"></i>계획 물품 낙찰 <i class="legend-swatch green"></i>계획 밖 낙찰 <i class="legend-swatch red"></i>계획 물품 미낙찰 <i class="legend-swatch gray"></i>진행 전 · 메달은 사전 우선순위</span>';
+ else if(currentStage==='auction')$('teacherTeamHint').innerHTML='<span class="team-legend"><i class="legend-swatch blue"></i>계획 물품 낙찰 <i class="legend-swatch green"></i>계획 밖 낙찰 <i class="legend-swatch red"></i>계획 물품 미낙찰 <i class="legend-swatch gray"></i>진행 전 · 메달은 사전 우선순위</span>';
+ else $('teacherTeamHint').innerHTML='<span class="team-legend-note">사진은 실제 낙찰 물품과 선택 지역을 반영합니다.</span>';
  if(currentStage==='prep'){
   const ready=s.teams.filter(t=>t.joined&&t.region!==null&&t.plan?.savedAt).length;
   const canStart=s.phase==='lobby'&&joined>0&&s.teams.filter(t=>t.joined).every(t=>t.region!==null&&!!t.plan?.savedAt);
