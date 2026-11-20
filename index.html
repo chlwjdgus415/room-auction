@@ -1017,12 +1017,12 @@ function goHome(){state=null;roomCode='';teamId=0;memberId='';memberName='';refl
 const TEACHER_UNLOCK_KEY='moneylab_teacher_unlocked_v2';
 function teacherAccessGranted(){try{return sessionStorage.getItem(TEACHER_UNLOCK_KEY)==='yes'}catch{return false}}
 async function verifyTeacherIdentity(){
- if(!auctionDB)return false;
- const {data:{user},error:userError}=await auctionDB.auth.getUser();
+ if(!auctionTeacherDB)return false;
+ const {data:{user},error:userError}=await auctionTeacherDB.auth.getUser();
  if(userError)throw Error('로그인 사용자 확인 실패: '+userError.message);
  if(!user)return false;
  // Read only the current user's own teacher-role row; RLS limits visibility to auth.uid().
- const {data,error}=await auctionDB.from('auction_teachers')
+ const {data,error}=await auctionTeacherDB.from('auction_teachers')
    .select('user_id').eq('user_id',user.id).maybeSingle();
  if(error)throw Error('교사 권한 조회 실패: '+error.message);
  return !!data;
@@ -1037,18 +1037,18 @@ async function teacherLogin(){
  const password=$('teacherPassword').value;
  const btn=$('teacherLoginBtn');
  if(!email||!password)return toast('교사 이메일과 비밀번호를 입력하세요.');
- if(!auctionDB)return toast('Supabase 연결이 아직 준비되지 않았습니다. 잠시 후 다시 시도하세요.');
+ if(!auctionTeacherDB)return toast('Supabase 연결이 아직 준비되지 않았습니다. 잠시 후 다시 시도하세요.');
  btn.disabled=true;btn.textContent='인증 중...';
  try{
-   const {data:loginData,error}=await auctionDB.auth.signInWithPassword({email,password});
+   const {data:loginData,error}=await auctionTeacherDB.auth.signInWithPassword({email,password});
    if(error)throw error;
    const userId=loginData?.user?.id;
    if(!userId)throw Error('로그인은 성공했지만 사용자 정보를 확인하지 못했습니다.');
    // Avoid PostgREST RPC schema-cache lookup; the RLS-protected table exposes only this user's role row.
-   const {data:roleRecord,error:roleError}=await auctionDB.from('auction_teachers')
+   const {data:roleRecord,error:roleError}=await auctionTeacherDB.from('auction_teachers')
      .select('user_id').eq('user_id',userId).maybeSingle();
    if(roleError)throw Error('교사 권한 조회 실패: '+roleError.message);
-   if(!roleRecord){await auctionDB.auth.signOut();throw Error('이 계정에는 머니랩 교사 권한이 등록되어 있지 않습니다.');}
+   if(!roleRecord){await auctionTeacherDB.auth.signOut();throw Error('이 계정에는 머니랩 교사 권한이 등록되어 있지 않습니다.');}
    try{sessionStorage.setItem(TEACHER_UNLOCK_KEY,'yes')}catch{}
    $('teacherPassword').value='';
    show('teacherSetup');
@@ -1059,7 +1059,7 @@ async function teacherLogin(){
  }finally{btn.disabled=false;btn.textContent='교사 로그인'}
 }
 async function teacherLogout(){
- try{if(auctionDB)await auctionDB.auth.signOut()}catch(e){toast('로그아웃 중 오류: '+e.message)}
+ try{if(auctionTeacherDB)await auctionTeacherDB.auth.signOut()}catch(e){toast('로그아웃 중 오류: '+e.message)}
  try{sessionStorage.removeItem(TEACHER_UNLOCK_KEY)}catch{}
  goHome();
 }
@@ -1657,8 +1657,10 @@ async function boot(){
 const AUCTION_SUPABASE_URL = 'https://pwgjmgywlmznrvmcexvf.supabase.co';
 const AUCTION_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HtGffFm0tu8ebe2v-kxt6Q_YHjbnkRd';
 const ONLINE_SESSION_KEY = 'room-auction-online-2026-v1';
-let auctionDB=null, auctionRoomUUID='', auctionChannel=null, auctionOnlineStatus='설정 필요', auctionRefreshTimer=null;
-let auctionPollingTimer=null, auctionConnected=false, auctionRequeryPending=false, auctionAuthPromise=null, auctionPlanSaving=false;
+const AUCTION_STUDENT_AUTH_STORAGE='room_auction_student_supabase_auth_v1';
+const AUCTION_TEACHER_AUTH_STORAGE='room_auction_teacher_supabase_auth_v1';
+let auctionDB=null, auctionTeacherDB=null, auctionRoomUUID='', auctionChannel=null, auctionRealtimeClient=null, auctionOnlineStatus='설정 필요', auctionRefreshTimer=null;
+let auctionPollingTimer=null, auctionConnected=false, auctionRequeryPending=false, auctionStudentAuthPromise=null, auctionPlanSaving=false;
 let auctionServerTimeOffsetMs=0;
 function auctionNow(){return Date.now()+auctionServerTimeOffsetMs}
 const auctionConfigOK=()=>/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(AUCTION_SUPABASE_URL)&&
@@ -1672,29 +1674,32 @@ clearSession=function(){try{sessionStorage.removeItem(ONLINE_SESSION_KEY)}catch{
 initTabSync=function(){};
 const uuidRE=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 function makeOnlineUUID(){return crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const v=crypto.getRandomValues(new Uint8Array(1))[0]&15;return(c==='x'?v:((v&3)|8)).toString(16)})}
+function onlineRole(role='auto'){return role==='teacher'||(role==='auto'&&['teacherSetup','teacherView'].includes(view))?'teacher':'student'}
+function onlineClient(role='auto'){return onlineRole(role)==='teacher'?auctionTeacherDB:auctionDB}
 async function onlineAuth(role='auto'){
- if(!auctionDB)throw Error('Supabase 연결 설정을 먼저 완료해 주세요.');
- const teacherCall=role==='teacher'||(role==='auto'&&['teacherSetup','teacherView'].includes(view));
- if(auctionAuthPromise)await auctionAuthPromise;
- const {data,error}=await auctionDB.auth.getSession();if(error)throw error;
- if(teacherCall){
+ const resolvedRole=onlineRole(role),client=resolvedRole==='teacher'?auctionTeacherDB:auctionDB;
+ if(!client)throw Error('Supabase 연결 설정을 먼저 완료해 주세요.');
+ if(resolvedRole==='student'&&auctionStudentAuthPromise)await auctionStudentAuthPromise;
+ const {data,error}=await client.auth.getSession();if(error)throw error;
+ if(resolvedRole==='teacher'){
   if(!data.session||data.session.user?.is_anonymous)throw Error('교사 인증 세션이 없거나 만료되었습니다. 교사 계정으로 다시 로그인하세요.');
   return;
  }
  if(data.session)return;
- if(!auctionAuthPromise){
-  auctionAuthPromise=(async()=>{
-   const current=await auctionDB.auth.getSession();
+ if(!auctionStudentAuthPromise){
+  auctionStudentAuthPromise=(async()=>{
+   const current=await client.auth.getSession();
    if(current.error)throw current.error;
    if(current.data.session)return;
-   const r=await auctionDB.auth.signInAnonymously();
+   const r=await client.auth.signInAnonymously();
    if(r.error)throw Error('Supabase 익명 로그인 설정을 확인하세요: '+r.error.message);
   })();
  }
- try{await auctionAuthPromise}finally{auctionAuthPromise=null}
+ try{await auctionStudentAuthPromise}finally{auctionStudentAuthPromise=null}
 }
 async function onlineRPC(fn,args={},role='auto'){
- await onlineAuth(role); const {data,error}=await auctionDB.rpc(fn,args);
+ const resolvedRole=onlineRole(role),client=resolvedRole==='teacher'?auctionTeacherDB:auctionDB;
+ await onlineAuth(resolvedRole); const {data,error}=await client.rpc(fn,args);
  if(error){let msg=error.message||'Supabase 요청 실패';
    if(/Teacher permission required/i.test(msg))msg='현재 로그인한 계정에 서버 교사 권한이 없습니다. 다시 로그인하고, 계속되면 auction_teachers.user_id가 이 계정의 사용자 ID와 일치하는지 확인하세요.';
    else if(/row-level security|permission denied/i.test(msg))msg+=' (RLS·RPC 권한 확인 필요)';
@@ -1744,13 +1749,15 @@ getState=async function(code,role='auto'){
  return onlineNormalize(packet);
 };
 createState=async function(code){auctionRoomUUID=await onlineRPC('auction_create_room',{p_code:code});return getState(code)};
-function unsubscribeOnline(){if(auctionChannel&&auctionDB){auctionDB.removeChannel(auctionChannel).catch(()=>{});auctionChannel=null;}clearTimeout(auctionRefreshTimer)}
+function unsubscribeOnline(){if(auctionChannel&&auctionRealtimeClient){auctionRealtimeClient.removeChannel(auctionChannel).catch(()=>{});auctionChannel=null;auctionRealtimeClient=null;}clearTimeout(auctionRefreshTimer)}
 function scheduleOnlineRefresh(){clearTimeout(auctionRefreshTimer);auctionRefreshTimer=setTimeout(()=>refresh(),260)}
 function startOnlineSubscription(){
- if(!auctionRoomUUID||!auctionDB)return;
+ const client=onlineClient('auto');
+ if(!auctionRoomUUID||!client)return;
  unsubscribeOnline();
  const id=auctionRoomUUID;
- auctionChannel=auctionDB.channel('room-auction-'+id+'-'+makeOnlineUUID().slice(0,7))
+ auctionRealtimeClient=client;
+ auctionChannel=client.channel('room-auction-'+id+'-'+makeOnlineUUID().slice(0,7))
   .on('postgres_changes',{event:'UPDATE',schema:'public',table:'auction_sessions',filter:'id=eq.'+id},scheduleOnlineRefresh)
   .subscribe(status=>{
     if(status==='SUBSCRIBED'){auctionConnected=true;showOnlineStatus('🟢 실시간 연결됨');scheduleOnlineRefresh()}
@@ -1986,7 +1993,9 @@ boot=async function(){
    show('home');return;
  }
  if(!window.supabase?.createClient){showOnlineStatus('🔴 연결 라이브러리 로드 실패');toast('인터넷 연결을 확인하고 새로고침하세요.');return}
- auctionDB=window.supabase.createClient(AUCTION_SUPABASE_URL,AUCTION_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ const clientOptions={persistSession:true,autoRefreshToken:true,detectSessionInUrl:false};
+ auctionDB=window.supabase.createClient(AUCTION_SUPABASE_URL,AUCTION_SUPABASE_PUBLISHABLE_KEY,{auth:{...clientOptions,storageKey:AUCTION_STUDENT_AUTH_STORAGE}});
+ auctionTeacherDB=window.supabase.createClient(AUCTION_SUPABASE_URL,AUCTION_SUPABASE_PUBLISHABLE_KEY,{auth:{...clientOptions,storageKey:AUCTION_TEACHER_AUTH_STORAGE}});
  try{await onlineAuth();showOnlineStatus('🟢 Supabase 인증 완료');}
  catch(e){showOnlineStatus('🔴 인증 오류');toast(e.message);return;}
  let saved=null;try{saved=JSON.parse(sessionStorage.getItem(ONLINE_SESSION_KEY)||'null')}catch{}
