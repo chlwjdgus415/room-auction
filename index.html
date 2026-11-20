@@ -814,8 +814,16 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .showroom svg{background:#f8f9f7}
 .team-identity{display:flex;align-items:baseline;gap:7px;min-width:0;flex:1}
 .team-identity .mon-name{flex:none}
-.mon-region-inline{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:800;color:#39716f}
+.mon-region-inline{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:clamp(12px,1vw,16px);font-weight:850;color:#39716f}
 .mon-region-inline.unselected{color:#87949a;font-weight:700}
+.team-room-preview{flex:1;min-height:0;overflow:hidden;border-radius:10px;background:#f4f7f5}
+.team-room-preview .showroom{width:100%;height:100%;min-height:0;padding:0;border:0;box-shadow:none;background:transparent;display:grid;place-items:center}
+.team-room-preview .showroom svg{display:block;width:100%;height:100%;max-height:140px;object-fit:contain}
+.team-room-preview .room-inventory-head,.team-room-preview .room-inventory{display:none}
+.auction-team .team-priority-list{flex:1;grid-template-rows:repeat(2,minmax(0,1fr));min-height:0}
+.auction-team .team-priority-item{min-height:0}
+.auction-team.auction-reveal .team-priority-item{min-height:44px}
+.auction-team.auction-live .team-priority-list{margin-top:auto}
 .team-priority-list{gap:6px}
 .team-priority-item{min-height:42px;border-width:1.5px}
 .team-priority-item strong{font-size:11px}
@@ -824,7 +832,7 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-class-keyword-panel{display:grid;gap:8px;padding:11px 12px;background:#fff;border:1px solid #dcebe8;border-radius:13px}
 .teacher-class-keyword-panel h3{margin:2px 0 0;font-size:15px;color:#264d59}
 .teacher-class-keyword-panel .teacher-global-words{min-height:62px;padding:8px}
-.teacher-class-keyword-panel .teacher-global-words button{font-size:clamp(14px,1.1vw,25px)!important}
+.teacher-class-keyword-panel .teacher-global-words button{font-size:clamp(14px,1.1vw,25px)}
 .teacher-class-keyword-panel .hint{font-size:10px;line-height:1.5}
 @media(max-width:730px){
  .team-identity{gap:5px}
@@ -922,10 +930,48 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
  body.teacher-screen .team-priority-item{height:21px;min-height:0;padding:1px 3px;box-sizing:border-box}
  body.teacher-screen .team-priority-item strong{font-size:8px;line-height:1.1}
  body.teacher-screen .team-priority-item .priority-rank{font-size:8px}
+ body.teacher-screen .auction-team.auction-reveal .team-priority-list{height:auto;flex:1}
+ body.teacher-screen .auction-team.auction-reveal .team-priority-item{height:auto;min-height:0}
 }
 @media(max-width:1100px){.team-priority-item strong{font-size:10px}.auction-bid-focus strong{font-size:22px}}
 @media(max-width:730px){#teacherTeamHint{max-width:100%;text-align:left}.teacher-team-zone .teacher-card-heading{align-items:flex-start;flex-direction:column}.team-legend,.team-legend-note{justify-content:flex-start}.team-priority-list{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(38px,1fr))}.team-priority-item{min-height:38px}.team-priority-item strong{font-size:9.5px}}
 @media(max-width:480px){.team-priority-list{grid-template-columns:repeat(4,minmax(0,1fr))}.team-priority-item{min-height:42px}.team-priority-item strong{font-size:9px}}
+/* Keep item labels aligned and wrap Korean names only at word boundaries. */
+.monitor-team .team-priority-list{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:6px}
+.monitor-team .team-priority-item{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;justify-content:stretch;justify-items:start;gap:8px;min-height:0;padding:6px 9px;text-align:left;border-radius:11px}
+.monitor-team .team-priority-item .priority-rank{position:static;display:grid;place-items:center;width:24px;height:24px;box-sizing:border-box;padding:0;border:1px solid #ffffffb8;border-radius:50%;background:#ffffffa8;font-size:13px;line-height:1}
+.monitor-team .team-priority-item .priority-rank-empty{color:#98a7ad;background:#edf1f3;border-color:#dfe5e8}
+.monitor-team .team-priority-item strong{display:grid;grid-template-columns:1.2em minmax(0,1fr);align-items:center;column-gap:4px;min-width:0;max-width:100%;font-size:clamp(12px,.9vw,15px);line-height:1.2;text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+.monitor-team .team-item-emoji{grid-column:1;grid-row:1;align-self:center;line-height:1}
+.monitor-team .team-item-name{grid-column:2;min-width:0}
+@media screen and (min-width:760px) and (max-height:560px){
+ body.teacher-screen .auction-team.auction-reveal .team-priority-list{height:auto;flex:1}
+ body.teacher-screen .auction-team.auction-reveal .team-priority-item{height:auto;min-height:0}
+}
+.teacher-drawer-sheet{width:min(1180px,98vw);padding:6px 12px;gap:6px}
+.teacher-drawer-head{top:-6px;padding:2px 0 5px}
+.teacher-drawer-sheet #teacherResults{gap:4px;padding:8px}
+.teacher-team-feedback{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.teacher-team-feedback .teacher-team-keywords,.teacher-team-feedback .plan-action-card,.teacher-team-feedback .reviewgrid{grid-column:1/-1}
+.teacher-team-feedback .teacher-team-keywords{gap:4px;padding:6px 8px}
+.teacher-team-feedback .teacher-team-keywords h3{font-size:14px}
+.teacher-team-feedback .keycloud{min-height:0;padding:5px 7px}
+.teacher-team-feedback .plan-action-card{gap:5px;padding:6px 8px}
+.teacher-team-feedback .plan-action-title h3{font-size:14px}
+.teacher-team-feedback .plan-action-legend{gap:6px 10px;font-size:9px}
+.teacher-team-feedback .plan-action-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.teacher-team-feedback .plan-action-cell{padding:6px 8px}
+.teacher-team-feedback .plan-action-head{font-size:10px}
+.teacher-team-feedback .plan-action-lines{grid-template-columns:1fr;gap:3px;margin-top:4px}
+.teacher-team-feedback .plan-action-lines>span{font-size:10px;line-height:1.35}
+.teacher-team-feedback .reviewgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.teacher-team-feedback .reviewgrid .objective-card{padding:8px 9px}
+.teacher-team-feedback .reviewgrid .objective-card h3{font-size:12px;line-height:1.25}
+.teacher-team-feedback .reviewgrid .objective-card p{font-size:10px;line-height:1.4;margin:4px 0}
+@media(max-width:900px){
+ .teacher-drawer-sheet{width:100vw}
+ .teacher-team-feedback .plan-action-grid,.teacher-team-feedback .reviewgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -960,7 +1006,7 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
   <section id="teacherSetup" class="setting card stack hidden">
     <div><span class="pill rolepath">교사용</span><h2 style="margin-top:12px">수업 개설</h2><div class="hint">같은 HTML에서 교사와 학생이 각자 역할을 선택합니다. 학습 시작 전 모둠마다 지도에서 지역을 선택합니다.</div></div>
     <div class="region-story"><b>Supabase 실시간 연동 · 6개 모둠, 학생 수 제한 없음</b><br>교사와 학생이 각자 스마트폰·노트북에서 동일한 웹 주소로 접속합니다. Realtime 변경 알림 후 최신 정보 재조회, 7초 보정 조회 및 연결 복구 시 자동 동기화를 지원합니다. 교사는 경매를 제어하고 학생은 공동 계획과 개인 성찰에 참여합니다.</div>
-    <label class="field-caption" for="teacherCode">수업 코드 (영문·숫자 4~10자리)</label><input id="teacherCode" maxlength="10" value="ROOM26" spellcheck="false">
+    <label class="field-caption" for="teacherCode">수업 코드 (영문·숫자 4~10자리)</label><input id="teacherCode" maxlength="10" spellcheck="false">
     <button class="large" onclick="openClassroom()">기존 수업 다시 열기 · 새 수업 만들기</button>
     <div class="hint">같은 코드를 입력하면 기존 수업의 진행 단계와 기록을 불러옵니다. 새 수업은 사용하지 않은 코드를 입력하세요. 기존 수업을 새 활동으로 바꾸려면 교사 화면에서 전체 초기화를 실행합니다. 교사 인증은 Supabase 계정으로 관리하며 비밀번호는 이 HTML 파일에 저장되지 않습니다.</div>
   </section>
@@ -1027,8 +1073,8 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
         <div id="teacherInspectPlan" class="card hidden"></div>
         <div class="card" id="teacherHistoryFull"><h2>전체 경매 기록</h2><div class="tablewrap"><table><thead><tr><th>회차</th><th>물품</th><th>낙찰 모둠</th><th>낙찰가</th><th>입찰 참여</th></tr></thead><tbody id="teacherHistory"></tbody></table></div></div>
         <div class="card stack hidden" id="teacherResults">
-          <div class="row between"><h2 style="margin:0" id="teacherResultHeading">모둠별 학습 기록 · 개인 성찰</h2><button class="secondary" onclick="downloadCSV()">CSV 저장</button></div>
-          <div class="hint">사전 계획과 실제 경매 행동을 비교한 뒤, 선택으로 포기한 차선의 대안을 기회비용으로 설명합니다.</div>
+          <div class="row between"><h2 style="margin:0" id="teacherResultHeading">모둠별 피드백 · 핵심 키워드와 물품 비교</h2><button class="secondary" onclick="downloadCSV()">CSV 저장</button></div>
+          <div class="hint">모둠을 선택하면 핵심 키워드, 8개 물품 비교, ②~⑤ 활동 자료를 확인합니다.</div>
           <div id="teacherDetailedFeedback"></div>
         </div>
         <details class="card teacher-details" id="teacherGuide"><summary>50분 수업 운영 · 핵심 발문</summary><div class="stack" style="margin-top:12px"><div class="timing">도입 5분 → 지역 선택·사전 계획 12분 → 경매 약 10분 → 계획과 실제 행동 비교 8분 → 개인 성찰 8분 → 정리 7분</div><div class="priority"><b>핵심 발문</b><div>① 같은 물품도 지역마다 가치가 다른 이유는?</div><div>② 사전에 정한 우선순위와 최대 지불 의사가 실제 입찰에서 어떻게 달라졌는가?</div><div>③ 실제 선택 때문에 포기한 대안 중 가장 가치가 큰 것은 무엇이며, 그것이 기회비용인 이유는?</div></div></div></details>
@@ -1059,7 +1105,7 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
       <div id="studentFeedback"></div>
       <div class="line"></div>
       <h2>✍️ 내 개인 성찰 · 내 기기에서 작성</h2>
-      <div class="hint">모둠 활동 데이터를 확인한 뒤 본인 답변을 작성하세요. 이 기기에서는 저장 후에도 같은 학생의 답변만 수정할 수 있습니다. 다른 모둠의 개인 답변은 학생 화면에 표시하지 않습니다.</div>
+      <div class="hint">모둠 활동 데이터를 확인한 뒤 본인 답변을 작성하세요. 이 기기에서는 저장 후에도 같은 학생의 답변만 수정할 수 있습니다. 저장된 답변은 같은 모둠원끼리 확인할 수 있습니다.</div>
       <label class="field-caption" for="reflectionName">모둠원 이름</label>
       <input id="reflectionName" maxlength="30" placeholder="본인 이름 전체를 입력하세요" autocomplete="name"><div class="hint">이름이 잘못 표시되면 여기에서 수정한 뒤 성찰 답변을 저장하세요. 작성자 기록은 그대로 유지됩니다.</div>
       <div class="reflection-grid">
@@ -1115,13 +1161,13 @@ const qs=new URLSearchParams(location.search), $=id=>document.getElementById(id)
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=v=>Number(v||0).toLocaleString('ko-KR');
 const deepCopy=v=>JSON.parse(JSON.stringify(v));
-let view='home',connection='browser',state=null,roomCode='',teamId=0,busy=false,refreshBusy=false,toastHandle=null,selectedRegionIndex=null,teacherDetailTeam=1,activeStudentKeyword='',activeTeacherKeyword='',activeGlobalKeyword='',reflectionDraftId='',memberId='',memberName='',editPlanOverride=false,planDraftDirty=false,planSaveTimer=null,planDraftRevision=0,bidDraft=null,teacherStage='',teacherPhaseAtStage='';
+let view='home',connection='browser',state=null,roomCode='',teamId=0,busy=false,refreshBusy=false,toastHandle=null,selectedRegionIndex=null,teacherDetailTeam=1,activeStudentKeyword='',activeTeacherKeyword='',activeGlobalKeyword='',reflectionDraftId='',memberId='',memberName='',editPlanOverride=false,planDraftDirty=false,planSaveTimer=null,planDraftRevision=0,bidDraft=null,teacherStage='',teacherPhaseAtStage='',lastStudentStep=null;
 let personalTextDraft='',personalEditing=false;
 
 function toast(message){const el=$('toast');el.textContent=message;el.style.display='block';clearTimeout(toastHandle);toastHandle=setTimeout(()=>el.style.display='none',3400)}
 function writeSession(){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({view,roomCode,teamId,memberId,memberName,reflectionDraftId}))}catch{}}
 function clearSession(){try{sessionStorage.removeItem(SESSION_KEY)}catch{}}
-function show(which){view=which;document.body.classList.toggle('teacher-screen',which==='teacherView');if(which!=='studentView'){document.body.classList.remove('student-auction-screen');document.body.classList.remove('student-history-open');}for(const id of ['home','teacherLogin','teacherSetup','studentJoin','teacherView','studentView'])$(id).classList.toggle('hidden',id!==which);$('homeBtn').classList.toggle('hidden',which==='home');updateConnectionUI();$('syncToolbar')?.classList.toggle('hidden',!['teacherView','studentView'].includes(which));writeSession();if(state&&['teacherView','studentView'].includes(which))render()}
+function show(which){view=which;if(which!=='studentView')lastStudentStep=null;document.body.classList.toggle('teacher-screen',which==='teacherView');if(which!=='studentView'){document.body.classList.remove('student-auction-screen');document.body.classList.remove('student-history-open');}for(const id of ['home','teacherLogin','teacherSetup','studentJoin','teacherView','studentView'])$(id).classList.toggle('hidden',id!==which);$('homeBtn').classList.toggle('hidden',which==='home');updateConnectionUI();$('syncToolbar')?.classList.toggle('hidden',!['teacherView','studentView'].includes(which));writeSession();if(state&&['teacherView','studentView'].includes(which))render()}
 function connectionLabel(){return connection==='browser'?'🔗 같은 브라우저 탭 연동 중':'⚠️ 브라우저 저장소를 사용할 수 없습니다'}
 function updateConnectionUI(){$('connectionPill').textContent=connectionLabel();const help=$('studentConnectionHelp');if(help)help.textContent=connection==='browser'?'교사와 학생은 Chrome·Edge·Safari 등 어떤 브라우저에서든 동일한 배포 웹 주소로 접속하고 같은 수업 코드를 입력하면 됩니다. 단, 파일을 직접 열기(file://)보다 GitHub Pages 등 HTTPS 웹 주소로 배포해야 합니다.':'이 브라우저는 현재 저장 기능이 제한되어 있습니다. 일반 브라우저 창에서 HTML 파일을 다시 열어 주세요.';}
 function goHome(){state=null;roomCode='';teamId=0;memberId='';memberName='';reflectionDraftId='';clearSession();show('home')}
@@ -1272,7 +1318,7 @@ const REGION_SHORT=['해안 마을','산골 마을','도심 주거지','농촌 �
 function mapHTML(s,t){const shapes=REGION_PIECES.map((p,i)=>{const r=REGIONS[i];const other=s.teams.find(o=>o.id!==t.id&&o.region===i);const own=t.region===i;const sel=selectedRegionIndex===i;return `<g class="mapshape ${other?'taken':''} ${own?'owned':''} ${sel?'selected':''}" role="button" tabindex="0" aria-label="${r.name}${other?', 다른 모둠 선택 완료':''}" onclick="previewRegion(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();previewRegion(${i})}"><path class="terrain" d="${p.d}" fill="${p.fill}"/><text class="map-emoji" x="${p.x}" y="${p.y-14}" text-anchor="middle">${r.emoji}</text><text class="map-title" x="${p.x}" y="${p.y+12}" text-anchor="middle">${REGION_SHORT[i]}</text><text class="map-subtitle" x="${p.x}" y="${p.y+33}" text-anchor="middle">${other?'선택 완료':own?'우리 지역': '선택 가능'}</text></g>`}).join('');return `<div class="mapgraphic"><svg viewBox="0 0 670 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6개 지역을 직접 선택하는 가상의 주거 환경 지도"><rect width="670" height="380" fill="#d5eae8"/><path d="M0 26Q79 -15 168 4T380 9Q470 -4 555 1T670 40V370H0Z" fill="#e3f1e6"/><path d="M12 371Q53 315 77 289T183 196Q280 159 320 160T427 224Q477 250 534 218T670 191" stroke="#fff" stroke-width="14" opacity=".65" fill="none"/>${shapes}<path d="M21 360Q96 346 123 332T224 348Q279 360 330 349T432 363Q520 366 646 344" stroke="#9dc6cd" stroke-width="12" fill="none" opacity=".8"/><text x="20" y="23" fill="#2d6a7a" font-size="13" font-weight="900">우리 반 가상 주거 지도</text><text x="648" y="25" fill="#3b7582" text-anchor="end" font-size="11">▲ 북</text></svg></div>`}
 function previewRegion(i){if(!state||!teamId)return;const existing=state.teams[teamId-1].region;if(existing!==null){toast(`우리 모둠의 지역은 이미 ${REGIONS[existing].name}(으)로 확정됐습니다.`);return}selectedRegionIndex=i;renderRegionSelect()}
 function renderRegionSelect(){if(!state||!teamId)return;const t=state.teams[teamId-1],s=state;const chosen=selectedRegionIndex??t.region;$('regionMap').innerHTML=mapHTML(s,t);if(chosen===null){$('regionSelectionInfo').innerHTML='<h3>원하는 지역을 클릭하세요</h3><p>기후·생활 방식·주거 조건을 보고 모둠원끼리 의논한 다음 선택하세요.</p>';return}const r=REGIONS[chosen],other=s.teams.find(q=>q.id!==t.id&&q.region===chosen);$('regionSelectionInfo').innerHTML=`<div class="pill">${r.emoji} ${r.name}</div><h3>${r.name}</h3><p>${escapeHTML(r.desc)}</p>${other?'<div class="notice">다른 모둠이 이미 선택한 지역입니다. 다른 곳을 선택하세요.</div>':s.phase!=='lobby'?'<div class="hint">경매가 시작되어 지역을 변경할 수 없습니다.</div>':`<button class="large" onclick="commitRegion(${chosen})">${t.region===chosen?'선택한 지역 유지':'이 지역 선택 확정'}</button>`}<div class="info-note">특정 제품이 정답이라는 안내는 제공하지 않습니다. 생활환경만 보고 필요를 추론하세요.</div>`}
-async function commitRegion(i){const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 후에는 지역을 바꿀 수 없습니다.');if(s.teams[teamId-1].region!==null)throw Error('우리 모둠의 지역은 이미 확정되었습니다. 교사에게 변경을 요청하세요.');if(s.teams.some(t=>t.id!==teamId&&t.region===i))throw Error('이미 다른 모둠이 선택했습니다.');s.teams[teamId-1].region=i;return s});if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 지역이 확정되었습니다. 다음은 구매 전략입니다.');document.querySelector('#studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'})}}
+async function commitRegion(i){const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 후에는 지역을 바꿀 수 없습니다.');if(s.teams[teamId-1].region!==null)throw Error('우리 모둠의 지역은 이미 확정되었습니다. 교사에게 변경을 요청하세요.');if(s.teams.some(t=>t.id!==teamId&&t.region===i))throw Error('이미 다른 모둠이 선택했습니다.');s.teams[teamId-1].region=i;return s});if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 지역이 확정되었습니다. 다음은 구매 전략입니다.')}}
 function catalogHTML(s,t){return LOTS.map((l,i)=>{const rank=(t.plan?.items||[]).indexOf(i);return `<div class="catalogitem ${rank>=0?'in-plan':''}"><div class="catalogart">${furnitureSVG(i)}</div><h3>${escapeHTML(l.name)} <span class="badge">${l.category}</span></h3><p>${escapeHTML(l.desc)}</p><div class="catalogprice">${fmt(l.start)}원 <span class="hint">시작가</span></div>${s.phase==='lobby'?`<button class="${rank>=0?'':'secondary'}" onclick="togglePriority(${i})" ${t.region===null?'disabled title="지역을 먼저 선택하세요"':''}>${rank>=0?rank+1+'순위 선택됨 · 취소':'+ 우선순위 추가'}</button>`:''}</div>`}).join('')}
 let localPriority=[],priorityCeilings={},priorityReason='';
 function syncPlanDraft(t){const w=t.planWorking?.updated?t.planWorking:(t.plan||{});localPriority=[...(w.items||[])];priorityCeilings={...(w.ceilings||{})};priorityReason=w.reason||'';planDraftDirty=false;if($('planEditor'))$('planEditor').innerHTML=''}
@@ -1289,8 +1335,8 @@ function setPlanReason(value){priorityReason=value;planDraftDirty=true;scheduleP
 function setPlanCeiling(i,value){priorityCeilings[i]=Number(value)||0;planDraftDirty=true;schedulePlanAutosave();const el=$('planBudgetNotice');if(el)el.innerHTML=planBudgetSummary()}
 function schedulePlanAutosave(immediate=false){clearTimeout(planSaveTimer);if(!state||state.phase!=='lobby'||!teamId)return;const snapshot=++planDraftRevision;planSaveTimer=setTimeout(()=>{if(snapshot===planDraftRevision)saveWorkingPlan()},immediate?150:800)}
 async function saveWorkingPlan(){if(!planDraftDirty||!state||state.phase!=='lobby'||!teamId)return;const items=[...localPriority],ceilings={...priorityCeilings},reason=priorityReason.slice(0,350),editor=memberName;const ok=await modifyState(roomCode,s=>{const t=s.teams[teamId-1];if(s.phase!=='lobby'||t.region===null)return null;t.planWorking={items,ceilings,reason,updated:Date.now(),editor};return s},{quiet:true});if(ok&&items.join(',')===localPriority.join(',')&&reason===priorityReason)planDraftDirty=false}
-function revisePlan(){if(!state||state.phase!=='lobby')return;editPlanOverride=true;syncPlanDraft(state.teams[teamId-1]);renderStudent();document.getElementById('studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'})}
-async function savePlan(){const reason=$('planReason')?.value.trim()||priorityReason.trim();const ceilings={...priorityCeilings};document.querySelectorAll('.planlimit').forEach(el=>{ceilings[el.dataset.lot]=Math.max(0,Math.min(BUDGET,Number(el.value)||0))});if(!localPriority.length)return toast('물품을 1개 이상 선택해 주세요.');if(localPriority.some(i=>(ceilings[i]||0)<LOTS[i].start))return toast('최대 지불액은 물품 시작가 이상으로 설정하세요.');if(!reason)return toast('우리 모둠이 물품을 선택한 이유를 작성하세요.');const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 전까지만 전략을 저장할 수 있습니다.');const t=s.teams[teamId-1];if(t.region===null)throw Error('지역 선택을 먼저 완료하세요.');t.plan={items:[...localPriority],ceilings,reason:reason.slice(0,350),savedAt:Date.now()};t.planWorking={...t.plan,updated:Date.now(),editor:memberName};return s});if(ok){clearTimeout(planSaveTimer);planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 구매 전략이 확정되었습니다. 경매장으로 이동합니다.');document.getElementById('studentPlanBrief')?.scrollIntoView({behavior:'smooth',block:'start'})}}
+function revisePlan(){if(!state||state.phase!=='lobby')return;editPlanOverride=true;syncPlanDraft(state.teams[teamId-1]);renderStudent()}
+async function savePlan(){const reason=$('planReason')?.value.trim()||priorityReason.trim();const ceilings={...priorityCeilings};document.querySelectorAll('.planlimit').forEach(el=>{ceilings[el.dataset.lot]=Math.max(0,Math.min(BUDGET,Number(el.value)||0))});if(!localPriority.length)return toast('물품을 1개 이상 선택해 주세요.');if(localPriority.some(i=>(ceilings[i]||0)<LOTS[i].start))return toast('최대 지불액은 물품 시작가 이상으로 설정하세요.');if(!reason)return toast('우리 모둠이 물품을 선택한 이유를 작성하세요.');const ok=await modifyState(roomCode,s=>{if(s.phase!=='lobby')throw Error('경매 시작 전까지만 전략을 저장할 수 있습니다.');const t=s.teams[teamId-1];if(t.region===null)throw Error('지역 선택을 먼저 완료하세요.');t.plan={items:[...localPriority],ceilings,reason:reason.slice(0,350),savedAt:Date.now()};t.planWorking={...t.plan,updated:Date.now(),editor:memberName};return s});if(ok){clearTimeout(planSaveTimer);planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 구매 전략이 확정되었습니다. 경매장으로 이동합니다.')}}
 function outdoorScene(region){const c=sceneColors[region.scene]||sceneColors.city;return `<rect x="316" y="59" width="257" height="180" fill="${c[0]}"/><circle cx="515" cy="102" r="20" fill="#fff6d4" opacity=".65"/><path d="M316 170Q375 122 431 163T573 155V238H316Z" fill="${c[1]}" opacity=".75"/>${region.scene==='city'?`<g fill="#6d8999"><rect x="348" y="96" width="32" height="143"/><rect x="396" y="119" width="49" height="120"/><rect x="472" y="86" width="40" height="153"/></g>`:''}${region.scene==='coast'?'<path d="M316 193Q385 180 453 190T573 191V239H316Z" fill="#78b8ca"/>':''}${region.scene==='rain'?'<g stroke="#eaf6f8" stroke-width="3" opacity=".76"><path d="M354 72l-23 46M410 70l-23 46M483 63l-23 46M558 91l-23 46"/></g>':''}`}
 const itemPlacements=[
  'translate(465 275) scale(1.24 1.22)', // dehumidifier — prominent foreground
@@ -1455,8 +1501,18 @@ function planActionComparisonHTML(s,t,d){
  }).join('');
  return `<div class="plan-action-grid">${cells}</div>`;
 }
+function feedbackReviewCardsHTML(s,t,d){
+ const region=t.region===null?null:REGIONS[t.region],p=t.plan||{},fmtItem=i=>escapeHTML(LOTS[i].name);
+ const planned=d.planned.map((i,n)=>`${n+1}순위 ${fmtItem(i)} (${fmt(p.ceilings?.[i]||0)}원 한도)`),wins=d.won.map(i=>`${fmtItem(i)} (${fmt(s.history.find(h=>h.round===i)?.price||0)}원)`),missed=d.unwon.map(fmtItem),extra=d.unplanned.map(fmtItem);
+ return `<div class="reviewgrid">
+ <div class="objective-card"><h3>② 지역과 사전 전략</h3><p><b>선택 환경:</b> ${region?escapeHTML(region.desc):'미선택'}</p><p><b>사전 우선순위:</b> ${planned.join(' → ')||'기록 없음'}</p><p><b>계획 이유와 사전 포기 대안:</b> ${escapeHTML(p.reason||'작성 없음')}</p></div>
+ <div class="objective-card"><h3>③ 실제 구매와 예산 제약</h3><p><b>실제 낙찰:</b> ${wins.join(' · ')||'없음'}</p><p><b>사전 최대 지불 의사 금액 합계:</b> ${fmt(d.maxPlannedSum)}원 (동시 구매 확정액은 아님)</p><p><b>실제 지출률:</b> ${Math.round(d.spend/BUDGET*100)}%</p><p><b>계획 밖 구매:</b> ${extra.join(' · ')||'없음'}</p></div>
+ <div class="objective-card"><h3>④ 계획에서 벗어난 선택</h3><p><b>계획했지만 낙찰받지 못한 물품:</b> ${missed.join(' · ')||'없음'}</p><p><b>추가 입찰을 포기한 물품:</b> ${d.passes.map(fmtItem).join(' · ')||'없음'}</p><p>계획과 실제 행동이 달라진 이유를 확인하세요. 예산, 경쟁, 다른 물품의 우선순위가 영향을 주었나요?</p></div>
+ <div class="objective-card opportunity-question"><h3>⑤ 기회비용 찾아보기</h3><p>실제 선택 때문에 포기한 대안 중 <b>가장 가치가 컸던 것 하나</b>를 고르세요.</p><p><b>생각할 질문:</b> 그 대안을 선택했다면 어떤 이익을 얻었을까요? 그 가치가 다른 포기한 대안보다 컸던 이유는 무엇인가요?</p><p class="hint">미낙찰 물품이나 남은 예산을 그 자체로 기회비용이라고 단정하지 않습니다.</p></div>
+ </div>`;
+}
 function feedbackHTML(s,t){
- const d=activityData(s,t),region=t.region===null?null:REGIONS[t.region],p=t.plan||{},fmtItem=i=>escapeHTML(LOTS[i].name),planned=d.planned.map((i,n)=>`${n+1}순위 ${fmtItem(i)} (${fmt(p.ceilings?.[i]||0)}원 한도)`),wins=d.won.map(i=>`${fmtItem(i)} (${fmt(s.history.find(h=>h.round===i)?.price||0)}원)`),missed=d.unwon.map(fmtItem),extra=d.unplanned.map(fmtItem);
+ const d=activityData(s,t),region=t.region===null?null:REGIONS[t.region];
  const exactMatch=d.won.filter(i=>d.planned.includes(i)).length,overCeiling=d.exceeded.length;
  return `<div class="insight-panel">
  <div class="row between"><strong>${t.name} · ${region?.name||'지역 미선택'}</strong><span class="pill">계획 → 실제 행동 → 기회비용</span></div>
@@ -1464,12 +1520,7 @@ function feedbackHTML(s,t){
  <div class="opportunity-spotlight"><div class="opportunity-eyebrow">이번 활동의 핵심 경제 개념</div><h3>기회비용은 선택 때문에 포기한 ‘차선의 대안’의 가치입니다.</h3><p>낙찰가 자체가 기회비용은 아닙니다. 입찰하지 않았거나 미낙찰된 물품 전체가 자동으로 기회비용이 되는 것도 아닙니다. 실제 선택과 포기한 대안을 비교해, 포기한 것 중 가장 가치가 큰 하나를 찾아보세요.</p><div class="opportunity-formula"><span>실제로 선택한 행동</span><b>↔</b><span>포기한 차선의 대안</span><b>→</b><strong>기회비용</strong></div></div>
  <div class="feedback-room"><div class="feedback-room-heading"><h3>🏠 경매를 마친 우리 방</h3><p>선택한 지역과 실제 낙찰받은 물품이 반영된 결과입니다.</p></div><div class="feedback-room-image">${roomArt(d.won,region||REGIONS[0])}</div></div>
  <div class="objective-card plan-action-card"><div class="plan-action-title"><div><span class="opportunity-eyebrow">STEP 1</span><h3>사전 계획과 실제 행동 비교</h3></div><span class="hint">8개 물품 전체 비교</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}<p class="comparison-takeaway"><b>비교해 볼 지점:</b> 계획한 물품을 실제로 샀는지, 계획하지 않은 물품을 샀는지, 사전에 정한 최대 지불 의사와 실제 입찰액이 달랐는지 살펴보세요. 사전 한도 초과 입찰은 <b>${overCeiling}회</b>입니다.</p></div>
- <div class="reviewgrid">
- <div class="objective-card"><h3>② 지역과 사전 전략</h3><p><b>선택 환경:</b> ${region?escapeHTML(region.desc):'미선택'}</p><p><b>사전 우선순위:</b> ${planned.join(' → ')||'기록 없음'}</p><p><b>계획 이유와 사전 포기 대안:</b> ${escapeHTML(p.reason||'작성 없음')}</p></div>
- <div class="objective-card"><h3>③ 실제 구매와 예산 제약</h3><p><b>실제 낙찰:</b> ${wins.join(' · ')||'없음'}</p><p><b>사전 최대 지불 의사 금액 합계:</b> ${fmt(d.maxPlannedSum)}원 (동시 구매 확정액은 아님)</p><p><b>실제 지출률:</b> ${Math.round(d.spend/BUDGET*100)}%</p><p><b>계획 밖 구매:</b> ${extra.join(' · ')||'없음'}</p></div>
- <div class="objective-card"><h3>④ 계획에서 벗어난 선택</h3><p><b>계획했지만 낙찰받지 못한 물품:</b> ${missed.join(' · ')||'없음'}</p><p><b>추가 입찰을 포기한 물품:</b> ${d.passes.map(fmtItem).join(' · ')||'없음'}</p><p>계획과 실제 행동이 달라진 이유를 확인하세요. 예산, 경쟁, 다른 물품의 우선순위가 영향을 주었나요?</p></div>
- <div class="objective-card opportunity-question"><h3>⑤ 기회비용 찾아보기</h3><p>실제 선택 때문에 포기한 대안 중 <b>가장 가치가 컸던 것 하나</b>를 고르세요.</p><p><b>생각할 질문:</b> 그 대안을 선택했다면 어떤 이익을 얻었을까요? 그 가치가 다른 포기한 대안보다 컸던 이유는 무엇인가요?</p><p class="hint">미낙찰 물품이나 남은 예산을 그 자체로 기회비용이라고 단정하지 않습니다.</p></div>
- </div><div class="notice">이 자료는 관찰 가능한 행동을 보여주는 학습 자료입니다. 기회비용은 학생이 실제 선택과 차선의 대안을 근거를 들어 설명하면서 파악합니다. 단어 빈도나 낙찰 결과만으로 경제 개념 이해도를 평가하지 않습니다.</div></div>`
+ ${feedbackReviewCardsHTML(s,t,d)}<div class="notice">이 자료는 관찰 가능한 행동을 보여주는 학습 자료입니다. 기회비용은 학생이 실제 선택과 차선의 대안을 근거를 들어 설명하면서 파악합니다. 단어 빈도나 낙찰 결과만으로 경제 개념 이해도를 평가하지 않습니다.</div></div>`
 }
 function globalWordCloud(stats){
  const max=Math.max(1,...stats.map(x=>x.count));
@@ -1485,16 +1536,27 @@ function teacherClassKeywordPanel(s,totalReflections){
  const stats=classKeywordStats(s);
  return `<div class="teacher-class-keyword-panel"><div class="row between"><div><div class="opportunity-eyebrow">학급 전체 성찰 키워드</div><h3>학생들이 자주 사용한 개념</h3></div><span class="hint">답변 ${totalReflections}건</span></div>${globalWordCloud(stats)}${teacherSelectedExcerpts(s)}<div class="hint">키워드 빈도는 대화의 단서이며, 이해도 점수나 성취 판정은 아닙니다.</div></div>`;
 }
+function teacherTeamKeywordExamples(t){
+ if(!activeTeacherKeyword)return '<div class="hint">키워드를 선택하면 관련 성찰 답변 예시를 확인할 수 있습니다.</div>';
+ const group=KEY_DICTIONARY.find(k=>k.label===activeTeacherKeyword);
+ if(!group)return '';
+ const hits=reflectionList(t).filter(r=>mentionsKeyword(r,group));
+ return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeTeacherKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,2).map(r=>`${escapeHTML(r.name||'모둠원')}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,85))}${reflectionTextForDisplay(r.text).length>85?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`;
+}
+function teacherTeamFeedbackHTML(s,t){
+ const d=activityData(s,t),stats=keywordStats(t);
+ return `<div class="teacher-team-feedback stack"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
+}
 function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword('${escapeHTML(k.label)}','${scope}')" title="${k.count}명이 언급">${k.label} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
 function membersHTML(t,keyword=''){const refs=reflectionList(t);const criterion=KEY_DICTIONARY.find(k=>k.label===keyword);const shown=criterion?refs.filter(r=>mentionsKeyword(r,criterion)):refs;return shown.length?shown.map((r,i)=>`<div class="memberquote"><div class="row between"><span class="name">${escapeHTML(r.name||'모둠원')}</span><span class="hint">${r.updated?new Date(r.updated).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join(''):'<div class="hint">선택한 키워드가 들어간 답변이 아직 없습니다.</div>'}
-function renderStudentInsight(){if(!state||view!=='studentView')return;const t=state.teams[teamId-1];const stats=keywordStats(t),n=reflectionList(t).length;const top=stats.slice(0,5);$('studentReflectionInsights').innerHTML=`<div class="stack" style="margin-top:16px"><div class="row between"><h3 style="margin:0">💬 우리 모둠 성찰 키워드</h3><span class="pill">현재 ${n}명 작성</span></div>${keywordCloud(stats,'student',activeStudentKeyword)}${top.length?`<div class="stack">${top.map(k=>`<div class="row"><div style="min-width:85px;font-weight:750;font-size:13px">${k.label}</div><div class="keybar"><i style="width:${Math.round(k.count/Math.max(1,n)*100)}%"></i></div><span class="hint">${k.count}/${n}명</span></div>`).join('')}</div>`:''}<div class="hint">${activeStudentKeyword?'“'+activeStudentKeyword+'”와 연결된 답변만 표시 중 · 키워드 재클릭 시 전체 표시':'키워드를 클릭하면 해당 단어·표현이 포함된 학생 답변을 모아 볼 수 있습니다.'}</div><div class="stack">${membersHTML(t,activeStudentKeyword)}</div></div>`}
-function renderTeacherDetail(){if(!state||view!=='teacherView')return;const t=state.teams[teacherDetailTeam-1];if(!t)return;const n=reflectionList(t).length,stats=keywordStats(t);$('teacherDetailedFeedback').innerHTML=`<div class="stack"><h3>${t.name} · ${t.region!==null?REGIONS[t.region].name:'지역 미선택'} — 활동 기록과 개인별 답변</h3>${feedbackHTML(state,t)}<h3>모둠원 ${n}명 · 핵심 키워드</h3>${keywordCloud(stats,'teacher',activeTeacherKeyword)}<div class="hint">${activeTeacherKeyword?'“'+activeTeacherKeyword+'” 언급 답변만 표시':'키워드를 선택하면 그 표현이 나타난 답변을 확인할 수 있습니다.'}</div>${membersHTML(t,activeTeacherKeyword)}</div>`}
+function renderStudentInsight(){if(!state||view!=='studentView')return;const t=state.teams[teamId-1],stats=keywordStats(t),n=reflectionList(t).length,top=stats.slice(0,5);$('studentReflectionInsights').innerHTML=`<div class="stack student-reflection-insights" style="margin-top:16px"><div class="row between"><h3 style="margin:0">💬 우리 모둠 성찰 키워드</h3><span class="pill">현재 ${n}명 작성</span></div>${keywordCloud(stats,'student',activeStudentKeyword)}${top.length?`<div class="stack">${top.map(k=>`<div class="row"><div style="min-width:85px;font-weight:750;font-size:13px">${k.label}</div><div class="keybar"><i style="width:${Math.round(k.count/Math.max(1,n)*100)}%"></i></div><span class="hint">${k.count}/${n}명</span></div>`).join('')}</div>`:''}<div class="hint">${activeStudentKeyword?'“'+activeStudentKeyword+'”와 연결된 답변만 표시 중 · 키워드 재클릭 시 전체 표시':'키워드를 클릭하면 해당 단어·표현이 포함된 학생 답변을 모아 볼 수 있습니다.'}</div><section class="stack student-peer-reflections"><div class="row between"><h3 style="margin:0">모둠원 성찰 답변</h3><span class="pill">${n}명</span></div><div class="hint">같은 모둠에서 저장한 답변을 확인할 수 있습니다.</div>${membersHTML(t,activeStudentKeyword)}</section></div>`}
+function renderTeacherDetail(){if(!state||view!=='teacherView')return;const t=state.teams[teacherDetailTeam-1];if(!t)return;$('teacherDetailedFeedback').innerHTML=`<div class="stack"><h3>${t.name} · ${t.region!==null?REGIONS[t.region].name:'지역 미선택'} · 모둠 피드백</h3>${teacherTeamFeedbackHTML(state,t)}</div>`}
 function renderClassExcerpts(){const out=$('teacherClassExcerpts');if(!out)return;if(!activeGlobalKeyword){out.innerHTML='';return}const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return;const refs=state.teams.flatMap(t=>reflectionList(t).filter(x=>mentionsKeyword(x,group)).map(x=>({team:t.name,...x})));out.innerHTML=`<div class="insight-panel"><div class="row between"><strong>“${escapeHTML(activeGlobalKeyword)}” 관련 답변 · ${refs.length}명</strong><button class="secondary" onclick="activeGlobalKeyword='';renderClassExcerpts()">모아보기 닫기</button></div><div class="stack">${refs.map(r=>`<div class="memberquote"><div class="name">${r.team} · ${escapeHTML(r.name)}</div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join('')||'<div class="hint">관련 문장을 찾지 못했습니다.</div>'}</div></div>`}
 function renderTeacherResults(){
  if(!state||state.phase!=='finished')return;
  const team=state.teams[teacherDetailTeam-1];
- $('teacherResultHeading').textContent=`📘 ${teacherDetailTeam}모둠 · ${team?.region===null?'지역 미선택':REGIONS[team.region].name} 학습 기록 · 개인 성찰`;
+ $('teacherResultHeading').textContent=`📘 ${team?.name||teacherDetailTeam+'모둠'} · ${team?.region===null?'지역 미선택':REGIONS[team.region].name} 피드백`;
  renderTeacherDetail();
 }
 function selectTeacherTeam(id){teacherDetailTeam=id;activeTeacherKeyword='';renderTeacherResults()}
@@ -1514,6 +1576,11 @@ function inspectTeacherTeam(id){
  if(!state)return;teacherDetailTeam=id;
  const t=state.teams[id-1];if(!t)return;
  const r=t.region===null?null:REGIONS[t.region];
+ if(state.phase==='finished'){
+  $('teacherDrawerTitle').textContent=`${id}모둠 · ${r?.name||'지역 미선택'} 피드백`;
+  $('teacherInspectPlan').classList.add('hidden');$('teacherHistoryFull').classList.add('hidden');$('teacherResults').classList.remove('hidden');$('teacherGuide').classList.add('hidden');$('teacherDrawer').classList.remove('hidden');
+  selectTeacherTeam(id);$('teacherDrawerSheet')?.scrollTo(0,0);return;
+ }
  const p=t.planWorking?.updated?t.planWorking:t.plan||{};
  const plans=(p.items||[]).map((i,n)=>`<div class="teacher-inspect-item"><b>${n+1}순위 · ${escapeHTML(LOTS[i]?.name||'물품')}</b> · 최고 지불 의사 금액 ${fmt((p.ceilings||{})[i]||0)}원</div>`).join('')||'<div class="teacher-inspect-item">우선순위 입력 전</div>';
  $('teacherDrawerTitle').textContent=`${id}모둠 · ${r?.name||'지역 미선택'} 자세히 보기`;
@@ -1553,8 +1620,9 @@ function teacherPriorityRows(s,t,mode='prep'){
      const isCurrent=(s.phase==='bidding'||s.phase==='reveal')&&s.round===idx&&!result;
      if(isCurrent)stateClass+=' is-current';
    }
-   const medal=planned?`<span class="priority-rank" aria-hidden="true">${medals[rank]||''}</span>`:'';
-   return `<div class="team-priority-item ${stateClass}" title="${escapeHTML(lot.name)} · ${stateText}" aria-label="${escapeHTML(lot.name)} · ${stateText}">${medal}<strong>${lot.emoji||''} ${escapeHTML(lot.name)}</strong></div>`;
+   const medal=planned?`<span class="priority-rank" aria-hidden="true">${medals[rank]||''}</span>`:'<span class="priority-rank priority-rank-empty" aria-hidden="true">·</span>';
+   const itemName=escapeHTML(lot.name).replace(/\s+/,'<br>');
+   return `<div class="team-priority-item ${stateClass}" title="${escapeHTML(lot.name)} · ${stateText}" aria-label="${escapeHTML(lot.name)} · ${stateText}">${medal}<strong><span class="team-item-emoji">${escapeHTML(lot.emoji||'')}</span><span class="team-item-name">${itemName}</span></strong></div>`;
  }).join('')}</div>`;
 }
 function teacherTeamCard(s,t,stageName,leader){
@@ -1563,20 +1631,15 @@ function teacherTeamCard(s,t,stageName,leader){
  if(stageName==='prep'){
   const ready=!!(t.joined&&t.region!==null&&t.plan?.savedAt);
   const badge=!t.joined?'미입장':t.region===null?'지역 선택 전':t.plan?.savedAt?'계획 확정':t.planWorking?.updated?'계획 작성 중':'계획 미확정';
-  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div><div class="team-priority-heading">8개 물품 · 사전 구매 우선순위</div>${teacherPriorityRows(s,t,'prep')}</button>`;
+  const plannedItems=Array.isArray(p.items)?p.items:[];
+  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div><div class="team-priority-heading">사전 계획 방 · ${plannedItems.length}개 물품</div><div class="team-room-preview ${r?'selected':'unselected'}">${roomArt(plannedItems,r||REGIONS[2])}</div></button>`;
  }
  if(stageName==='auction'){
-  const leading=s.phase==='bidding'&&leader?.team===t.id,waived=s.phase==='bidding'&&bidPassActive(t,s.round);
-  const badge=s.phase==='bidding'?(waived?'추가 입찰 포기':leading?'현재 최고가':bid?.value?'입찰 제출':'입찰 대기'):(t.joined?'참여':'미입장');
-  const historyNow=s.history.find(x=>x.round===s.round);
-  let bidCaption='현재 제시 금액',bidValue=bid?.value?`${fmt(bid.value)}원`:'—';
-  let bidSub=waived?'추가 입찰 포기':bid?.value?'이번 물품에 제출한 금액':'아직 제시하지 않음';
-  if(s.phase==='reveal'){
-   bidCaption='이번 물품 경매 결과';
-   bidValue=historyNow?.winner===t.id?`낙찰 · ${fmt(historyNow.price)}원`:historyNow?.winner?`${historyNow.winner}모둠 낙찰`:'유찰';
-   bidSub=historyNow?.winner===t.id?'우리 모둠이 낙찰받았습니다.':'이번 물품은 우리 모둠의 낙찰이 아닙니다.';
-  }
-  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div><div class="auction-bid-focus ${bid?.value&&s.phase==='bidding'?'has-bid':''}"><small>${bidCaption}</small><strong>${bidValue}</strong><span>${bidSub}</span></div><div class="team-priority-heading">8개 물품 · 사전 계획과 경매 결과</div>${teacherPriorityRows(s,t,'auction')}</button>`;
+  const live=s.phase==='bidding',leading=live&&leader?.team===t.id,waived=live&&bidPassActive(t,s.round);
+  const badge=live?(waived?'추가 입찰 포기':leading?'현재 최고가':bid?.value?'입찰 제출':'입찰 대기'):s.phase==='reveal'?'결과 공개':t.joined?'참여':'미입장';
+  const bidFocus=live?`<div class="auction-bid-focus ${bid?.value?'has-bid':''}"><small>현재 제시 금액</small><strong>${bid?.value?`${fmt(bid.value)}원`:'—'}</strong><span>${waived?'추가 입찰 포기':bid?.value?'이번 물품에 제출한 금액':'아직 제시하지 않음'}</span></div>`:'';
+  const heading=s.phase==='reveal'?'':'<div class="team-priority-heading">8개 물품 · 사전 계획과 경매 결과</div>';
+  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''} ${live?'auction-live':''} ${s.phase==='reveal'?'auction-reveal':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div>${bidFocus}${heading}${teacherPriorityRows(s,t,'auction')}</button>`;
  }
  const match=d.won.filter(i=>d.planned.includes(i)).length,offPlan=d.unplanned.length,answered=reflectionList(t).length;
  const badge=answered?'성찰 작성':'성찰 대기';
@@ -1604,7 +1667,7 @@ function renderTeacher(){
  });
  $('teacherLiveTitle').textContent=currentStage==='prep'?'경매 전 활동 · 준비 상황':currentStage==='auction'?'실시간 경매 운영':'피드백 · 계획과 실제 행동 비교';
  $('soundBtn').classList.toggle('hidden',currentStage!=='auction');
- $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 우선순위':currentStage==='auction'?'모둠별 제시 금액 · 경매 결과':'모둠별 사전 계획 · 실제 선택';
+ $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 계획 방':currentStage==='auction'?(s.phase==='reveal'?'경매 결과 · 8개 물품 현황':'모둠별 제시 금액 · 경매 결과'):'모둠별 사전 계획 · 실제 선택';
  if(currentStage==='prep')$('teacherTeamHint').innerHTML='<span class="team-legend-note">메달은 사전 구매 우선순위 · 회색은 우선순위 밖 물품</span>';
  else $('teacherTeamHint').innerHTML='<span class="team-legend"><i class="legend-swatch blue"></i>계획 물품 낙찰 <i class="legend-swatch green"></i>계획 밖 낙찰 <i class="legend-swatch red"></i>계획 물품 미낙찰 <i class="legend-swatch gray"></i>진행 전 · 메달은 사전 우선순위</span>';
  if(currentStage==='prep'){
@@ -1659,6 +1722,9 @@ function renderStudent(){
  const s=state,t=s.teams.find(q=>q.id===teamId);if(!t)return;const region=t.region===null?null:REGIONS[t.region],phase=s.phase;
  if(!planDraftDirty&&t.planWorking?.updated&&!editPlanOverride){const remote=t.planWorking;if(JSON.stringify(localPriority)!==JSON.stringify(remote.items||[])||priorityReason!==remote.reason){localPriority=[...(remote.items||[])];priorityCeilings={...(remote.ceilings||{})};priorityReason=remote.reason||''}}
  const step=phase==='finished'?4:phase!=='lobby'?3:region===null?1:(t.plan?.savedAt&&!editPlanOverride?3:2);
+ const stepChanged=lastStudentStep!==null&&lastStudentStep!==step;
+ lastStudentStep=step;
+ if(stepChanged)window.scrollTo(0,0);
  const labels=['지도에서 지역 선택','공동 구매 계획','실시간 경매','활동 결과·성찰'];
  document.body.classList.toggle('student-auction-screen',step===3);
  if(step!==3)document.body.classList.remove('student-history-open');
@@ -1755,7 +1821,7 @@ function downloadCSV(){if(!state)return;const rows=[['모둠','지역','잔액(�
 async function boot(){
  initTabSync();updateConnectionUI();
  let saved=null;try{saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null')}catch{}
- if(qs.get('room')){$('studentCode').value=qs.get('room').toUpperCase();$('teacherCode').value=qs.get('room').toUpperCase()}
+ if(qs.get('room'))$('studentCode').value=qs.get('room').toUpperCase()
  if(qs.get('role')==='student'){goStudentJoin()}
  else if(saved&&saved.roomCode&&['teacherView','studentView'].includes(saved.view)){
   roomCode=saved.roomCode;teamId=saved.teamId||0;memberId=saved.memberId||'';memberName=saved.memberName||'';reflectionDraftId=saved.reflectionDraftId||'';
@@ -1976,7 +2042,7 @@ joinTeam=async function(){
  }catch(e){toast('모둠 입장 오류: '+e.message)}
 };
 commitRegion=async function(i){const ok=await onlineMutation('auction_choose_region',{p_room:auctionRoomUUID,p_member_key:memberId,p_region:i});
- if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 확정 · 다음은 구매 계획입니다.');$('studentCatalog')?.scrollIntoView({behavior:'smooth',block:'start'});}
+ if(ok){selectedRegionIndex=i;editPlanOverride=false;toast(REGIONS[i].name+' 확정 · 다음은 구매 계획입니다.');}
 };
 saveWorkingPlan=async function(){
  if(!planDraftDirty||!state||state.phase!=='lobby'||!teamId)return;
@@ -1994,7 +2060,7 @@ savePlan=async function(){
  if(!reason)return toast('공동 구매 이유를 작성하세요.');
  clearTimeout(planSaveTimer);
  const ok=await onlineMutation('auction_save_plan',{p_room:auctionRoomUUID,p_member_key:memberId,p_items:[...localPriority],p_ceilings:ceilings,p_reason:reason.slice(0,350),p_final:true});
- if(ok){planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 계획을 확정했습니다.');$('studentPlanBrief')?.scrollIntoView({behavior:'smooth',block:'start'});}
+ if(ok){planDraftDirty=false;priorityCeilings=ceilings;priorityReason=reason;editPlanOverride=false;renderStudent();toast('공동 계획을 확정했습니다.');}
 };
 submitBid=async function(){
  if(!state||state.phase!=='bidding')return;
@@ -2114,7 +2180,7 @@ boot=async function(){
  try{await onlineAuth();showOnlineStatus('🟢 Supabase 인증 완료');}
  catch(e){showOnlineStatus('🔴 인증 오류');toast(e.message);return;}
  let saved=null;try{saved=JSON.parse(sessionStorage.getItem(ONLINE_SESSION_KEY)||'null')}catch{}
- if(qs.get('room')){$('studentCode').value=qs.get('room').toUpperCase();$('teacherCode').value=qs.get('room').toUpperCase()}
+ if(qs.get('room'))$('studentCode').value=qs.get('room').toUpperCase()
  if(qs.get('role')==='student'){goStudentJoin()}
  else if(saved?.roomCode&&['teacherView','studentView'].includes(saved.view)){
    if(saved.view==='teacherView') {
