@@ -812,6 +812,117 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .room-inventory .room-item-chip b{font-size:10px;padding:4px 6px;background:#137d56}
 .room-inventory .room-item-chip strong{font-size:13px;color:#174f3b}
 .showroom svg{background:#f8f9f7}
+.team-identity{display:flex;align-items:baseline;gap:7px;min-width:0;flex:1}
+.team-identity .mon-name{flex:none}
+.mon-region-inline{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:800;color:#39716f}
+.mon-region-inline.unselected{color:#87949a;font-weight:700}
+.team-priority-list{gap:6px}
+.team-priority-item{min-height:42px;border-width:1.5px}
+.team-priority-item strong{font-size:11px}
+.auction-team .team-priority-item strong,.feedback-team .team-priority-item strong{font-size:10.5px}
+.team-priority-item.tile-unplanned{background:#edf1f3;border-color:#adbdc5;color:#465c66}
+.teacher-class-keyword-panel{display:grid;gap:8px;padding:11px 12px;background:#fff;border:1px solid #dcebe8;border-radius:13px}
+.teacher-class-keyword-panel h3{margin:2px 0 0;font-size:15px;color:#264d59}
+.teacher-class-keyword-panel .teacher-global-words{min-height:62px;padding:8px}
+.teacher-class-keyword-panel .teacher-global-words button{font-size:clamp(14px,1.1vw,25px)!important}
+.teacher-class-keyword-panel .hint{font-size:10px;line-height:1.5}
+@media(max-width:730px){
+ .team-identity{gap:5px}
+ .mon-region-inline{font-size:10px}
+ .team-priority-list{gap:5px}
+ .team-priority-item{min-height:42px}
+ .auction-team .team-priority-item strong,.feedback-team .team-priority-item strong{font-size:9.5px}
+}
+@media screen and (min-width:760px) and (min-height:520px){
+ body.teacher-screen{height:100dvh;overflow:hidden}
+ body.teacher-screen .shell{height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:5px 10px 4px}
+ body.teacher-screen .top{flex:0 0 auto;min-height:42px;margin-bottom:5px}
+ body.teacher-screen .top .kicker{display:none}
+ body.teacher-screen #teacherView{flex:1 1 0;width:100%;height:auto!important;min-height:0;overflow:hidden;grid-template-rows:auto auto minmax(0,1fr)!important;gap:6px}
+ body.teacher-screen .teacher-headerstrip{min-height:36px;padding:4px 8px}
+ body.teacher-screen .teacher-stage-nav{min-height:38px;gap:6px}
+ body.teacher-screen .teacher-stage-tab{padding:5px 8px}
+ body.teacher-screen .teacher-stage-grid{height:100%;min-height:0!important;grid-template-columns:minmax(290px,.85fr) minmax(0,1.55fr);gap:6px}
+ body.teacher-screen .teacher-stage-grid>.card{min-height:0;padding:8px 10px}
+ body.teacher-screen .teacher-live-zone,body.teacher-screen .teacher-team-zone{min-height:0!important;gap:6px}
+ body.teacher-screen .teacher-current{min-height:0;overflow:hidden}
+ body.teacher-screen .teacher-six{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));min-height:0;gap:6px}
+ body.teacher-screen .monitor-team{min-height:0;padding:7px;gap:4px}
+ body.teacher-screen #teacherBottomStrip{display:none!important}
+ body.teacher-screen .teacher-class-keyword-panel .teacher-global-words{min-height:54px}
+}
+@media screen and (min-width:760px) and (max-width:1000px) and (min-height:520px){
+ body.teacher-screen .teacher-stage-grid{grid-template-columns:minmax(260px,.78fr) minmax(0,1.55fr)}
+ body.teacher-screen .teacher-six{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}
+ body.teacher-screen .team-priority-item{min-height:32px}
+ body.teacher-screen .auction-team .team-priority-item{min-height:32px}
+ body.teacher-screen .monitor-team{padding:6px;gap:3px}
+ body.teacher-screen .team-priority-heading{font-size:8px}
+}
+@media screen and (min-width:760px) and (max-height:680px){
+ body.teacher-screen .shell{padding:3px 8px 2px}
+ body.teacher-screen .top{min-height:35px;margin-bottom:3px}
+ body.teacher-screen .top h1{font-size:19px}
+ body.teacher-screen #teacherView{gap:4px}
+ body.teacher-screen .teacher-headerstrip{padding:3px 6px;min-height:31px}
+ body.teacher-screen .teacher-headerstrip .pill{font-size:9px;padding:3px 5px}
+ body.teacher-screen .teacher-headerstrip button{font-size:9px;padding:4px 6px}
+ body.teacher-screen .teacher-stage-nav{gap:4px;min-height:32px}
+ body.teacher-screen .teacher-stage-tab{padding:3px 6px;gap:4px}
+ body.teacher-screen .teacher-stage-tab .stage-number{width:22px;height:22px;font-size:10px}
+ body.teacher-screen .teacher-stage-tab b{font-size:10px}
+ body.teacher-screen .teacher-stage-tab small{font-size:8px}
+ body.teacher-screen .teacher-stage-grid>.card{padding:6px 8px}
+ body.teacher-screen .teacher-live-zone,body.teacher-screen .teacher-team-zone{gap:4px}
+ body.teacher-screen .teacher-card-heading h2{font-size:14px}
+ body.teacher-screen .teacher-current .teacher-stage-summary{gap:6px}
+ body.teacher-screen .teacher-current .teacher-stage-summary h3{font-size:16px}
+ body.teacher-screen .teacher-current .teacher-stage-summary>p{font-size:10px;line-height:1.45}
+ body.teacher-screen .teacher-current .feedback-kpi-grid>div{padding:5px 6px}
+ body.teacher-screen .teacher-current .feedback-kpi-grid b{font-size:16px}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel{gap:5px;padding:7px 8px}
+ body.teacher-screen .teacher-class-keyword-panel .teacher-global-words{min-height:40px;padding:4px}
+ body.teacher-screen .teacher-class-keyword-panel .teacher-global-snippets{font-size:10px;line-height:1.35}
+ body.teacher-screen .teacher-final-progress{display:none}
+ body.teacher-screen .team-priority-item{min-height:34px}
+ body.teacher-screen .auction-team .auction-bid-focus{grid-template-columns:auto minmax(0,1fr);align-items:center;padding:2px 6px}
+ body.teacher-screen .auction-team .auction-bid-focus strong{text-align:right;font-size:18px}
+ body.teacher-screen .teacher-current .teacher-stage-summary>p{display:none}
+ body.teacher-screen .teacher-current .teacher-stage-summary>h3{font-size:14px;line-height:1.25}
+ body.teacher-screen .teacher-current .prep-keypoint,body.teacher-screen .teacher-current .stage-ready-note{display:none}
+ body.teacher-screen .teacher-current .prep-progress-grid{gap:4px}
+ body.teacher-screen .teacher-current .prep-progress-grid>div{padding:5px 6px}
+ body.teacher-screen .teacher-current .auction-hero .productstage,body.teacher-screen .teacher-current .auction-head{display:none}
+ body.teacher-screen .teacher-current .auction-hero{display:block;min-height:0;padding:6px}
+ body.teacher-screen .teacher-current .bid-panel .row.between.tiny,body.teacher-screen .teacher-current .teacher-auction-mini,body.teacher-screen .teacher-current .auction-feed-wrap{display:none}
+ body.teacher-screen .teacher-current .bid-panel{gap:5px;padding:6px}
+ body.teacher-screen .teacher-current .bid-panel .price-box{padding:6px}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel{gap:4px;padding:5px 6px}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel h3{font-size:12px}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel .teacher-global-words{min-height:30px}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel .teacher-insight-caption{display:none}
+ body.teacher-screen .teacher-current .teacher-class-keyword-panel>.hint:last-child{display:none}
+ body.teacher-screen .teacher-current .feedback-kpi-grid>div{padding:3px 4px}
+ body.teacher-screen .teacher-current .feedback-kpi-grid b{font-size:14px}
+ body.teacher-screen .team-priority-list{grid-template-rows:repeat(2,minmax(0,1fr));min-height:0}
+ body.teacher-screen .team-priority-item{min-height:20px;padding:2px 3px;gap:2px}
+ body.teacher-screen .team-priority-item strong{font-size:9px;line-height:1.1}
+ body.teacher-screen .mon-tag{font-size:8px;padding:2px 4px;line-height:1.1}
+ body.teacher-screen .auction-team{padding:5px;gap:2px}
+}
+@media screen and (min-width:760px) and (max-height:760px){
+ body.teacher-screen .teacher-final-progress{display:none}
+}
+@media screen and (min-width:760px) and (max-height:560px){
+ body.teacher-screen .teacher-current .live-leader{display:none}
+ body.teacher-screen .teacher-current .feedback-kpi-grid{display:none}
+ body.teacher-screen .monitor-team{padding:4px;gap:2px}
+ body.teacher-screen .team-priority-heading,body.teacher-screen .auction-team .auction-bid-focus,body.teacher-screen .mon-footer{display:none}
+ body.teacher-screen .team-priority-list{height:44px;grid-template-rows:repeat(2,minmax(0,1fr));gap:2px}
+ body.teacher-screen .team-priority-item{height:21px;min-height:0;padding:1px 3px;box-sizing:border-box}
+ body.teacher-screen .team-priority-item strong{font-size:8px;line-height:1.1}
+ body.teacher-screen .team-priority-item .priority-rank{font-size:8px}
+}
 @media(max-width:1100px){.team-priority-item strong{font-size:10px}.auction-bid-focus strong{font-size:22px}}
 @media(max-width:730px){#teacherTeamHint{max-width:100%;text-align:left}.teacher-team-zone .teacher-card-heading{align-items:flex-start;flex-direction:column}.team-legend,.team-legend-note{justify-content:flex-start}.team-priority-list{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(38px,1fr))}.team-priority-item{min-height:38px}.team-priority-item strong{font-size:9.5px}}
 @media(max-width:480px){.team-priority-list{grid-template-columns:repeat(4,minmax(0,1fr))}.team-priority-item{min-height:42px}.team-priority-item strong{font-size:9px}}
@@ -1369,7 +1480,11 @@ function teacherProgressSummary(s){
  const memberTotal=s.teams.reduce((n,t)=>n+(t.members||[]).length,0), answered=s.teams.reduce((n,t)=>n+reflectionList(t).length,0),teamsDone=s.teams.filter(t=>reflectionList(t).length>0).length;
  return `<div class="teacher-final-progress"><span class="teacher-progress-chip">답변 <b>${answered}/${memberTotal}명</b></span><span class="teacher-progress-chip">성찰 참여 모둠 <b>${teamsDone}/6</b></span><span class="teacher-progress-chip">활동 완료 <b>${s.history.length}/${LOTS.length}물품</b></span></div>`;
 }
-function teacherSelectedExcerpts(s){if(!activeGlobalKeyword)return '<div class="teacher-insight-caption">단어를 누르면 실제 학생 답변의 관련 부분을 확인할 수 있습니다. 단어 빈도만으로 학습 성취를 판단하지 않습니다.</div>';const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return '';const hits=s.teams.flatMap(t=>reflectionList(t).filter(r=>mentionsKeyword(r,group)).map(r=>({team:t.id,name:r.name,text:r.text})));return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeGlobalKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,3).map(r=>`${r.team}모둠 ${escapeHTML(r.name)}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,85))}${reflectionTextForDisplay(r.text).length>85?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`}
+function teacherSelectedExcerpts(s){if(!activeGlobalKeyword)return '<div class="teacher-insight-caption">키워드를 선택하면 실제 답변 예시를 확인할 수 있습니다.</div>';const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return '';const hits=s.teams.flatMap(t=>reflectionList(t).filter(r=>mentionsKeyword(r,group)).map(r=>({team:t.id,name:r.name,text:r.text})));return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeGlobalKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,2).map(r=>`${r.team}모둠 ${escapeHTML(r.name)}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,65))}${reflectionTextForDisplay(r.text).length>65?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`}
+function teacherClassKeywordPanel(s,totalReflections){
+ const stats=classKeywordStats(s);
+ return `<div class="teacher-class-keyword-panel"><div class="row between"><div><div class="opportunity-eyebrow">학급 전체 성찰 키워드</div><h3>학생들이 자주 사용한 개념</h3></div><span class="hint">답변 ${totalReflections}건</span></div>${globalWordCloud(stats)}${teacherSelectedExcerpts(s)}<div class="hint">키워드 빈도는 대화의 단서이며, 이해도 점수나 성취 판정은 아닙니다.</div></div>`;
+}
 function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword('${escapeHTML(k.label)}','${scope}')" title="${k.count}명이 언급">${k.label} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
 function membersHTML(t,keyword=''){const refs=reflectionList(t);const criterion=KEY_DICTIONARY.find(k=>k.label===keyword);const shown=criterion?refs.filter(r=>mentionsKeyword(r,criterion)):refs;return shown.length?shown.map((r,i)=>`<div class="memberquote"><div class="row between"><span class="name">${escapeHTML(r.name||'모둠원')}</span><span class="hint">${r.updated?new Date(r.updated).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join(''):'<div class="hint">선택한 키워드가 들어간 답변이 아직 없습니다.</div>'}
@@ -1444,11 +1559,11 @@ function teacherPriorityRows(s,t,mode='prep'){
 }
 function teacherTeamCard(s,t,stageName,leader){
  const r=t.region===null?null:REGIONS[t.region],p=t.planWorking?.updated&&s.phase==='lobby'?t.planWorking:(t.plan||{}),d=activityData(s,t),bid=t.bids[s.round];
- const regionMarkup=`<div class="team-region-feature ${r?'selected':'unselected'}"><small>선택 지역</small><strong>${r?`${r.emoji} ${escapeHTML(r.name)}`:'지역 선택 전'}</strong></div>`;
+ const teamIdentity=`<div class="team-identity"><span class="mon-name">${t.id}모둠</span><span class="mon-region-inline ${r?'selected':'unselected'}">${r?`${r.emoji} ${escapeHTML(r.name)}`:'지역 미선택'}</span></div>`;
  if(stageName==='prep'){
   const ready=!!(t.joined&&t.region!==null&&t.plan?.savedAt);
   const badge=!t.joined?'미입장':t.region===null?'지역 선택 전':t.plan?.savedAt?'계획 확정':t.planWorking?.updated?'계획 작성 중':'계획 미확정';
-  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top"><span class="mon-name">${t.id}모둠</span><span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div>${regionMarkup}<div class="team-priority-heading">8개 물품 · 사전 구매 우선순위</div>${teacherPriorityRows(s,t,'prep')}</button>`;
+  return `<button type="button" class="monitor-team prep-team ${ready?'is-ready':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 사전 계획 상세 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${ready?'ready':!t.joined?'wait':''}">${badge}</span></div><div class="team-priority-heading">8개 물품 · 사전 구매 우선순위</div>${teacherPriorityRows(s,t,'prep')}</button>`;
  }
  if(stageName==='auction'){
   const leading=s.phase==='bidding'&&leader?.team===t.id,waived=s.phase==='bidding'&&bidPassActive(t,s.round);
@@ -1461,11 +1576,11 @@ function teacherTeamCard(s,t,stageName,leader){
    bidValue=historyNow?.winner===t.id?`낙찰 · ${fmt(historyNow.price)}원`:historyNow?.winner?`${historyNow.winner}모둠 낙찰`:'유찰';
    bidSub=historyNow?.winner===t.id?'우리 모둠이 낙찰받았습니다.':'이번 물품은 우리 모둠의 낙찰이 아닙니다.';
   }
-  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top"><span class="mon-name">${t.id}모둠</span><span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div>${regionMarkup}<div class="auction-bid-focus ${bid?.value&&s.phase==='bidding'?'has-bid':''}"><small>${bidCaption}</small><strong>${bidValue}</strong><span>${bidSub}</span></div><div class="team-priority-heading">8개 물품 · 사전 계획과 경매 결과</div>${teacherPriorityRows(s,t,'auction')}</button>`;
+  return `<button type="button" class="monitor-team auction-team ${leading?'leader':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div><div class="auction-bid-focus ${bid?.value&&s.phase==='bidding'?'has-bid':''}"><small>${bidCaption}</small><strong>${bidValue}</strong><span>${bidSub}</span></div><div class="team-priority-heading">8개 물품 · 사전 계획과 경매 결과</div>${teacherPriorityRows(s,t,'auction')}</button>`;
  }
  const match=d.won.filter(i=>d.planned.includes(i)).length,offPlan=d.unplanned.length,answered=reflectionList(t).length;
  const badge=answered?'성찰 작성':'성찰 대기';
- return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 계획과 행동 비교 보기"><div class="mon-top"><span class="mon-name">${t.id}모둠</span><span class="mon-tag ${answered?'ready':'wait'}">${badge}</span></div>${regionMarkup}<div class="team-priority-heading">8개 물품 · 사전 계획과 실제 선택</div>${teacherPriorityRows(s,t,'auction')}<div class="mon-footer"><span>지출 ${fmt(d.spend)}원</span><b>잔액 ${fmt(t.budget)}원</b></div></button>`;
+ return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 계획과 행동 비교 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${answered?'ready':'wait'}">${badge}</span></div><div class="team-priority-heading">8개 물품 · 사전 계획과 실제 선택</div>${teacherPriorityRows(s,t,'auction')}<div class="mon-footer"><span>지출 ${fmt(d.spend)}원</span><b>잔액 ${fmt(t.budget)}원</b></div></button>`;
 }
 function renderTeacher(){
  const s=state;if(!s)return;
@@ -1516,7 +1631,7 @@ function renderTeacher(){
   }
  }else{
   const done=s.phase==='finished',totalReflections=s.teams.reduce((a,t)=>a+reflectionList(t).length,0),offPlan=s.teams.reduce((a,t)=>a+activityData(s,t).unplanned.length,0),notMatched=s.teams.reduce((a,t)=>a+activityData(s,t).unwon.length,0);
-  $('teacherCurrent').innerHTML=done?`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${offPlan}<small>계획 밖 구매</small></b></div><div><b>${notMatched}<small>계획했지만 미낙찰</small></b></div></div><div class="opportunity-spotlight teacher-opportunity"><div class="opportunity-eyebrow">핵심 발문</div><h3>그 선택으로 포기한 대안 중 가장 가치 있는 것은 무엇인가?</h3><p>기회비용은 포기한 모든 물품이나 낙찰가가 아니라, 포기한 대안 중 가장 가치가 큰 하나의 가치입니다.</p></div><div class="teacher-final-progress">${teacherProgressSummary(s)}</div></div>`:'<div class="stage-empty-note large-note">경매가 모두 끝나면 이 화면에서 모둠별 사전 계획과 실제 행동, 개인 성찰, 기회비용을 확인할 수 있습니다.</div>';
+  $('teacherCurrent').innerHTML=done?`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${offPlan}<small>계획 밖 구매</small></b></div><div><b>${notMatched}<small>계획했지만 미낙찰</small></b></div></div>${teacherClassKeywordPanel(s,totalReflections)}<div class="teacher-final-progress">${teacherProgressSummary(s)}</div></div>`:'<div class="stage-empty-note large-note">경매가 모두 끝나면 이 화면에서 모둠별 사전 계획과 실제 행동, 개인 성찰, 기회비용을 확인할 수 있습니다.</div>';
   $('teacherControls').innerHTML=done?'<button class="secondary" onclick="downloadCSV()">전체 학습 기록 CSV 저장</button><button class="large" onclick="inspectTeacherTeam(1)">1모둠 피드백 열기 →</button>':'<span class="hint">피드백은 마지막 경매가 끝난 뒤 열립니다.</span>';
  }
  $('teamOverview').innerHTML=s.teams.map(t=>teacherTeamCard(s,t,currentStage,leader)).join('');
