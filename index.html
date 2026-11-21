@@ -283,7 +283,16 @@ button{white-space:normal;overflow-wrap:anywhere}
 .bid-pass-btn{background:#fff7eb!important;border:1px solid #edbc86!important;color:#975529!important}
 .teacher-drawer-sheet .keycloud button{font-size:inherit!important}
 .teacher-global-words{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;background:#f6fbfa;border:1px solid #dfecea;border-radius:12px;padding:10px;min-height:90px}
-.teacher-global-words button{border:0;box-shadow:none;background:transparent;color:#168277;padding:3px 5px;white-space:normal;overflow-wrap:anywhere;line-height:1.15;font-weight:850}
+.teacher-global-words button{border:0;box-shadow:none;background:transparent;padding:3px 5px;white-space:normal;overflow-wrap:anywhere;line-height:1.15;font-weight:900}
+.teacher-global-words button.cloud-tone-0{color:#287f83}
+.teacher-global-words button.cloud-tone-1{color:#4b73a4}
+.teacher-global-words button.cloud-tone-2{color:#8a5f8e}
+.teacher-global-words button.cloud-tone-3{color:#b56b38}
+.teacher-global-words button.cloud-tone-4{color:#568253}
+.teacher-global-words button.cloud-tone-5{color:#ab5368}
+.teacher-global-words button.cloud-tone-6{color:#567788}
+.teacher-global-words button.cloud-tone-7{color:#8e782c}
+.teacher-global-words button small{display:inline-block;margin-left:4px;font-size:12px!important;font-weight:800;vertical-align:middle}
 .teacher-global-words button.active,.teacher-global-words button:hover{background:#e2f5ed;color:#8d4b2d}
 .teacher-final-progress{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;color:#4c7174}
 .teacher-progress-chip{padding:5px 8px;border-radius:9px;background:#edf6f6;white-space:normal}
@@ -854,7 +863,6 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-auction-round-item .result.unsold{color:#344d5a}
 .teacher-auction-round-item .bids{grid-area:bids;justify-self:start;padding:3px 8px;border-radius:6px;background:#edf3f6;color:#344f5c;font-size:14px;font-weight:850}
 @media(max-width:730px){
- .teacher-auction-round-grid{grid-template-columns:1fr}
  .teacher-auction-round-item{min-height:94px;padding:10px 12px}
  .teacher-auction-round-item .product{font-size:18px}
  .teacher-auction-round-item .result{font-size:19px}
@@ -1008,9 +1016,6 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
  .teacher-drawer-sheet #teacherResults{padding:10px}
  .teacher-team-feedback .plan-action-grid,.teacher-team-feedback .reviewgrid{grid-template-columns:1fr}
  .teacher-team-feedback .plan-action-lines{grid-template-columns:1fr}
-}
-@media(max-width:730px){
- .teacher-team-zone .teacher-keyword-overview .teacher-global-words button{font-size:clamp(18px,4vw,32px)!important}
 }
 body.teacher-screen .teacher-team-zone .monitor-team{gap:6px;padding:10px}
 body.teacher-screen .teacher-team-zone .monitor-team .team-priority-heading,
@@ -1602,7 +1607,7 @@ function feedbackHTML(s,t){
 }
 function globalWordCloud(stats){
  const max=Math.max(1,...stats.map(x=>x.count));
- return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map(k=>{const size=22+Math.round(30*Math.sqrt(k.count/max));return `<button style="font-size:${size}px" class="${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord('${escapeHTML(k.label)}')" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small style="font-size:10px;vertical-align:middle;margin-left:3px">${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
+ return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map((k,i)=>{const size=22+Math.round(32*Math.sqrt(k.count/max));return `<button style="font-size:${size}px" class="cloud-tone-${i%8} ${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord('${escapeHTML(k.label)}')" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small>${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
 }
 function toggleGlobalWord(k){activeGlobalKeyword=activeGlobalKeyword===k?'':k;renderTeacher()}
 function teacherAuctionRoundPanel(s){
