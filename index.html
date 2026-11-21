@@ -844,15 +844,22 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-team-zone .teacher-keyword-overview .teacher-class-keyword-panel .hint{font-size:14px}
 .teacher-team-zone .teacher-keyword-overview .teacher-insight-caption,.teacher-team-zone .teacher-keyword-overview .teacher-empty-keywords{font-size:clamp(17px,1.5vw,25px);line-height:1.5;text-align:center}
 .teacher-team-zone .teacher-keyword-overview .teacher-empty-keywords{display:grid;place-items:center;min-height:180px;padding:18px}
-.teacher-auction-round-panel{display:grid;gap:7px;margin-top:8px;min-width:0}
-.teacher-auction-round-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;font-weight:900;color:#285562}
-.teacher-auction-round-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
-.teacher-auction-round-item{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"round product" "result result" "bids bids";align-items:center;gap:2px 6px;min-width:0;padding:5px 7px;background:#f7f9fa;border:1px solid #e3eaed;border-radius:9px}
-.teacher-auction-round-item .round{grid-area:round;font-size:10px;font-weight:900;color:#55737d}
-.teacher-auction-round-item .product{grid-area:product;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:850;color:#274d5a}
-.teacher-auction-round-item .result{grid-area:result;font-size:12px;font-weight:850;color:#1b6c61}
-.teacher-auction-round-item .result.unsold{color:#7b8990}
-.teacher-auction-round-item .bids{grid-area:bids;font-size:10px;color:#71838b}
+.teacher-auction-round-panel{display:grid;gap:9px;margin-top:12px;min-width:0}
+.teacher-auction-round-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:17px;font-weight:900;color:#234d5a}
+.teacher-auction-round-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.teacher-auction-round-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"round result" "product result" "bids result";align-items:center;gap:5px 10px;min-width:0;min-height:100px;padding:11px 13px;background:#fff;border:1px solid #d5e2e7;border-left:4px solid #39a88e;border-radius:11px;box-shadow:0 2px 6px #1937460d}
+.teacher-auction-round-item .round{grid-area:round;justify-self:start;padding:3px 8px;border-radius:6px;background:#eaf1f4;color:#334f5c;font-size:15px;font-weight:900;white-space:nowrap}
+.teacher-auction-round-item .product{grid-area:product;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:19px;line-height:1.3;font-weight:900;color:#183f4d}
+.teacher-auction-round-item .result{grid-area:result;display:flex;align-items:center;justify-content:flex-end;text-align:right;font-size:20px;line-height:1.35;font-weight:950;color:#116a57}
+.teacher-auction-round-item .result.unsold{color:#344d5a}
+.teacher-auction-round-item .bids{grid-area:bids;justify-self:start;padding:3px 8px;border-radius:6px;background:#edf3f6;color:#344f5c;font-size:14px;font-weight:850}
+@media(max-width:730px){
+ .teacher-auction-round-grid{grid-template-columns:1fr}
+ .teacher-auction-round-item{min-height:94px;padding:10px 12px}
+ .teacher-auction-round-item .product{font-size:18px}
+ .teacher-auction-round-item .result{font-size:19px}
+ .teacher-auction-round-item .round{font-size:14px}
+}
 @media(max-width:730px){
  .team-identity{gap:5px}
  .mon-region-inline{font-size:10px}
