@@ -772,7 +772,7 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .team-priority-item strong{font-size:10px;line-height:1.18;font-weight:850;color:inherit;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;max-width:100%}
 .team-priority-item .priority-rank{position:absolute;right:4px;top:2px;padding:0;background:transparent;border:0;font-size:15px;line-height:1;z-index:1}
 .team-priority-item.tile-medal-gold{background:#fff3cf;border-color:#e2bd57;color:#71510b}
-.team-priority-item.tile-medal-silver{background:#eff2f5;border-color:#aeb9c4;color:#4c5a66}
+.team-priority-item.tile-medal-silver{background:#fff;border-color:#899da8;color:#344f5c}
 .team-priority-item.tile-medal-bronze{background:#f6e4d7;border-color:#c48a61;color:#744529}
 .team-priority-item.tile-unplanned{background:#e7ebee;border-color:#d2dbe0;color:#667780}
 .team-priority-item.tile-won-planned{background:#dceeff;border:1.5px solid #5598d5;color:#14528a;box-shadow:inset 0 0 0 1px #ffffff80}
@@ -833,6 +833,26 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-class-keyword-panel .teacher-global-words{min-height:62px;padding:8px}
 .teacher-class-keyword-panel .teacher-global-words button{font-size:clamp(14px,1.1vw,25px)}
 .teacher-class-keyword-panel .hint{font-size:10px;line-height:1.5}
+.teacher-team-zone.teacher-keyword-zone{gap:0}
+.teacher-team-zone.teacher-keyword-zone>.teacher-card-heading{display:none}
+.teacher-team-zone .teacher-keyword-overview{display:flex;flex:1;min-width:0;min-height:0}
+.teacher-team-zone .teacher-keyword-overview>.teacher-class-keyword-panel{flex:1;grid-template-rows:auto minmax(0,1fr) auto;gap:16px;padding:22px}
+.teacher-team-zone .teacher-keyword-overview .teacher-class-keyword-panel h3{font-size:clamp(22px,2vw,30px)}
+.teacher-team-zone .teacher-keyword-overview .teacher-class-keyword-panel .opportunity-eyebrow{font-size:14px}
+.teacher-team-zone .teacher-keyword-overview .teacher-global-words{align-content:center;gap:14px 20px;min-height:0;padding:20px}
+.teacher-team-zone .teacher-keyword-overview .teacher-global-words button{line-height:1.2}
+.teacher-team-zone .teacher-keyword-overview .teacher-class-keyword-panel .hint{font-size:14px}
+.teacher-team-zone .teacher-keyword-overview .teacher-insight-caption,.teacher-team-zone .teacher-keyword-overview .teacher-empty-keywords{font-size:clamp(17px,1.5vw,25px);line-height:1.5;text-align:center}
+.teacher-team-zone .teacher-keyword-overview .teacher-empty-keywords{display:grid;place-items:center;min-height:180px;padding:18px}
+.teacher-auction-round-panel{display:grid;gap:7px;margin-top:8px;min-width:0}
+.teacher-auction-round-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;font-weight:900;color:#285562}
+.teacher-auction-round-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.teacher-auction-round-item{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"round product" "result result" "bids bids";align-items:center;gap:2px 6px;min-width:0;padding:5px 7px;background:#f7f9fa;border:1px solid #e3eaed;border-radius:9px}
+.teacher-auction-round-item .round{grid-area:round;font-size:10px;font-weight:900;color:#55737d}
+.teacher-auction-round-item .product{grid-area:product;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:850;color:#274d5a}
+.teacher-auction-round-item .result{grid-area:result;font-size:12px;font-weight:850;color:#1b6c61}
+.teacher-auction-round-item .result.unsold{color:#7b8990}
+.teacher-auction-round-item .bids{grid-area:bids;font-size:10px;color:#71838b}
 @media(max-width:730px){
  .team-identity{gap:5px}
  .mon-region-inline{font-size:10px}
@@ -947,10 +967,11 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-drawer-sheet #teacherResults{gap:10px;padding:14px}
 .teacher-drawer-sheet #teacherResultHeading{font-size:clamp(21px,2vw,28px)}
 .teacher-team-feedback{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.teacher-team-feedback .teacher-team-keywords,.teacher-team-feedback .plan-action-card,.teacher-team-feedback .reviewgrid{grid-column:1/-1}
+.teacher-team-feedback-overview,.teacher-team-feedback>.plan-action-card,.teacher-team-feedback>.reviewgrid{grid-column:1/-1}
 .teacher-team-feedback .teacher-team-keywords{gap:8px;padding:10px 12px;border:1px solid #dfeae8;border-radius:13px;background:#f8fbfa}
 .teacher-team-feedback .teacher-team-keywords h3{font-size:19px}
 .teacher-team-feedback .teacher-team-keywords .pill{font-size:14px}
+.teacher-team-feedback-overview{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr)}
 .teacher-team-feedback .keycloud{min-height:0;padding:8px 10px;gap:8px}
 .teacher-team-feedback .keycloud button{min-height:42px;padding:8px 12px}
 .teacher-team-feedback .teacher-global-snippets{font-size:14px;line-height:1.55}
@@ -980,6 +1001,9 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
  .teacher-drawer-sheet #teacherResults{padding:10px}
  .teacher-team-feedback .plan-action-grid,.teacher-team-feedback .reviewgrid{grid-template-columns:1fr}
  .teacher-team-feedback .plan-action-lines{grid-template-columns:1fr}
+}
+@media(max-width:730px){
+ .teacher-team-zone .teacher-keyword-overview .teacher-global-words button{font-size:clamp(18px,4vw,32px)!important}
 }
 body.teacher-screen .teacher-team-zone .monitor-team{gap:6px;padding:10px}
 body.teacher-screen .teacher-team-zone .monitor-team .team-priority-heading,
@@ -1082,7 +1106,7 @@ body.teacher-screen .teacher-team-zone .feedback-team .team-room-preview{flex:1;
         <div class="teacher-action-row" id="teacherControls"></div>
         <div class="teacher-current" id="teacherCurrent"></div>
       </div>
-      <div class="card teacher-team-zone">
+      <div class="card teacher-team-zone" id="teacherTeamZone">
         <div class="teacher-card-heading"><h2 id="teacherTeamHeading">6개 모둠 준비 현황</h2><span class="hint" id="teacherTeamHint">카드를 선택하면 상세 내용을 확인할 수 있습니다.</span></div>
         <div class="teacher-six" id="teamOverview"></div>
       </div>
@@ -1485,8 +1509,29 @@ const KEY_DICTIONARY=[...ECONOMIC_KEYWORDS,
   ...REGION_SIGNATURE_KEYWORDS,
   ...LOTS.map((lot,i)=>({label:lot.name,words:LOT_KEYWORDS[i]}))
 ];
+const REFLECTION_KEYWORD_FRAGMENTS={
+ '희소성':['물량부족','수량부족','물건부족','하나뿐','몇개뿐'],
+ '기회비용':['포기함','차선대안','포기한대안','대신포기','못삼'],
+ '예산 제약':['돈부족','돈모자람','예산빠듯','가격부담'],
+ '합리적 선택':['필요함','필요해서','더나음','가치있음','실용적'],
+ '우선순위':['급한것','먼저살것','일순위','이순위','삼순위'],
+ '지역 특성':['추움','시끄러움','더움','습함','좁음','먼지많음','어두움','젖음'],
+ '산골·추위 환경':['추움','춥고','추워요','난방필요','보온필요'],
+ '도심·소음·좁은 공간':['시끄러움','시끄러워','소음심','좁음','공간좁음','수납부족'],
+ '농촌·먼지·야외 활동':['먼지많음','흙많음','청소필요','어두움'],
+ '남부·더위·햇빛 환경':['더움','덥고','더워요','햇빛강','냉방필요'],
+ '다우·장마·젖은 환경':['습함','습해','젖음','비많음','빨래안마름','곰팡이걱정'],
+ '제습기':['습기많음','습기심함','곰팡이걱정','빨래안마름'],
+ '난방기':['난방필요','보온필요','추움','춥고'],
+ '수납장':['수납필요','정리필요','공간부족','물건많음'],
+ '냉방기':['냉방필요','더움','덥고','더워요'],
+ '단열 커튼':['열차단필요','햇빛강','햇볕강','창가추움','외풍심'],
+ '청소기':['먼지많음','청소필요','흙먼지','청소해야'],
+ '방음 패널':['시끄러움','소음심','방음필요','집중안됨'],
+ '조명':['어두움','빛부족','조명필요','야간작업']
+};
 function normalizeKeywordText(text){return String(text||'').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}\s]/gu,'')}
-const NORMALIZED_KEYWORDS=KEY_DICTIONARY.map(k=>({...k,normalized:[...new Set(k.words.map(normalizeKeywordText).filter(x=>x.length>=2))]}));
+const NORMALIZED_KEYWORDS=KEY_DICTIONARY.map(k=>({...k,normalized:[...new Set([...k.words,...(REFLECTION_KEYWORD_FRAGMENTS[k.label]||[])].map(normalizeKeywordText).filter(x=>x.length>=2))]}));
 function reflectionList(t){return Array.isArray(t.reflections)?t.reflections:[]}
 function keywordStats(t){const members=reflectionList(t).filter(r=>r.text?.trim());return NORMALIZED_KEYWORDS.map(k=>{const matching=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:matching.length,members:matching}}).filter(x=>x.count>0).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko'))}
 function classKeywordStats(s){const members=s.teams.flatMap(t=>reflectionList(t)).filter(x=>x.text?.trim());return NORMALIZED_KEYWORDS.map(k=>{const selected=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:selected.length,memberCount:members.length}}).filter(k=>k.count).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko')).slice(0,11)}
@@ -1550,12 +1595,15 @@ function feedbackHTML(s,t){
 }
 function globalWordCloud(stats){
  const max=Math.max(1,...stats.map(x=>x.count));
- return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map(k=>{const size=15+Math.round(20*Math.sqrt(k.count/max));return `<button style="font-size:${size}px" class="${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord('${escapeHTML(k.label)}')" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small style="font-size:10px;vertical-align:middle;margin-left:3px">${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
+ return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map(k=>{const size=22+Math.round(30*Math.sqrt(k.count/max));return `<button style="font-size:${size}px" class="${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord('${escapeHTML(k.label)}')" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small style="font-size:10px;vertical-align:middle;margin-left:3px">${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
 }
 function toggleGlobalWord(k){activeGlobalKeyword=activeGlobalKeyword===k?'':k;renderTeacher()}
-function teacherProgressSummary(s){
- const memberTotal=s.teams.reduce((n,t)=>n+(t.members||[]).length,0), answered=s.teams.reduce((n,t)=>n+reflectionList(t).length,0),teamsDone=s.teams.filter(t=>reflectionList(t).length>0).length;
- return `<div class="teacher-final-progress"><span class="teacher-progress-chip">답변 <b>${answered}/${memberTotal}명</b></span><span class="teacher-progress-chip">성찰 참여 모둠 <b>${teamsDone}/6</b></span><span class="teacher-progress-chip">활동 완료 <b>${s.history.length}/${LOTS.length}물품</b></span></div>`;
+function teacherAuctionRoundPanel(s){
+ const rows=LOTS.map((lot,i)=>{
+  const result=(s.history||[]).find(x=>x.round===i),winner=result?.winner;
+  return `<div class="teacher-auction-round-item"><span class="round">${i+1}회</span><strong class="product">${lot.emoji} ${escapeHTML(lot.name)}</strong><span class="result ${winner?'':'unsold'}">${winner?`${winner}모둠 · ${fmt(result.price||0)}원`:'유찰'}</span><span class="bids">입찰 ${Number(result?.submitted)||0}/6</span></div>`;
+ }).join('');
+ return `<section class="teacher-auction-round-panel"><div class="teacher-auction-round-heading"><strong>경매 라운드별 데이터</strong><span>8개 물품</span></div><div class="teacher-auction-round-grid">${rows}</div></section>`;
 }
 function teacherSelectedExcerpts(s){if(!activeGlobalKeyword)return '<div class="teacher-insight-caption">키워드를 선택하면 실제 답변 예시를 확인할 수 있습니다.</div>';const group=KEY_DICTIONARY.find(k=>k.label===activeGlobalKeyword);if(!group)return '';const hits=s.teams.flatMap(t=>reflectionList(t).filter(r=>mentionsKeyword(r,group)).map(r=>({team:t.id,name:r.name,text:r.text})));return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeGlobalKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,2).map(r=>`${r.team}모둠 ${escapeHTML(r.name)}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,65))}${reflectionTextForDisplay(r.text).length>65?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`}
 function teacherClassKeywordPanel(s,totalReflections){
@@ -1571,7 +1619,7 @@ function teacherTeamKeywordExamples(t){
 }
 function teacherTeamFeedbackHTML(s,t){
  const d=activityData(s,t),stats=keywordStats(t);
- return `<div class="teacher-team-feedback stack"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
+ return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
 }
 function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword('${escapeHTML(k.label)}','${scope}')" title="${k.count}명이 언급">${k.label} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
@@ -1670,7 +1718,7 @@ function renderTeacher(){
  const joined=s.teams.filter(t=>t.joined).length,chosen=s.teams.filter(t=>t.region!==null).length,planned=s.teams.filter(t=>t.plan?.savedAt).length;
  const phaseChanged=teacherPhaseAtStage!==s.phase;
  if(!teacherStage||phaseChanged){teacherStage=defaultTeacherStage(s.phase);teacherPhaseAtStage=s.phase;}
- const currentStage=teacherStage,leader=highest(s),durationPref=$('timeSelect')?.value||String(s.duration||40);
+ const currentStage=teacherStage,leader=highest(s),durationPref=$('timeSelect')?.value||String(s.duration||40),showKeywordOverview=currentStage==='feedback'&&s.phase==='finished';
  $('teacherView').dataset.stage=currentStage;
  $('teacherCodeBadge').textContent=s.code;$('teacherPhaseBadge').textContent=stage(s);
  $('joinedMetric').textContent=joined+'/6';$('regionMetric').textContent=chosen+'/6';$('planMetric').textContent=planned+'/6';
@@ -1687,10 +1735,10 @@ function renderTeacher(){
  });
  $('teacherLiveTitle').textContent=currentStage==='prep'?'경매 전 활동 · 준비 상황':currentStage==='auction'?'실시간 경매 운영':'피드백 · 계획과 실제 행동 비교';
  $('soundBtn').classList.toggle('hidden',currentStage!=='auction');
- $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 구매 우선순위':currentStage==='auction'?(s.phase==='reveal'?'경매 결과 · 8개 물품 현황':'모둠별 제시 금액 · 경매 결과'):'모둠별 경매 후 방 · 성찰';
+ $('teacherTeamHeading').textContent=currentStage==='prep'?'모둠별 지역 · 사전 구매 우선순위':currentStage==='auction'?(s.phase==='reveal'?'경매 결과 · 8개 물품 현황':'모둠별 제시 금액 · 경매 결과'):showKeywordOverview?'학급 전체 성찰 키워드':'모둠별 경매 후 방 · 성찰';
  if(currentStage==='prep')$('teacherTeamHint').innerHTML='<span class="team-legend-note">메달은 사전 구매 우선순위 · 회색은 우선순위 밖 물품</span>';
  else if(currentStage==='auction')$('teacherTeamHint').innerHTML='<span class="team-legend"><i class="legend-swatch blue"></i>계획 물품 낙찰 <i class="legend-swatch green"></i>계획 밖 낙찰 <i class="legend-swatch red"></i>계획 물품 미낙찰 <i class="legend-swatch gray"></i>진행 전 · 메달은 사전 우선순위</span>';
- else $('teacherTeamHint').innerHTML='<span class="team-legend-note">사진은 실제 낙찰 물품과 선택 지역을 반영합니다.</span>';
+ else $('teacherTeamHint').innerHTML=showKeywordOverview?'<span class="team-legend-note">학생 답변에서 나타난 핵심 개념을 확인합니다.</span>':'<span class="team-legend-note">사진은 실제 낙찰 물품과 선택 지역을 반영합니다.</span>';
  if(currentStage==='prep'){
   const ready=s.teams.filter(t=>t.joined&&t.region!==null&&t.plan?.savedAt).length;
   const canStart=s.phase==='lobby'&&joined>0&&s.teams.filter(t=>t.joined).every(t=>t.region!==null&&!!t.plan?.savedAt);
@@ -1715,10 +1763,12 @@ function renderTeacher(){
   }
  }else{
   const done=s.phase==='finished',totalReflections=s.teams.reduce((a,t)=>a+reflectionList(t).length,0),offPlan=s.teams.reduce((a,t)=>a+activityData(s,t).unplanned.length,0),notMatched=s.teams.reduce((a,t)=>a+activityData(s,t).unwon.length,0);
-  $('teacherCurrent').innerHTML=done?`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${offPlan}<small>계획 밖 구매</small></b></div><div><b>${notMatched}<small>계획했지만 미낙찰</small></b></div></div>${teacherClassKeywordPanel(s,totalReflections)}<div class="teacher-final-progress">${teacherProgressSummary(s)}</div></div>`:'<div class="stage-empty-note large-note">경매가 모두 끝나면 이 화면에서 모둠별 사전 계획과 실제 행동, 개인 성찰, 기회비용을 확인할 수 있습니다.</div>';
+  $('teacherCurrent').innerHTML=done?`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${offPlan}<small>계획 밖 구매</small></b></div><div><b>${notMatched}<small>계획했지만 미낙찰</small></b></div></div>${teacherAuctionRoundPanel(s)}</div>`:'<div class="stage-empty-note large-note">경매가 모두 끝나면 이 화면에서 모둠별 사전 계획과 실제 행동, 개인 성찰, 기회비용을 확인할 수 있습니다.</div>';
   $('teacherControls').innerHTML=done?'<button class="secondary" onclick="downloadCSV()">전체 학습 기록 CSV 저장</button><button class="large" onclick="inspectTeacherTeam(1)">1모둠 피드백 열기 →</button>':'<span class="hint">피드백은 마지막 경매가 끝난 뒤 열립니다.</span>';
  }
- $('teamOverview').innerHTML=s.teams.map(t=>teacherTeamCard(s,t,currentStage,leader)).join('');
+ $('teacherTeamZone').classList.toggle('teacher-keyword-zone',showKeywordOverview);
+ $('teamOverview').className=showKeywordOverview?'teacher-keyword-overview':'teacher-six';
+ $('teamOverview').innerHTML=showKeywordOverview?teacherClassKeywordPanel(s,s.teams.reduce((n,t)=>n+reflectionList(t).length,0)):s.teams.map(t=>teacherTeamCard(s,t,currentStage,leader)).join('');
  $('teacherHistoryStrip').innerHTML=currentStage==='auction'?LOTS.map((lot,i)=>{const h=s.history.find(h=>h.round===i),curr=s.phase!=='finished'&&i===s.round;return `<span class="teacher-history-chip ${curr?'current':''}"><strong>${i+1}. ${lot.emoji}</strong> ${h?(h.winner?`${h.winner}모둠 · ${fmt(h.price)}원`:'유찰'):curr?'진행 중':'대기'}</span>`}).join(''):currentStage==='feedback'?s.teams.map(t=>`<button class="teacher-history-chip" onclick="inspectTeacherTeam(${t.id})"><strong>${t.id}모둠</strong> 개인 성찰 ${reflectionList(t).length}건</button>`).join(''):`<span class="teacher-history-chip"><strong>경매 전 체크</strong> 지역 ${chosen}/6 · 구매 계획 ${planned}/6 확정</span>`;
  $('teacherBottomHeading').textContent=currentStage==='prep'?'사전 활동 진행 상황':currentStage==='auction'?'물품별 경매 진행 기록':'모둠별 피드백 참여 현황';
  $('teacherBottomBtn').textContent=currentStage==='prep'?'수업 안내':currentStage==='auction'?'전체 경매 기록 보기':'전체 CSV 저장';
