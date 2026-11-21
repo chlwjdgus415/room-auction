@@ -988,7 +988,12 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-team-feedback .teacher-team-keywords{gap:8px;padding:10px 12px;border:1px solid #dfeae8;border-radius:13px;background:#f8fbfa}
 .teacher-team-feedback .teacher-team-keywords h3{font-size:19px}
 .teacher-team-feedback .teacher-team-keywords .pill{font-size:14px}
-.teacher-team-feedback-overview{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr)}
+.teacher-team-feedback-overview{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:10px;align-items:stretch}
+.teacher-feedback-room{display:flex;flex-direction:column;gap:8px;min-width:0;padding:10px 12px;border:1px solid #dfeae8;border-radius:13px;background:#f8fbfa}
+.teacher-feedback-room h3{margin:0;color:#235b61;font-size:19px}
+.teacher-feedback-room .feedback-room-image{max-width:none;display:flex;flex:1;align-items:center}
+.teacher-feedback-room .feedback-room-image .showroom{width:100%}
+.teacher-feedback-room .feedback-room-image .showroom svg{max-height:250px}
 .teacher-team-feedback .keycloud{min-height:0;padding:8px 10px;gap:8px}
 .teacher-team-feedback .keycloud button{min-height:42px;padding:8px 12px}
 .teacher-team-feedback .teacher-global-snippets{font-size:14px;line-height:1.55}
@@ -1009,6 +1014,7 @@ input,select,textarea{border-radius:12px;border-color:#d7e0e6;background:#fff;co
 .teacher-team-feedback .reviewgrid .objective-card p{font-size:14px;line-height:1.5;margin:6px 0}
 @media(max-width:900px){
  .teacher-drawer-sheet{width:100vw}
+ .teacher-team-feedback-overview{grid-template-columns:minmax(0,1fr)}
  .teacher-team-feedback .plan-action-grid,.teacher-team-feedback .reviewgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .teacher-team-feedback .plan-action-lines{grid-template-columns:1fr 1fr}
  .teacher-team-feedback .reviewgrid .objective-card p{font-size:14px}
@@ -1677,7 +1683,8 @@ function teacherTeamKeywordExamples(t){
 }
 function teacherTeamFeedbackHTML(s,t){
  const d=activityData(s,t),stats=keywordStats(t);
- return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
+ const region=t.region===null?null:REGIONS[t.region];
+ return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><section class="teacher-feedback-room"><div class="row between"><h3>🏠 경매를 마친 우리 방</h3><span class="pill">${escapeHTML(region?.name||'지역 미선택')}</span></div><div class="feedback-room-image">${roomArt(d.won,region||REGIONS[0])}</div></section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
 }
 function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" data-keyword="${escapeHTML(k.label)}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword(this.dataset.keyword,'${scope}')" title="${k.count}명이 언급">${escapeHTML(k.label)} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
