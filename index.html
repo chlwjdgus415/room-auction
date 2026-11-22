@@ -1046,6 +1046,27 @@ body.teacher-screen .teacher-team-zone .feedback-team .team-room-preview{flex:1;
  body.teacher-screen .teacher-team-zone .feedback-team .team-room-preview{height:44px;flex:0 0 44px}
 }
 </style>
+
+<style id="teacher-feedback-signal-and-empty-room-v1">
+.teacher-team-shortcut.status-red{background:#fff5f3;border-color:#e8b7b0;color:#8f3831}
+.teacher-team-shortcut.status-yellow{background:#fff9eb;border-color:#efd39a;color:#805b17}
+.teacher-team-shortcut.status-green{background:#f1faf4;border-color:#b9dec6;color:#176542}
+.teacher-team-status{display:inline-flex;align-items:center;gap:4px;padding:3px 6px;border-radius:7px;font-size:10px;font-weight:900;white-space:nowrap;flex:none}
+.teacher-team-status i{width:8px;height:8px;border-radius:50%;display:inline-block;background:currentColor}
+.status-red .teacher-team-status{background:#fde3df;color:#b83e35}
+.status-yellow .teacher-team-status{background:#ffedc5;color:#966716}
+.status-green .teacher-team-status{background:#dff2e5;color:#18734a}
+.teacher-team-status-legend{font-size:11px;font-weight:750;color:#6d8088}
+.teacher-team-shortcut.status-red:hover{background:#ffebe7}
+.teacher-team-shortcut.status-yellow:hover{background:#fff2d5}
+.teacher-team-shortcut.status-green:hover{background:#e5f6eb}
+.keycloud button.cloud-tone-0{color:#287f83}.keycloud button.cloud-tone-1{color:#4b73a4}.keycloud button.cloud-tone-2{color:#8a5f8e}.keycloud button.cloud-tone-3{color:#b56b38}
+.keycloud button.cloud-tone-4{color:#568253}.keycloud button.cloud-tone-5{color:#ab5368}.keycloud button.cloud-tone-6{color:#567788}.keycloud button.cloud-tone-7{color:#8e782c}
+.teacher-feedback-room .feedback-room-image .team-empty-room{flex:1;min-height:220px}
+.team-empty-room{display:grid;place-items:center;min-height:120px;padding:15px;border:1px dashed #d6e2e4;border-radius:10px;background:#f7fafb;color:#75878d;font-size:13px;font-weight:750;text-align:center}
+@media(max-width:730px){.teacher-team-status-legend{font-size:10px}.teacher-team-status{font-size:9px;padding:2px 5px}}
+</style>
+
 </head>
 <body>
 <div class="shell">
@@ -1461,7 +1482,19 @@ function reflectionTextForKeywords(raw){
  const x=parseReflectionAnswer(raw);
  return x?`${x.reason} ${x.alternativeReason}`:String(raw||'');
 }
-function mentionsKeyword(r,k){if(k.fallback)return k.members.includes(r);const words=k.normalized||k.words.map(normalizeKeywordText);const clean=normalizeKeywordText(reflectionTextForKeywords(r.text));return words.some(word=>clean.includes(word))}
+function mentionsKeyword(r,k){
+ if(k.fallback)return k.members.includes(r);
+ const parsed=parseReflectionAnswer(r.text);
+ // 성찰 양식의 ④번은 차선 대안의 가치를 직접 묻습니다.
+ // 의미 있는 이유가 입력된 경우에만 '기회비용'으로 집계하고, 공란·무응답은 제외합니다.
+ if(k.label==='기회비용'&&parsed){
+  const alt=normalizeKeywordText(parsed.alternativeReason||'');
+  if(alt.length>=4&&!['모름','모르겠음','모르겠다','없음','생각안남','잘모르겠음'].includes(alt))return true;
+ }
+ const words=k.normalized||k.words.map(normalizeKeywordText);
+ const clean=keywordComparableText(reflectionTextForKeywords(r.text));
+ return words.some(word=>word.length>=2&&clean.includes(word));
+}
 function reflectionLotLabel(t,i){
  const name=LOTS[i].name;
  if(t.items?.includes(i))return `${name} · 낙찰(구매)`;
@@ -1550,10 +1583,44 @@ const REGION_SIGNATURE_KEYWORDS=[
  {label:'남부·더위·햇빛 환경',words:['남부','남쪽','고온','무더위','더위','더워','더운','더워서','더워지','덥다','폭염','찜통','열대야','태양','태양광','일사량','햇빛','햇볕','햇살','직사광선','남향','일조','일조량','한여름','여름','여름철','기온상승','체감온도','차광','햇빛차단']},
  {label:'다우·장마·젖은 환경',words:['비가잦','비가많','비오는날','비가내','비바람','장마','장마철','호우','폭우','강수','강수량','다우','우기','우중','빗물','빗방울','비에젖','비맞','침수','물웅덩이','젖은신발','신발이젖','물방울맺','창가물방울']}
 ];
-const KEY_DICTIONARY=[...ECONOMIC_KEYWORDS,...SOCIAL_STUDIES_KEYWORDS,
-  {label:'지역 특성',words:[...HOME_ENVIRONMENT_WORDS,...REGION_KEYWORDS.flatMap(r=>r.words)]},
-  ...REGION_SIGNATURE_KEYWORDS,
-  ...LOTS.map((lot,i)=>({label:lot.name,words:LOT_KEYWORDS[i]}))
+const CLIMATE_TRAIT_WORDS=[
+ '기후','기후특성','기후조건','기후요소','기후요인','기후대','기후형','기후유형','기후그래프','기후자료',
+ '기온','평균기온','연평균기온','월평균기온','최고기온','최저기온','낮기온','밤기온','기온변화','기온상승','기온하강','기온차','일교차','연교차','큰일교차','큰연교차',
+ '강수','강수량','강수일수','강수분포','강수집중','비가많','비가잦','비가적','비가오','비오는날','비바람','비많음','비가많음','비가자주','비가계속','장마','장마철','우기','건기','집중호우','호우','폭우','소나기','가랑비','이슬비','강수량많','강수량적','적설량','눈이많','눈이내','폭설','대설','눈보라',
+ '습도','상대습도','습기','고습','저습','다습','고온다습','건조','건조함','건조한','습윤','습한','눅눅','꿉꿉','축축','곰팡이','결로','빨래안마름','빨래가안마','습도높','습도낮',
+ '바람','풍향','풍속','강풍','돌풍','계절풍','몬순','편서풍','해풍','육풍','산곡풍','풍상','풍하','바람세','바람이강','찬바람','북서풍','남서풍','북동풍','남동풍',
+ '일조','일조량','일조시간','일사','일사량','태양복사','복사열','직사광선','햇빛','햇볕','햇살','햇빛강','햇볕강','햇빛이강','햇볕이강','일사량많','그늘','일조부족',
+ '열대야','폭염','무더위','찜통더위','혹서','한파','혹한','강추위','한랭','온난','서리','결빙','냉기','열기','더위','더워','더운','덥다','추위','추운','춥다','추워','기온차큼','온도차큼',
+ '태풍','열대저기압','폭풍','강풍주의보','호우주의보','호우경보','대설주의보','대설경보','가뭄','건조주의보','황사','미세먼지','초미세먼지','열섬현상','도시열섬','기후변화','기후위기','온실가스','온실효과','지구온난화',
+ '해양성기후','대륙성기후','해양성','대륙성','해양성기후특징','대륙성기후특징','열대기후','열대우림기후','사바나기후','건조기후','사막기후','스텝기후','온대기후','지중해성기후','서안해양성기후','온대동안기후','온대겨울건조기후','냉대기후','냉대습윤기후','한대기후','툰드라기후','빙설기후','고산기후','열대몬순기후','온대몬순기후','계절풍기후','여름철강수집중','겨울철건조','여름철고온다습','겨울철한랭건조',
+ '기후가온화','기후가건조','기후가습윤','기후가한랭','기후가고온','기후가다습','날씨','날씨변화','기상','기상현상','계절','계절변화','사계절','여름','겨울','봄','가을','여름이길','겨울이길','겨울이춥','여름이덥','밤낮기온차','계절별차이'
+];
+const LANDFORM_TRAIT_WORDS=[
+ '지형','지세','지형특성','지형적','지형요인','지형조건','해안','해안선','해안지역','해안가','해변','연안','바닷가','바다','섬','반도','항구','갯벌',
+ '산지','산악','산맥','산골','산간','산중','산중턱','고산','고산지대','고지대','저지대','고도','해발','해발고도','평야','평지','분지','고원','구릉','언덕','구릉지','계곡','하천','강변','강','하구','삼각주','범람원','호수','호숫가','습지','내륙','내륙지역','산비탈','경사','사면','북사면','남사면','동사면','서사면','평탄지','침식','퇴적','풍화','지형형성',
+ '위도','경도','지리적위치','수륙분포','대륙','해류','난류','한류','해류의영향','바다와육지','바다와가까','내륙과해안','해안과내륙'
+];
+const REGIONAL_CONTEXT_WORDS=[
+ '지역','지역적','지역특성','지역조건','지역여건','지역차이','지역별','지역에따라','지역에맞','지역마다','지역사회','생활권','주거환경','주거조건','거주환경','거주지','생활환경','동네','마을','집의특징','집의조건','집환경','방의환경','위치상','공간','공간활용','주택','자취방','방크기','방면적','면적','주거형태','생활여건','우리동네','우리지역',
+ '도시','도심','시내','번화가','상업지역','공업지역','주거지역','주택가','아파트','원룸','고시원','도시화','도시집중','도시문제','도시환경','도시생활','인구밀도','인구집중','인구과밀','인구분포','교통량','교통편','교통접근성','접근성','대중교통','도로망','교통망','생활편의시설','공공시설','기반시설','인프라','의료시설','교육시설','문화시설','상업시설','편의시설','주차공간','주차시설','소음','층간소음','차량소음','교통소음','좁은공간','공간부족','수납공간','주거밀도',
+ '농촌','농가','농업','농사','시골','전원','논밭','논','밭','텃밭','농지','작물','농기계','농장','들판','농업지역','농촌지역','농촌생활','농업활동','농작업','야외활동','흙먼지','먼지','모래먼지','토지이용','토지이용계획','농업적토지이용',
+ '어촌','어업','산촌','임업','관광지','관광업','관광산업','산업구조','지역산업','지역경제','일자리','고용','지역개발','도시재생','균형발전','지역격차','지역불균형','중심지','배후지','입지','입지조건','생활편의','정주환경','정주여건','정착','인구이동','인구유출','인구유입','고령화','인구감소','저출산'
+];
+const NATURAL_RISK_WORDS=[
+ '자연재해','자연재난','재해','재난','홍수','침수','범람','하천범람','산사태','토사유출','사면붕괴','지진','화산','쓰나미','지진해일','해일','폭풍해일','산불','산림화재','가뭄피해','수해','재해위험','재난위험','재해취약','취약지역','방재','재난대응','대피','대피시설','안전대책','재해예방','피해복구','기후재난'
+];
+const CLIMATE_NORMALIZED_SET=new Set(CLIMATE_TRAIT_WORDS.map(normalizeKeywordText));
+const LANDFORM_NORMALIZED_SET=new Set(LANDFORM_TRAIT_WORDS.map(normalizeKeywordText));
+const RAW_REGION_TRAIT_WORDS=[...HOME_ENVIRONMENT_WORDS,...REGION_KEYWORDS.flatMap(r=>r.words),...REGION_SIGNATURE_KEYWORDS.flatMap(r=>r.words),...REGIONAL_CONTEXT_WORDS];
+const REGION_TRAIT_WORDS=[...new Set(RAW_REGION_TRAIT_WORDS.filter(w=>!CLIMATE_NORMALIZED_SET.has(normalizeKeywordText(w))&&!LANDFORM_NORMALIZED_SET.has(normalizeKeywordText(w))))];
+const KEY_DICTIONARY=[
+ ...ECONOMIC_KEYWORDS,
+ ...SOCIAL_STUDIES_KEYWORDS.map(k=>k.label==='지역과 공간'?{...k,label:'지역 특성'}:k),
+ {label:'지역 특성',words:REGION_TRAIT_WORDS},
+ {label:'기후 특성',words:CLIMATE_TRAIT_WORDS},
+ {label:'지형·지세 특성',words:LANDFORM_TRAIT_WORDS},
+ {label:'자연재해와 환경',words:NATURAL_RISK_WORDS},
+ ...LOTS.map((lot,i)=>({label:lot.name,words:LOT_KEYWORDS[i]}))
 ];
 const REFLECTION_KEYWORD_FRAGMENTS={
  '희소성':['물량부족','수량부족','물건부족','하나뿐','몇개뿐','한정된자원','자원이한정','자원은한정','자원부족','한정수량','공급이부족','공급부족','수요초과','수요가공급보다많','자원배분'],
@@ -1561,7 +1628,10 @@ const REFLECTION_KEYWORD_FRAGMENTS={
  '예산 제약':['돈부족','돈모자람','돈이부족','돈이모자라','돈이없','예산빠듯','예산이부족','예산이모자라','예산한도','예산범위','한정된예산','가격부담','가격이부담','비용부담','비용이높','구매력','지불여력','지출한도','예산을초과'],
  '합리적 선택':['필요함','필요해서','필요해','필요한물건','더나음','가치있음','실용적','비용편익','비용대비편익','편익이비용보다','순편익','한계효용','효용극대화','편익극대화','가격대비가치','선호함','선호한다','최선의선택','비용보다편익'],
  '우선순위':['급한것','먼저살것','먼저구매할','일순위','이순위','삼순위','필요한순서','가장필요','중요한순서','우선해서','급하게필요'],
- '지역 특성':['추움','시끄러움','더움','습함','좁음','먼지많음','어두움','젖음','통풍안됨','공간부족','온도차큼'],
+ '지역 특성':['주변환경','지역여건','생활편의시설','교통불편','교통편리','접근성좋','시설부족','인구밀집','공간부족','수납부족','도심환경','농촌환경','주거환경차이'],
+ '기후 특성':['추움','춥고','추워요','추워','더움','덥고','더워요','더워','습함','습해','습도높음','습기많음','건조함','비많음','비가많음','비가잦음','비자주옴','눈많이옴','바람강함','바람이강함','일교차큼','연교차큼','온도차큼','기온차큼','햇빛강함','햇볕강함','장마철','여름이김','겨울이김','폭염심함','한파심함','빨래안마름','결로심함','해풍강함','미세먼지심함','황사심함'],
+ '지형·지세 특성':['산골','산지','산중턱','해안가','바닷가','평야','분지','계곡','고지대','저지대','해발고도','경사지'],
+ '자연재해와 환경':['침수위험','홍수위험','산사태위험','산불위험','지진위험','재해취약','대피필요'],
  '산골·추위 환경':['추움','춥고','추워요','추워','난방필요','보온필요','외풍심함','바람들어옴','열손실큼'],
  '도심·소음·좁은 공간':['시끄러움','시끄러워','소음심','좁음','공간좁음','수납부족','차소리','층간소음','집중안됨'],
  '농촌·먼지·야외 활동':['먼지많음','흙많음','청소필요','어두움','먼지쌓임','흙먼지','야간작업'],
@@ -1577,30 +1647,89 @@ const REFLECTION_KEYWORD_FRAGMENTS={
  '조명':['어두움','빛부족','조명필요','야간작업']
 };
 function normalizeKeywordText(text){return String(text||'').normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}\s]/gu,'')}
-const NORMALIZED_KEYWORDS=KEY_DICTIONARY.map(k=>({...k,normalized:[...new Set([...k.words,...(REFLECTION_KEYWORD_FRAGMENTS[k.label]||[])].map(normalizeKeywordText).filter(x=>x.length>=2))]}));
-const REFLECTION_FALLBACK_STOPWORDS=new Set(['그리고','그래서','하지만','그러나','저는','나는','제가','우리','모둠','생각','생각함','이유','경우','활동','물품','구매','선택','이번','정말','너무','조금','많이','적게','그냥','이것','그것','저것','이런','그런','저런','때문','통해','위해','있다','없다','있음','없음','했다','했음','하는','것','수','점','잘','더','덜','같다','좋다','좋은','합니다','입니다','모름','몰라','없어'].map(normalizeKeywordText));
+// 교사 피드백에 적합한 개념 중심 어휘. 물품 이름·기능은 학습 개념이 아니므로 키워드 사전에서 제외하고,
+// '경쟁', '필요', '가격'처럼 여러 맥락에서 흔히 쓰이는 단어 하나만으로 개념을 판정하지 않습니다.
+const KEYWORD_TERM_OVERRIDES={
+ '희소성':['희소성','희소','자원부족','부족한자원','물량부족','물량제한','수량제한','한정된물품','한정수량','한정된자원','자원이한정','공급부족','공급이부족','수요초과','품귀','품절','수요가공급보다많','경쟁에밀려','경쟁이치열','경쟁이심해','경매경쟁으로놓','한정된수량때문'],
+ '기회비용':['기회비용','기회 비용','선택의대가','포기한대안','포기한가치','포기한이익','차선책의가치','대안의가치','놓친편익','기회비용을고려','기회비용이'],
+ '예산 제약':['예산','예산부족','예산초과','예산제약','예산한도','한정된예산','돈이부족','돈이모자','자금부족','잔액부족','지불여력','지출한도','구매력부족','최대지불금액','지불가능금액'],
+ '합리적 선택':['합리적선택','합리적','효율적선택','비용편익','비용대비편익','편익과비용','순편익','한계효용','효용극대화','편익극대화','최선의선택','가장합리적','가격대비가치'],
+ '우선순위':['우선순위','최우선','우선구매','구매우선순위','1순위','2순위','3순위','일순위','이순위','삼순위','우선순위를정','구매순서를정','중요한순서'],
+ '지역 특성':['지역특성','지역조건','지역여건','지역별차이','지역에따라','생활환경','주거환경','주거조건','거주환경','도시환경','도시지역','도심','번화가','농촌지역','농촌','시골','어촌','산촌','산골','해안지역','해안가','해안','바닷가','산지','산간','평야','분지','고원','계곡','고지대','저지대','내륙지역','섬지역','반도','인구밀도','인구집중','인구과밀','교통접근성','생활편의시설','기반시설','지역산업','지역경제','지역개발','지역격차','지역불균형','중심지','배후지','입지조건','정주환경','정주여건','공간부족','좁은공간','층간소음','교통소음'],
+ '기후 특성':['기후','기후특성','기후조건','기후요소','기후요인','기후대','기후유형','기후그래프','기온','평균기온','연평균기온','기온변화','기온상승','기온하강','기온차','일교차','연교차','강수량','강수일수','강수분포','강수집중','비가많','비가잦','비자주옴','장마','장마철','우기','건기','집중호우','호우','폭우','폭설','적설량','습도','상대습도','습기','습도높','습도낮','습기많','습함','습한','다습','건조','건조함','고온다습','계절풍','몬순','편서풍','해풍','육풍','산곡풍','풍속','강풍','바람이강','일조량','일조시간','일사량','직사광선','열대야','폭염','한파','혹한','추위','추워','추움','더위','더워','무더위','겨울이길','여름이길','겨울철한랭','여름철고온','기후변화','기후위기','해양성기후','대륙성기후','열대기후','온대기후','냉대기후','한대기후','고산기후','계절풍기후','여름철강수집중','겨울철건조','여름철고온다습','겨울철한랭건조'],
+ '자연재해와 환경':['자연재해','자연재난','재난위험','재해위험','홍수','침수','하천범람','산사태','토사유출','사면붕괴','지진','화산','쓰나미','지진해일','해일','산불','가뭄피해','재해취약','방재','재난대응','대피시설','재해예방','기후재난']
+};
+const KEYWORD_PRODUCT_MENTIONS=['제습기','난방기','수납장','냉방기','단열커튼','단열 커튼','청소기','방음패널','방음 패널','조명'];
+function keywordComparableText(text){
+ let clean=normalizeKeywordText(text);
+ // '제습기'의 '습기', '냉방기'의 '냉방'처럼 물품명이 기후 개념으로 오인되는 문제를 막습니다.
+ for(const item of KEYWORD_PRODUCT_MENTIONS.map(normalizeKeywordText).sort((a,b)=>b.length-a.length))clean=clean.split(item).join('');
+ return clean;
+}
+const NORMALIZED_KEYWORDS=KEY_DICTIONARY.filter(k=>!LOTS.some(lot=>normalizeKeywordText(lot.name)===normalizeKeywordText(k.label)))
+ .map(k=>({...k,normalized:[...new Set([...(KEYWORD_TERM_OVERRIDES[k.label]||k.words),...(KEYWORD_TERM_OVERRIDES[k.label]?[]:(REFLECTION_KEYWORD_FRAGMENTS[k.label]||[]))].map(normalizeKeywordText).filter(x=>x.length>=2))]}));
+const REFLECTION_FALLBACK_STOPWORDS=new Set(['그리고','그래서','하지만','그러나','저는','나는','제가','우리','모둠','생각','생각함','이유','경우','활동','물품','구매','선택','이번','정말','너무','조금','많이','적게','그냥','이것','그것','저것','이런','그런','저런','때문','통해','위해','있다','없다','있음','없음','했다','했음','하는','것','수','점','잘','더','덜','같다','좋다','좋은','합니다','입니다','모름','몰라','없어','했을때','하면','했을때는','그런데','따라서','또한','때에는','때문에','일단','약간','관련','부분','정도','모든','각각','대해서','관해서','이러한','이렇게','저렇게','되었다','되면','때문이다'].map(normalizeKeywordText));
 const REFLECTION_FALLBACK_SUFFIXES=['이라고','이라서','으로부터','에서부터','에게서','한테서','으로는','으로도','이었어요','였습니다','했습니다','했어요','했는데','하였음','이에요','예요','였다','이며','하고','해서','하면','하며','한테','에게','에서','으로','부터','까지','처럼','보다','은','는','이','가','을','를','과','와','도','만','의','에','로','했다','한다','하다','함','다'].sort((a,b)=>b.length-a.length);
 function reflectionFallbackTokens(raw){
- const text=reflectionTextForKeywords(raw).normalize('NFKC').toLowerCase(),tokens=text.match(/[가-힣]+|[a-z]{2,}/g)||[];
+ const source=reflectionTextForKeywords(raw);
+ const text=source.normalize('NFKC').toLowerCase(),tokens=text.match(/[가-힣]+|[a-z]{2,}/g)||[];
+ const excluded=new Set(KEYWORD_PRODUCT_MENTIONS.map(normalizeKeywordText));
  return [...new Set(tokens.map(token=>{
   let stem=normalizeKeywordText(token);
-  for(const suffix of REFLECTION_FALLBACK_SUFFIXES){if(stem.length-suffix.length>=2&&stem.endsWith(suffix)){stem=stem.slice(0,-suffix.length);break}}
+  // 짧은 미완성 표현도 핵심 단어로 남도록 어미를 반복해서 정리합니다.
+  let changed=true,guard=0;
+  while(changed&&guard++<3){changed=false;for(const suffix of REFLECTION_FALLBACK_SUFFIXES){if(stem.length-suffix.length>=2&&stem.endsWith(suffix)){stem=stem.slice(0,-suffix.length);changed=true;break}}}
   return stem;
- }).filter(token=>(token.length>=2||['돈','값','집','방','빛','물'].includes(token))&&!REFLECTION_FALLBACK_STOPWORDS.has(token)))].sort((a,b)=>b.length-a.length||a.localeCompare(b,'ko')).slice(0,2);
+ }).filter(token=>(token.length>=2||['돈','값','집','방','빛','물','법','권','산','눈','비'].includes(token))&&!REFLECTION_FALLBACK_STOPWORDS.has(token)&&!excluded.has(token)))].sort((a,b)=>b.length-a.length||a.localeCompare(b,'ko')).slice(0,2);
 }
-function fallbackKeywordStats(members){
- const groups=new Map();
- for(const member of members){
-  if(NORMALIZED_KEYWORDS.some(k=>mentionsKeyword(member,k)))continue;
-  const tokens=reflectionFallbackTokens(member.text),labels=tokens.length?tokens:['기타 응답'];
-  for(const label of labels){if(!groups.has(label))groups.set(label,{label,normalized:[normalizeKeywordText(label)],count:0,members:[],fallback:true});const group=groups.get(label);group.count++;group.members.push(member)}
- }
- return [...groups.values()];
-}
-function keywordGroupFor(label,members=[]){return NORMALIZED_KEYWORDS.find(k=>k.label===label)||fallbackKeywordStats(members).find(k=>k.label===label)||null}
+// 의미가 거의 같은 표현은 상위 개념으로 모아 한 답변에서 중복 집계하지 않습니다.
+const KEYWORD_PARENT_LABELS={
+ '경제적 선택과 효용':'합리적 선택',
+ '지역과 공간':'지역 특성',
+ '지형·지세 특성':'지역 특성',
+ '민주주의와 주권':'민주주의와 정치 참여',
+ '정치 참여와 대표':'민주주의와 정치 참여',
+ '사회 계층과 불평등':'사회적 불평등과 분배',
+ '소득과 분배':'사회적 불평등과 분배',
+ '차별과 인권':'인권과 기본권',
+ '헌법과 기본권':'인권과 기본권'
+};
+const canonicalKeywordLabel=label=>KEYWORD_PARENT_LABELS[label]||label;
 function reflectionList(t){return Array.isArray(t.reflections)?t.reflections:[]}
-function keywordStats(t){const members=reflectionList(t).filter(r=>r.text?.trim()),known=NORMALIZED_KEYWORDS.map(k=>{const matching=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:matching.length,members:matching}}).filter(x=>x.count>0);return [...known,...fallbackKeywordStats(members)].sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko'))}
-function classKeywordStats(s){const members=s.teams.flatMap(t=>reflectionList(t)).filter(x=>x.text?.trim()),known=NORMALIZED_KEYWORDS.map(k=>{const selected=members.filter(m=>mentionsKeyword(m,k));return{label:k.label,count:selected.length,memberCount:members.length}}).filter(k=>k.count);return [...known,...fallbackKeywordStats(members).map(({label,count,...k})=>({label,count,memberCount:members.length,...k}))].sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko')).slice(0,11)}
+function keywordGroupsForMembers(members){
+ const groups=new Map();
+ const add=(label,member,terms=[],fallback=false)=>{
+  if(!groups.has(label))groups.set(label,{label,normalized:[],count:0,members:[],fallback:false});
+  const g=groups.get(label);g.count++;
+  if(!g.members.includes(member))g.members.push(member);
+  if(fallback)g.fallback=true;
+  if(terms.length)g.normalized=[...new Set([...g.normalized,...terms])];
+ };
+ for(const member of members){
+  const hits=NORMALIZED_KEYWORDS.filter(k=>mentionsKeyword(member,k));
+  if(hits.length){
+   const byCanonical=new Map();
+   for(const hit of hits){
+    const label=canonicalKeywordLabel(hit.label);
+    if(!byCanonical.has(label))byCanonical.set(label,[]);
+    byCanonical.get(label).push(...hit.normalized);
+   }
+   for(const [label,terms] of byCanonical)add(label,member,[...new Set(terms)]);
+  }else{
+   // 사전에 없는 표현을 임의의 단어 1~2개로 쪼개면 물품명·조사·일상어가
+   // 교과 개념처럼 산발적으로 보일 수 있습니다. 자동 분류가 어려운 답변은
+   // 하나의 '교사 확인 필요' 묶음으로 남겨 원문 답변을 직접 확인할 수 있게 합니다.
+   add('교사 확인 필요',member,[],true);
+  }
+ }
+ return [...groups.values()].map(g=>({...g,normalized:[...new Set(g.normalized)]})).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label,'ko'));
+}
+function keywordGroupFor(label,members=[]){return keywordGroupsForMembers(members).find(k=>k.label===label)||NORMALIZED_KEYWORDS.find(k=>k.label===label)||null}
+function keywordStats(t){return keywordGroupsForMembers(reflectionList(t).filter(r=>String(r.text||'').trim()))}
+function classKeywordStats(s){
+ const members=s.teams.flatMap(t=>reflectionList(t)).filter(x=>String(x.text||'').trim());
+ return keywordGroupsForMembers(members).slice(0,11).map(({label,count,normalized,members:matched,fallback})=>({label,count,memberCount:members.length,normalized,members:matched,fallback}));
+}
 function tag(level){return `<span class="reviewstatus ${level}">${level}</span>`}
 function activityData(s,t){
  const plan=t.plan||{},planned=plan.items||[],won=t.items||[],logs=(s.auctionLog||[]).filter(x=>x.team===t.id),spend=BUDGET-t.budget;
@@ -1661,15 +1790,27 @@ function feedbackHTML(s,t){
 }
 function globalWordCloud(stats){
  const max=Math.max(1,...stats.map(x=>x.count));
- return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map((k,i)=>{const size=22+Math.round(32*Math.sqrt(k.count/max));return `<button data-keyword="${escapeHTML(k.label)}" style="font-size:${size}px" class="cloud-tone-${i%8} ${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord(this.dataset.keyword)" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small>${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">성찰 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
+ return stats.length?`<div class="teacher-global-words">${stats.slice(0,10).map((k,i)=>{const size=22+Math.round(32*Math.sqrt(k.count/max));return `<button data-keyword="${escapeHTML(k.label)}" style="font-size:${size}px" class="cloud-tone-${i%8} ${activeGlobalKeyword===k.label?'active':''}" onclick="toggleGlobalWord(this.dataset.keyword)" title="${k.count}명이 이 개념을 언급">${escapeHTML(k.label)}<small>${k.count}명</small></button>`}).join('')}</div>`:'<div class="teacher-empty-keywords">아직 성찰 답변이 없습니다. 학생들이 답변을 제출하면 자주 사용한 개념이 여기에 크게 표시됩니다.</div>';
 }
 function toggleGlobalWord(k){activeGlobalKeyword=activeGlobalKeyword===k?'':k;renderTeacher()}
+function teamReflectionProgress(t){
+ const members=Array.isArray(t.members)?t.members:[];
+ const memberIds=new Set(members.map(m=>m?.id||m?.memberId).filter(Boolean));
+ const reflections=reflectionList(t);
+ const answeredIds=new Set(reflections.map(r=>r?.memberId||r?.id).filter(Boolean));
+ const answered=answeredIds.size||reflections.length;
+ let participants=memberIds.size||members.length;
+ if(!participants&&(t.joined||answered>0))participants=Math.max(answered,1); // 이전 데이터 형식과의 호환
+ if(!answered)return {state:'red',label:'성찰 미작성',answered:0,participants};
+ if(participants>0&&answered>=participants)return {state:'green',label:'성찰 완료',answered,participants};
+ return {state:'yellow',label:'성찰 작성 중',answered,participants};
+}
 function teacherTeamFeedbackButtons(s){
  const buttons=s.teams.map(t=>{
-  const region=t.region===null?'지역 미선택':REGIONS[t.region].name,data=activityData(s,t);
-  return `<button type="button" class="teacher-team-shortcut" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 모둠 피드백 열기"><span class="teacher-team-shortcut-heading"><strong>${t.id}모둠</strong><span>${escapeHTML(region)}</span></span><span class="teacher-team-shortcut-meta">성찰 ${reflectionList(t).length}명 · 낙찰 ${data.won.length}종</span></button>`;
+  const region=t.region===null?'지역 미선택':REGIONS[t.region].name,data=activityData(s,t),progress=teamReflectionProgress(t);
+  return `<button type="button" class="teacher-team-shortcut status-${progress.state}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 모둠 피드백 열기, ${progress.label}"><span class="teacher-team-shortcut-heading"><strong>${t.id}모둠</strong><span>${escapeHTML(region)}</span><span class="teacher-team-status"><i aria-hidden="true"></i>${progress.label}</span></span><span class="teacher-team-shortcut-meta">성찰 ${progress.answered}/${progress.participants||'—'}명 · 낙찰 ${data.won.length}종</span></button>`;
  }).join('');
- return `<section class="teacher-team-feedback-shortcuts"><div class="teacher-team-feedback-shortcuts-heading"><strong>모둠별 피드백</strong><span>6개 모둠</span></div><div class="teacher-team-feedback-shortcuts-grid">${buttons}</div></section>`;
+ return `<section class="teacher-team-feedback-shortcuts"><div class="teacher-team-feedback-shortcuts-heading"><strong>모둠별 성찰 내용 확인</strong><span class="teacher-team-status-legend">🔴 미작성 · 🟡 작성 중 · 🟢 완료</span></div><div class="teacher-team-feedback-shortcuts-grid">${buttons}</div></section>`;
 }
 function teacherSelectedExcerpts(s){if(!activeGlobalKeyword)return '<div class="teacher-insight-caption">키워드를 선택하면 실제 답변 예시를 확인할 수 있습니다.</div>';const refs=s.teams.flatMap(t=>reflectionList(t)),group=keywordGroupFor(activeGlobalKeyword,refs);if(!group)return '';const hits=s.teams.flatMap(t=>reflectionList(t).filter(r=>mentionsKeyword(r,group)).map(r=>({team:t.id,name:r.name,text:r.text})));return `<div class="teacher-global-snippets"><b>“${escapeHTML(activeGlobalKeyword)}” · ${hits.length}명 언급</b><div class="hint">${hits.slice(0,2).map(r=>`${r.team}모둠 ${escapeHTML(r.name)}: ${escapeHTML(reflectionTextForDisplay(r.text).slice(0,65))}${reflectionTextForDisplay(r.text).length>65?'…':''}`).join('<hr>')||'관련 답변 없음'}</div></div>`}
 function teacherClassKeywordPanel(s,totalReflections){
@@ -1686,9 +1827,15 @@ function teacherTeamKeywordExamples(t){
 function teacherTeamFeedbackHTML(s,t){
  const d=activityData(s,t),stats=keywordStats(t);
  const region=t.region===null?null:REGIONS[t.region];
- return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><section class="teacher-feedback-room"><div class="row between"><h3>🏠 경매를 마친 우리 방</h3><span class="pill">${escapeHTML(region?.name||'지역 미선택')}</span></div><div class="feedback-room-image">${roomArt(d.won,region||REGIONS[0])}</div></section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
+ const noParticipants=!(t.joined||(Array.isArray(t.members)&&t.members.length));
+ const roomVisual=noParticipants?'<div class="team-empty-room">아직 입장한 학생이 없습니다.</div>':roomArt(d.won,region||REGIONS[0]);
+ return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><section class="teacher-feedback-room"><div class="row between"><h3>🏠 경매를 마친 우리 방</h3><span class="pill">${escapeHTML(region?.name||'지역 미선택')}</span></div><div class="feedback-room-image">${roomVisual}</div></section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
 }
-function keywordCloud(stats,scope='student',active=''){return stats.length?`<div class="keycloud">${stats.slice(0,11).map(k=>`<button class="${k.label===active?'active':''}" data-keyword="${escapeHTML(k.label)}" style="font-size:${15+Math.min(15,k.count*4)}px" onclick="chooseKeyword(this.dataset.keyword,'${scope}')" title="${k.count}명이 언급">${escapeHTML(k.label)} <span style="font-size:11px">${k.count}명</span></button>`).join('')}</div>`:'<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 키워드가 나타납니다.</div>'}
+function keywordCloud(stats,scope='student',active=''){
+ if(!stats.length)return '<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
+ const max=Math.max(1,...stats.map(k=>k.count));
+ return `<div class="keycloud">${stats.slice(0,11).map((k,i)=>{const size=17+Math.round(22*Math.sqrt(k.count/max));return `<button class="cloud-tone-${i%8} ${k.label===active?'active':''}" data-keyword="${escapeHTML(k.label)}" style="font-size:${size}px" onclick="chooseKeyword(this.dataset.keyword,'${scope}')" title="${k.count}명이 언급">${escapeHTML(k.label)} <span style="font-size:11px">${k.count}명</span></button>`}).join('')}</div>`;
+}
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
 function membersHTML(t,keyword=''){const refs=reflectionList(t),criterion=keyword?keywordGroupFor(keyword,refs):null,shown=criterion?refs.filter(r=>mentionsKeyword(r,criterion)):refs;return shown.length?shown.map((r,i)=>`<div class="memberquote"><div class="row between"><span class="name">${escapeHTML(r.name||'모둠원')}</span><span class="hint">${r.updated?new Date(r.updated).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div><div class="answer">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join(''):'<div class="hint">선택한 키워드가 들어간 답변이 아직 없습니다.</div>'}
 function renderStudentInsight(){if(!state||view!=='studentView')return;const t=state.teams[teamId-1],stats=keywordStats(t),n=reflectionList(t).length,top=stats.slice(0,5);$('studentReflectionInsights').innerHTML=`<div class="stack student-reflection-insights" style="margin-top:16px"><div class="row between"><h3 style="margin:0">💬 우리 모둠 성찰 키워드</h3><span class="pill">현재 ${n}명 작성</span></div>${keywordCloud(stats,'student',activeStudentKeyword)}${top.length?`<div class="stack">${top.map(k=>`<div class="row"><div style="min-width:85px;font-weight:750;font-size:13px">${k.label}</div><div class="keybar"><i style="width:${Math.round(k.count/Math.max(1,n)*100)}%"></i></div><span class="hint">${k.count}/${n}명</span></div>`).join('')}</div>`:''}<div class="hint">${activeStudentKeyword?'“'+activeStudentKeyword+'”와 연결된 답변만 표시 중 · 키워드 재클릭 시 전체 표시':'키워드를 클릭하면 해당 단어·표현이 포함된 학생 답변을 모아 볼 수 있습니다.'}</div><section class="stack student-peer-reflections"><div class="row between"><h3 style="margin:0">모둠원 성찰 답변</h3><span class="pill">${n}명</span></div><div class="hint">같은 모둠에서 저장한 답변을 확인할 수 있습니다.</div>${membersHTML(t,activeStudentKeyword)}</section></div>`}
@@ -1730,8 +1877,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTeacherPanel()}
 function defaultTeacherStage(phase){return phase==='lobby'?'prep':phase==='finished'?'feedback':'auction'}
 function setTeacherStage(next){
  if(!['prep','auction','feedback'].includes(next))return;
+ const changed=teacherStage!==next;
  teacherStage=next;
  renderTeacher();
+ if(changed)window.scrollTo(0,0);
 }
 function teacherRankStatus(s,t,idx){
  const h=s.history.find(x=>x.round===idx);
@@ -1776,16 +1925,18 @@ function teacherTeamCard(s,t,stageName,leader){
   const heading='<div class="team-priority-heading">사전 계획 · 경매 결과</div>';
   return `<button type="button" class="monitor-team auction-team ${leading?'leader':''} ${live?'auction-live':''} ${s.phase==='reveal'?'auction-reveal':''}" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 현황 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${leading?'leading':!t.joined?'wait':''}">${badge}</span></div>${bidFocus||heading}${teacherPriorityRows(s,t,'auction')}</button>`;
  }
- const answered=reflectionList(t).length;
- const badge=answered?'성찰 작성':'성찰 대기';
- return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 후 방 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${answered?'ready':'wait'}">${badge}</span></div><div class="team-priority-heading">경매를 마친 우리 방 · ${(t.items||[]).length}개 물품</div><div class="team-room-preview ${r?'selected':'unselected'}">${roomArt(t.items||[],r||REGIONS[2])}</div></button>`;
+ const progress=teamReflectionProgress(t);
+ const noParticipants=!(t.joined||(Array.isArray(t.members)&&t.members.length));
+ const roomPreview=noParticipants?'<div class="team-empty-room">아직 입장한 학생이 없습니다.</div>':`<div class="team-room-preview ${r?'selected':'unselected'}">${roomArt(t.items||[],r||REGIONS[2])}</div>`;
+ return `<button type="button" class="monitor-team feedback-team" onclick="inspectTeacherTeam(${t.id})" aria-label="${t.id}모둠 경매 후 방 보기"><div class="mon-top">${teamIdentity}<span class="mon-tag ${progress.state==='green'?'ready':progress.state==='red'?'wait':'pending'}">${progress.label}</span></div><div class="team-priority-heading">경매를 마친 우리 방 · ${(t.items||[]).length}개 물품</div>${roomPreview}</button>`;
 }
 function renderTeacher(){
  const s=state;if(!s)return;
  const joined=s.teams.filter(t=>t.joined).length,chosen=s.teams.filter(t=>t.region!==null).length,planned=s.teams.filter(t=>t.plan?.savedAt).length;
  const phaseChanged=teacherPhaseAtStage!==s.phase;
- if(!teacherStage||phaseChanged){teacherStage=defaultTeacherStage(s.phase);teacherPhaseAtStage=s.phase;}
- const currentStage=teacherStage,leader=highest(s),durationPref=$('timeSelect')?.value||String(s.duration||40),showKeywordOverview=currentStage==='feedback'&&s.phase==='finished';
+ let resetTeacherViewport=false;
+ if(!teacherStage||phaseChanged){const nextStage=defaultTeacherStage(s.phase);resetTeacherViewport=!!teacherStage&&(phaseChanged||teacherStage!==nextStage);teacherStage=nextStage;teacherPhaseAtStage=s.phase;}
+ const currentStage=teacherStage,leader=highest(s),durationPref=$('timeSelect')?.value||String(s.duration||40),showKeywordOverview=currentStage==='feedback';
  $('teacherView').dataset.stage=currentStage;
  $('teacherCodeBadge').textContent=s.code;$('teacherPhaseBadge').textContent=stage(s);
  $('joinedMetric').textContent=joined+'/6';$('regionMetric').textContent=chosen+'/6';$('planMetric').textContent=planned+'/6';
@@ -1829,9 +1980,10 @@ function renderTeacher(){
    $('teacherControls').innerHTML=`<button class="secondary" onclick="teacherAction('extend')">시간 +5초</button><button class="warn large" onclick="teacherAction('close')">지금 낙찰 확정</button>`;
   }
  }else{
-  const done=s.phase==='finished',totalReflections=s.teams.reduce((a,t)=>a+reflectionList(t).length,0),offPlan=s.teams.reduce((a,t)=>a+activityData(s,t).unplanned.length,0),notMatched=s.teams.reduce((a,t)=>a+activityData(s,t).unwon.length,0);
-  $('teacherCurrent').innerHTML=done?`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${offPlan}<small>계획 밖 구매</small></b></div><div><b>${notMatched}<small>계획했지만 미낙찰</small></b></div></div>${teacherTeamFeedbackButtons(s)}</div>`:'<div class="stage-empty-note large-note">경매가 모두 끝나면 이 화면에서 모둠별 사전 계획과 실제 행동, 개인 성찰, 기회비용을 확인할 수 있습니다.</div>';
-  $('teacherControls').innerHTML=done?'<button class="secondary" onclick="downloadCSV()">전체 학습 기록 CSV 저장</button>':'<span class="hint">피드백은 마지막 경매가 끝난 뒤 열립니다.</span>';
+  const done=s.phase==='finished',totalReflections=s.teams.reduce((a,t)=>a+reflectionList(t).length,0),totalMembers=s.teams.reduce((a,t)=>a+(Array.isArray(t.members)?t.members.length:0),0),offPlan=s.teams.reduce((a,t)=>a+activityData(s,t).unplanned.length,0),notMatched=s.teams.reduce((a,t)=>a+activityData(s,t).unwon.length,0),completeTeams=s.teams.filter(t=>teamReflectionProgress(t).state==='green').length;
+  const feedbackIntro=done?'낙찰 여부만 보지 않고, 사전에 정한 우선순위·최대 지불 의사와 실제 입찰·구매 행동을 나란히 비교합니다.':'경매가 끝나면 학생들이 개인 성찰을 제출합니다. 모둠별 제출 상태와 학급 전체 핵심 개념이 이 화면에 실시간으로 반영됩니다.';
+  $('teacherCurrent').innerHTML=`<div class="teacher-stage-summary feedback-summary"><div class="stage-summary-eyebrow">STAGE 03 · REFLECTION</div><h3>계획과 실제 행동의 차이에서 기회비용을 찾아봅니다.</h3><p>${feedbackIntro}</p><div class="feedback-kpi-grid"><div><b>${totalReflections}<small>개인 성찰 답변</small></b></div><div><b>${done?offPlan:totalMembers}<small>${done?'계획 밖 구매':'참여 학생'}</small></b></div><div><b>${done?notMatched:completeTeams}<small>${done?'계획했지만 미낙찰':'성찰 완료 모둠'}</small></b></div></div>${teacherTeamFeedbackButtons(s)}</div>`;
+  $('teacherControls').innerHTML='<button class="secondary" onclick="downloadCSV()">전체 학습 기록 CSV 저장</button>';
  }
  $('teacherTeamZone').classList.toggle('teacher-keyword-zone',showKeywordOverview);
  $('teamOverview').className=showKeywordOverview?'teacher-keyword-overview':'teacher-six';
@@ -1846,6 +1998,7 @@ function renderTeacher(){
  if(s.phase==='finished'&&currentStage==='feedback')renderTeacherResults();
  if(!$('teacherInspectPlan').classList.contains('hidden')){const id=teacherDetailTeam;$('teacherInspectPlan').classList.add('hidden');if(s.teams[id-1])inspectTeacherTeam(id)}
  updateClockDisplay();
+ if(resetTeacherViewport)window.scrollTo(0,0);
 }
 function toggleStudentHistory(force){
  const el=$('studentHistoryPanel'),btn=$('studentHistoryToggle');if(!el||!btn)return;
