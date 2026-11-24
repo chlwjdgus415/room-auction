@@ -1760,6 +1760,23 @@ body.teacher-screen .teacher-current.auction-prepost-current{
 }
 </style>
 
+
+<style id="feedback-intro-full-text-visible">
+/* 피드백 단계 안내 문장은 화면 크기에 관계없이 전체 표시 */
+body.teacher-screen #teacherView[data-stage="feedback"] #teacherCurrent .feedback-summary>p{
+ display:block!important;
+ -webkit-line-clamp:unset!important;
+ -webkit-box-orient:initial!important;
+ overflow:visible!important;
+ text-overflow:clip!important;
+ white-space:normal!important;
+ height:auto!important;
+ max-height:none!important;
+ overflow-wrap:normal!important;
+ word-break:keep-all!important;
+ line-height:1.4!important;
+}
+</style>
 </head>
 <body>
 <div class="shell">
