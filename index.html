@@ -2594,7 +2594,7 @@ function globalWordCloud(stats){
   const usableWidth=span>=6?430:215;
   const size=Math.max(12,Math.min(base,rowFontCap,usableWidth/(units*.98)));
   const weight=i===0?1000:i===1?950:i===2?900:i<5?850:(ratio>.65?850:ratio>.35?760:650);
-  return `<button type="button" data-keyword="${escapeHTML(label)}" style="--word-row:${row};--word-span:${span};grid-column:${col}/span ${span};grid-row:${row};font-size:${size.toFixed(1)}px;font-weight:${weight}" class="cloud-tone-${i%8}${rankClass}${i>=5?' word-extra':''}" onclick="toggleGlobalWord(this.dataset.keyword)" title="${k.count}명이 언급 · 빈도 ${i+1}위"><span class="word-label">${escapeHTML(label)}</span><small>${k.count}명</small></button>`;
+  return `<button type="button" data-keyword="${escapeHTML(label)}" style="--word-row:${row};--word-span:${span};grid-column:${col}/span ${span};grid-row:${row};font-size:${size.toFixed(1)}px;font-weight:${weight}" class="cloud-tone-${keywordToneIndex(label)}${rankClass}${i>=5?' word-extra':''}" onclick="toggleGlobalWord(this.dataset.keyword)" title="${k.count}명이 언급 · 빈도 ${i+1}위"><span class="word-label">${escapeHTML(label)}</span><small>${k.count}명</small></button>`;
  }).join('');
  return `<div class="teacher-global-words teacher-global-words-centered teacher-global-words-vivid" style="--cloud-columns:12;--cloud-rows:${rowCount};--cloud-center-row:${centerRow};" aria-label="전체 ${stats.length}개 성찰 핵심 키워드. 키워드를 누르면 관련 학생 답변이 별도 창에 표시됩니다.">${items}</div>`;
 }
@@ -2618,7 +2618,10 @@ function openGlobalKeywordWindow(keyword){
  .answers{display:grid;gap:12px}.answer-card{background:#fff;border:1px solid #dce7ea;border-radius:15px;padding:17px 19px;box-shadow:0 4px 14px #1b43500a}.answer-card header{display:flex;align-items:center;gap:9px;margin-bottom:11px;color:#5d7782;font-size:13px}.answer-card header span{padding:5px 9px;border-radius:8px;background:#eaf6f3;color:#16776d;font-weight:850}.answer-card header strong{font-size:15px;color:#24495a}.answer-card header small{margin-left:auto;color:#82949b}.answer-text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;line-height:1.8;color:#334f5e}.empty{padding:36px;text-align:center;color:#71858d;background:#fff;border:1px dashed #cbd9de;border-radius:14px}
  .actions{display:flex;justify-content:flex-end;margin-top:18px}.actions button{border:0;border-radius:9px;background:#176f70;color:#fff;padding:10px 16px;font-weight:800;cursor:pointer}
  @media(max-width:640px){body{padding:12px}.head{padding:16px}.head h1{font-size:23px}.answer-card{padding:14px}.answer-text{font-size:14px}}
- </style></head><body><main class="wrap"><section class="head"><div><div class="eyebrow">학급 전체 성찰 키워드</div><h1>“${safeKeyword}” 관련 학생 답변</h1></div><div class="count">${hits.length}명 언급</div></section><section class="answers">${cards||'<div class="empty">관련 답변이 없습니다.</div>'}</section><div class="actions"><button type="button" onclick="window.close()">창 닫기</button></div></main></body></html>`);
+ </style></head><body><main class="wrap"><section class="head"><div><div class="eyebrow">학급 전체 성찰 키워드</div><h1>“${safeKeyword}” 관련 학생 답변</h1></div><div class="count">${hits.length}명 언급</div></section><section class="answers">${cards||'<div class="empty">관련 답변이 없습니다.</div>'}</section><div class="actions"><button type="button" onclick="window.close()">창 닫기</button></div></main>
+
+
+</body></html>`);
  popup.document.close();
  try{popup.focus();}catch{}
 }
@@ -2673,10 +2676,16 @@ function teacherTeamFeedbackHTML(s,t){
  const roomVisual=noParticipants?'<div class="team-empty-room">아직 입장한 학생이 없습니다.</div>':roomArt(d.won,region||REGIONS[0]);
  return `<div class="teacher-team-feedback"><div class="teacher-team-feedback-overview"><section class="teacher-team-keywords"><div class="row between"><h3>핵심 키워드</h3><span class="pill">${reflectionList(t).length}명 답변</span></div>${keywordCloud(stats,'teacher',activeTeacherKeyword)}${teacherTeamKeywordExamples(t)}</section><section class="teacher-feedback-room"><div class="row between"><h3>🏠 경매를 마친 우리 방</h3><span class="pill">${escapeHTML(region?.name||'지역 미선택')}</span></div><div class="feedback-room-image">${roomVisual}</div></section></div><div class="objective-card plan-action-card"><div class="plan-action-title"><h3>8개 물품 전체 비교</h3><span class="hint">사전 계획 ↔ 실제 행동</span></div><div class="plan-action-legend"><span><i class="legend-dot planned"></i>사전 계획</span><span><i class="legend-dot action"></i>실제 행동</span><span><i class="legend-dot changed"></i>계획과 달라진 행동</span></div>${planActionComparisonHTML(s,t,d)}</div>${feedbackReviewCardsHTML(s,t,d)}</div>`;
 }
+function keywordToneIndex(label){
+ const value=String(label??'').normalize('NFKC').trim();
+ let hash=2166136261;
+ for(const ch of value){hash^=ch.codePointAt(0);hash=Math.imul(hash,16777619);}
+ return (hash>>>0)%8;
+}
 function keywordCloud(stats,scope='student',active=''){
  if(!stats.length)return '<div class="region-story">아직 수집된 성찰 답변이 없습니다. 첫 번째 답변이 저장되면 핵심 키워드가 나타납니다.</div>';
  const max=Math.max(1,...stats.map(k=>k.count));
- return `<div class="keycloud">${stats.slice(0,11).map((k,i)=>{const size=17+Math.round(22*Math.sqrt(k.count/max));return `<button class="cloud-tone-${i%8} ${k.label===active?'active':''}" data-keyword="${escapeHTML(k.label)}" style="font-size:${size}px" onclick="chooseKeyword(this.dataset.keyword,'${scope}')" title="${k.count}명이 언급">${escapeHTML(k.label)} <span style="font-size:11px">${k.count}명</span></button>`}).join('')}</div>`;
+ return `<div class="keycloud">${stats.slice(0,11).map((k,i)=>{const size=17+Math.round(22*Math.sqrt(k.count/max));return `<button class="cloud-tone-${keywordToneIndex(k.label)} ${k.label===active?'active':''}" data-keyword="${escapeHTML(k.label)}" style="font-size:${size}px" onclick="chooseKeyword(this.dataset.keyword,'${scope}')" title="${k.count}명이 언급">${escapeHTML(k.label)} <span style="font-size:11px">${k.count}명</span></button>`}).join('')}</div>`;
 }
 function chooseKeyword(k,scope){if(scope==='teacherAll'){toggleGlobalWord(k);return}if(scope==='teacher'){activeTeacherKeyword=activeTeacherKeyword===k?'':k;renderTeacherDetail()}else{activeStudentKeyword=activeStudentKeyword===k?'':k;renderStudentInsight()}}
 function membersHTML(t,keyword=''){const refs=reflectionList(t),criterion=keyword?keywordGroupFor(keyword,refs):null,shown=criterion?refs.filter(r=>mentionsKeyword(r,criterion)):refs;return shown.length?shown.map((r,i)=>`<div class="memberquote"><div class="row between"><span class="name">${escapeHTML(r.name||'모둠원')}</span><span class="hint">${r.updated?new Date(r.updated).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div><div class="answer teacher-answer-scroll">${escapeHTML(reflectionTextForDisplay(r.text))}</div></div>`).join(''):'<div class="hint">선택한 키워드가 들어간 답변이 아직 없습니다.</div>'}
@@ -3862,6 +3871,61 @@ body.teacher-screen .learning-objectives-footer{display:none!important}
   margin-top:4px!important;
   line-height:1.1!important;
 }
+</style>
+<style id="mobile-room-inventory-all-visible-and-keyword-tone-sync">
+/* Mobile auction: show every won item like the completed feedback room, without an inner scroll area. */
+@media (max-width:560px){
+ body.student-auction-screen .student-room-card{
+  position:static!important;
+  top:auto!important;
+  z-index:auto!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+ }
+ body.student-auction-screen .student-room-body .room-inventory{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-content:flex-start!important;
+  align-items:center!important;
+  gap:6px!important;
+  max-height:none!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+  overflow-y:visible!important;
+  padding:8px 9px 10px!important;
+ }
+ body.student-auction-screen .student-room-body .room-inventory .room-item-chip{
+  display:inline-flex!important;
+  flex:0 1 auto!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  padding:5px 7px!important;
+ }
+ body.student-auction-screen .student-room-body .room-inventory .room-item-chip strong{
+  font-size:11px!important;
+ }
+}
+
+/* Keep each reflection keyword's colour identical in student and teacher views. */
+.keycloud button.cloud-tone-0,.keycloud button.cloud-tone-0:hover,.keycloud button.cloud-tone-0.active{color:#167e80!important}
+.keycloud button.cloud-tone-1,.keycloud button.cloud-tone-1:hover,.keycloud button.cloud-tone-1.active{color:#4774ac!important}
+.keycloud button.cloud-tone-2,.keycloud button.cloud-tone-2:hover,.keycloud button.cloud-tone-2.active{color:#b56d3b!important}
+.keycloud button.cloud-tone-3,.keycloud button.cloud-tone-3:hover,.keycloud button.cloud-tone-3.active{color:#8a5a91!important}
+.keycloud button.cloud-tone-4,.keycloud button.cloud-tone-4:hover,.keycloud button.cloud-tone-4.active{color:#58834e!important}
+.keycloud button.cloud-tone-5,.keycloud button.cloud-tone-5:hover,.keycloud button.cloud-tone-5.active{color:#b0526c!important}
+.keycloud button.cloud-tone-6,.keycloud button.cloud-tone-6:hover,.keycloud button.cloud-tone-6.active{color:#4b788d!important}
+.keycloud button.cloud-tone-7,.keycloud button.cloud-tone-7:hover,.keycloud button.cloud-tone-7.active{color:#967a2d!important}
+
+#teacherTeamZone .teacher-global-words button.cloud-tone-0,#teacherTeamZone .teacher-global-words button.cloud-tone-0:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-0.active{color:#167e80!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-1,#teacherTeamZone .teacher-global-words button.cloud-tone-1:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-1.active{color:#4774ac!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-2,#teacherTeamZone .teacher-global-words button.cloud-tone-2:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-2.active{color:#b56d3b!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-3,#teacherTeamZone .teacher-global-words button.cloud-tone-3:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-3.active{color:#8a5a91!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-4,#teacherTeamZone .teacher-global-words button.cloud-tone-4:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-4.active{color:#58834e!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-5,#teacherTeamZone .teacher-global-words button.cloud-tone-5:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-5.active{color:#b0526c!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-6,#teacherTeamZone .teacher-global-words button.cloud-tone-6:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-6.active{color:#4b788d!important}
+#teacherTeamZone .teacher-global-words button.cloud-tone-7,#teacherTeamZone .teacher-global-words button.cloud-tone-7:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-7.active{color:#967a2d!important}
 </style>
 </body>
 </html>
