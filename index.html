@@ -2622,6 +2622,37 @@ function openGlobalKeywordWindow(keyword){
  </style></head><body><main class="wrap"><section class="head"><div><div class="eyebrow">학급 전체 성찰 키워드</div><h1>“${safeKeyword}” 관련 학생 답변</h1></div><div class="count">${hits.length}명 언급</div></section><section class="answers">${cards||'<div class="empty">관련 답변이 없습니다.</div>'}</section><div class="actions"><button type="button" onclick="window.close()">창 닫기</button></div></main>
 
 
+
+<style id="mobile-plan-rationale-full-display-fix">
+/* 모바일 경매 화면: 사전 선택 이유를 내부 스크롤 없이 전체 표시 */
+@media (max-width: 760px) {
+  body.student-auction-screen #studentPlanBrief .planrationale,
+  body.student-auction-screen #studentPlanBrief .planrationale:focus {
+    display: block !important;
+    max-height: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: initial !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: keep-all;
+    line-height: 1.5 !important;
+  }
+  body.student-auction-screen #studentPlanBrief .briefgrid {
+    min-height: 0 !important;
+    align-items: start !important;
+  }
+  body.student-auction-screen #studentPlanBrief {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+</style>
+
 </body></html>`);
  popup.document.close();
  try{popup.focus();}catch{}
@@ -3948,5 +3979,216 @@ body.teacher-screen .learning-objectives-footer{display:none!important}
 #teacherTeamZone .teacher-global-words button.cloud-tone-6,#teacherTeamZone .teacher-global-words button.cloud-tone-6:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-6.active{color:#4b788d!important}
 #teacherTeamZone .teacher-global-words button.cloud-tone-7,#teacherTeamZone .teacher-global-words button.cloud-tone-7:hover,#teacherTeamZone .teacher-global-words button.cloud-tone-7.active{color:#967a2d!important}
 </style>
+
+<style id="mobile-plan-rationale-full-display-fix">
+/* 모바일 경매 화면: 사전 선택 이유를 내부 스크롤 없이 전체 표시 */
+@media (max-width: 760px) {
+  body.student-auction-screen #studentPlanBrief .planrationale,
+  body.student-auction-screen #studentPlanBrief .planrationale:focus {
+    display: block !important;
+    max-height: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: initial !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: keep-all;
+    line-height: 1.5 !important;
+  }
+  body.student-auction-screen #studentPlanBrief .briefgrid {
+    min-height: 0 !important;
+    align-items: start !important;
+  }
+  body.student-auction-screen #studentPlanBrief {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+</style>
+
+
+<style id="mobile-student-no-inner-scroll-final">
+/* 모바일 학생 화면은 내부 패널이 아닌 문서 전체가 세로 스크롤을 담당합니다. */
+@media (max-width: 760px) {
+  body.student-auction-screen #studentView,
+  #studentView {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    overscroll-behavior: auto !important;
+  }
+
+  /* 경매 입찰 흐름: 최근 입찰 내역을 잘라서 내부 스크롤하지 않습니다. */
+  #studentView #studentAuction .auction-feed,
+  #studentView #studentAuction .auction-feed-wrap,
+  #studentView #studentAuction .auction-feed-list {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    overscroll-behavior: auto !important;
+  }
+
+  /* 지역 설명과 사전 선택 이유는 문장 전체를 표시합니다. */
+  #studentView #studentRegionSummary .hint,
+  #studentView #studentPlanBrief .planrationale {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    -webkit-line-clamp: unset !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* 우선순위 칩은 옆으로 밀어보지 않도록 여러 줄로 감쌉니다. */
+  #studentView #studentPlanBrief .planchips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+  #studentView #studentPlanBrief .planchip {
+    flex: 0 1 auto !important;
+    white-space: normal !important;
+  }
+
+  /* 우리 모둠 방의 낙찰 물품은 모두 줄바꿈해 보여줍니다. */
+  #studentView .student-room-card,
+  #studentView .student-room-body,
+  #studentView .student-room-body .room-inventory,
+  #studentView .student-room-body .student-room-caption {
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+  }
+  #studentView .student-room-body .room-inventory {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-content: flex-start !important;
+    gap: 6px !important;
+  }
+
+  /* 이전 낙찰 결과는 떠 있는 작은 스크롤 창이 아니라 본문 안에서 펼칩니다. */
+  body.student-auction-screen #studentHistoryPanel,
+  #studentView #studentHistoryPanel {
+    position: static !important;
+    inset: auto !important;
+    display: none;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+  }
+  body.student-auction-screen.student-history-open #studentHistoryPanel,
+  #studentView #studentHistoryPanel[open] {
+    display: block !important;
+  }
+  #studentView #studentHistoryPanel > summary {
+    position: static !important;
+    top: auto !important;
+  }
+  #studentView .student-history-card #studentHistory,
+  #studentView #studentHistory {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+  }
+
+  /* 성찰 화면의 모둠원 답변도 카드 안에서 잘리지 않고 이어집니다. */
+  #studentView #studentReflectionInsights .teacher-answer-scroll,
+  #studentView #studentReflectionInsights .memberquote .answer,
+  #studentView #studentReflectionInsights .student-peer-reflections,
+  #studentView #studentFeedback .teacher-answer-scroll {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    overscroll-behavior: auto !important;
+  }
+
+  /* 학생 결과 표가 있는 경우에도 가로 내부 스크롤 대신 셀을 줄바꿈합니다. */
+  #studentView .tablewrap,
+  #studentView .scroll {
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+  #studentView .tablewrap table,
+  #studentView .scroll table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+  }
+  #studentView .tablewrap th,
+  #studentView .tablewrap td,
+  #studentView .scroll th,
+  #studentView .scroll td {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* 모바일 입력란도 긴 답변을 입력하면 높이가 늘어나도록 합니다. */
+  #studentView textarea {
+    max-height: none !important;
+    overflow-y: hidden !important;
+    resize: vertical !important;
+    field-sizing: content;
+  }
+}
+</style>
+<script id="mobile-student-textarea-auto-grow">
+(function(){
+  function growStudentTextarea(el){
+    if(!el || !el.matches || !el.matches('#studentView textarea')) return;
+    if(!window.matchMedia || !window.matchMedia('(max-width: 760px)').matches) return;
+    el.style.height='auto';
+    el.style.overflowY='hidden';
+    el.style.height=Math.max(el.scrollHeight, el.offsetHeight || 0)+'px';
+  }
+  document.addEventListener('input',function(ev){growStudentTextarea(ev.target);},true);
+  document.addEventListener('change',function(ev){growStudentTextarea(ev.target);},true);
+  function growAll(){document.querySelectorAll('#studentView textarea').forEach(growStudentTextarea);}
+  window.addEventListener('resize',growAll,{passive:true});
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',growAll,{once:true});
+  else growAll();
+  var target=document.getElementById('studentView');
+  if(target && 'MutationObserver' in window){
+    var observer=new MutationObserver(function(records){
+      for(const rec of records){
+        for(const node of rec.addedNodes){
+          if(node.nodeType!==1) continue;
+          if(node.matches && node.matches('textarea')) growStudentTextarea(node);
+          if(node.querySelectorAll) node.querySelectorAll('textarea').forEach(growStudentTextarea);
+        }
+      }
+    });
+    observer.observe(target,{childList:true,subtree:true});
+  }
+})();
+</script>
+
 </body>
 </html>
